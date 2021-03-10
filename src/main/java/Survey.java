@@ -36,7 +36,7 @@ public class Survey {
     public String getQuestion (int index){
         String s = "Index out of range.";
         if (index > -1 && index < questions.size()) {
-            return questions.get(index).returnQuestion();
+            return questions.get(index).getQuestion();
         }
         return s;
     }

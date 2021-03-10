@@ -22,15 +22,15 @@ public class ChoiceQuestionTest {
     @Test
     public void testReturnQuestion(){
         String s = "Test Question 1";
-        question.addQuestion(s);
-        Assert.assertEquals(s, question.returnQuestion());
+        question.setQuestion(s);
+        Assert.assertEquals(s, question.getQuestion());
 
     }
 
     @Test
     public void testReturnAnswer(){
         String s = "Test Answer 1";
-        question.addAnswer(s);
-        Assert.assertEquals(s, question.returnAnswer(0));
+        question.setAnswer(s);
+        Assert.assertEquals(s, question.getAnswer(0));
     }
 }
