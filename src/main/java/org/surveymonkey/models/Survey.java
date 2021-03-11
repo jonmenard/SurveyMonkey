@@ -1,8 +1,10 @@
-package models;
+package org.surveymonkey.models;
 
 import javax.persistence.*;
 import java.util.ArrayList;
+import java.util.List;
 
+@Entity
 public class Survey {
 
     @Id
@@ -10,7 +12,7 @@ public class Survey {
     private long id;
 
     @OneToMany(cascade = CascadeType.ALL)
-    ArrayList<Question> questions;
+    List<Question> questions;
 
     public Survey() {
         questions = new ArrayList<>();

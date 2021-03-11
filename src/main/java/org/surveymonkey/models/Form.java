@@ -1,4 +1,4 @@
-package models;
+package org.surveymonkey.models;
 
 import javax.persistence.*;
 

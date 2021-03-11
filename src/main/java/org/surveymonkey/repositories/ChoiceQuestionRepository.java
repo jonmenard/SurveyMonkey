@@ -1,6 +1,6 @@
-package repositories;
+package org.surveymonkey.repositories;
 
-import models.ChoiceQuestion;
+import org.surveymonkey.models.ChoiceQuestion;
 import org.springframework.transaction.annotation.Transactional;
 
 @Transactional

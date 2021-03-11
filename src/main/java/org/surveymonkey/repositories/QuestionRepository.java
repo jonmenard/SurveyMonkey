@@ -1,6 +1,6 @@
-package repositories;
+package org.surveymonkey.repositories;
 
-import models.Question;
+import org.surveymonkey.models.Question;
 import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.data.repository.PagingAndSortingRepository;
 

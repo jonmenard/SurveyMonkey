@@ -1,28 +1,22 @@
-package models;
+package org.surveymonkey.models;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 
 @Entity
-public class ChoiceQuestion implements Question {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
-
-    String question;
+public class NumberQuestion extends Question {
 
     @Transient
     ArrayList<String> answers;
 
-    @Transient
-    ArrayList<String> choices; // Selectable answers for this question
+    int lowerBound; // lower bound of the number range
+    int upperBound; // upper bound of the number range
 
-    public ChoiceQuestion() {
+    public NumberQuestion() {
         answers = new ArrayList<>();
     }
 
-    public ChoiceQuestion(String question) {
+    public NumberQuestion(String question) {
         setQuestion(question);
         answers = new ArrayList<>();
     }
@@ -54,7 +48,11 @@ public class ChoiceQuestion implements Question {
      */
     @Override
     public String getQuestion() {
-        return question;
+        String s = "org.surveymonkey.models.Question not yet set!";
+        if (question != null) {
+            return question;
+        }
+        return s;
     }
 
     /**

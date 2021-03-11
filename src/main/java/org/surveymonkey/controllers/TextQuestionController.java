@@ -1,12 +1,12 @@
-package controllers;
+package org.surveymonkey.controllers;
 
-import models.Survey;
-import models.TextQuestion;
+import org.surveymonkey.models.Survey;
+import org.surveymonkey.models.TextQuestion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import repositories.SurveyRepository;
-import repositories.TextQuestionRepository;
+import org.surveymonkey.repositories.SurveyRepository;
+import org.surveymonkey.repositories.TextQuestionRepository;
 
 @Controller
 public class TextQuestionController {
