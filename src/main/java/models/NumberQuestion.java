@@ -1,27 +1,42 @@
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.Transient;
+package models;
+
+import javax.persistence.*;
 import java.util.ArrayList;
 
 @Entity
-public class NumberQuestion implements Question{
+public class NumberQuestion implements Question {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
 
     String question;
+
     @Transient
     ArrayList<String> answers;
+
     int lowerBound; // lower bound of the number range
     int upperBound; // upper bound of the number range
 
-    public NumberQuestion(){
-        answers = new ArrayList<String>();
+    public NumberQuestion() {
+        answers = new ArrayList<>();
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     /**
      * Add a question to this Question
+     *
      * @param question The question to be added
      */
     @Override
-    public void setQuestion(String question){
+    public void setQuestion(String question) {
         if (question != null) {
             this.question = question;
         }
@@ -29,18 +44,21 @@ public class NumberQuestion implements Question{
 
     /**
      * Return the question
+     *
      * @return The question
      */
-    @Id
-    public String getQuestion(){
-        String s = "Question not yet set!";
+    @Override
+    public String getQuestion() {
+        String s = "models.Question not yet set!";
         if (question != null) {
             return question;
         }
         return s;
     }
+
     /**
      * Add an answer with the passed String.
+     *
      * @param answer The answer to add to this questions list of answers
      */
     @Override
@@ -51,7 +69,8 @@ public class NumberQuestion implements Question{
     }
 
     /**
-     *  Returns the answer at the given index.
+     * Returns the answer at the given index.
+     *
      * @param index The index of the answer to return
      * @return String answer at index position
      */
@@ -63,4 +82,5 @@ public class NumberQuestion implements Question{
         }
         return s;
     }
+
 }
