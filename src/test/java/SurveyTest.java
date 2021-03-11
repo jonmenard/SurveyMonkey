@@ -17,9 +17,9 @@ public class SurveyTest {
         question1 = new ChoiceQuestion();
         question2 = new NumberQuestion();
         question3 = new NumberQuestion();
-        question1.addQuestion("Test Question1");
-        question2.addQuestion("Test Question2");
-        question3.addQuestion("Test Question3");
+        question1.setQuestion("Test Question1");
+        question2.setQuestion("Test Question2");
+        question3.setQuestion("Test Question3");
         survey.addQuestion(question1);
     }
 
@@ -34,18 +34,18 @@ public class SurveyTest {
     @Test
     public void testAddQuestion(){
         survey.addQuestion(question2);
-        Assert.assertEquals(question2.returnQuestion(), survey.getQuestion(1));
+        Assert.assertEquals(question2.getQuestion(), survey.getQuestion(1));
     }
 
     @Test
     public void testRemoveQuestion(){
         survey.removeQuestion(1);
         survey.addQuestion(question3);
-        Assert.assertEquals(question3.returnQuestion(), survey.getQuestion(1));
+        Assert.assertEquals(question3.getQuestion(), survey.getQuestion(1));
     }
 
     @Test
     public void testGetQuestion(){
-        Assert.assertEquals(question1.returnQuestion(), survey.getQuestion(0));
+        Assert.assertEquals(question1.getQuestion(), survey.getQuestion(0));
     }
 }
