@@ -24,6 +24,7 @@ public class ChoiceQuestion implements Question {
 
     public ChoiceQuestion(String question) {
         setQuestion(question);
+        answers = new ArrayList<>();
     }
 
     public long getId() {

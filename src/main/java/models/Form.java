@@ -10,7 +10,7 @@ public class Form {
     private long id;
 
     @Transient
-    Survey survey;
+    private Survey survey;
 
     public Form() {
     }

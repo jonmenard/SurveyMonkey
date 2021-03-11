@@ -19,6 +19,11 @@ public class TextQuestion implements Question {
         answers = new ArrayList<>();
     }
 
+    public TextQuestion(String question) {
+        setQuestion(question);
+        answers = new ArrayList<>();
+    }
+
     public long getId() {
         return id;
     }
