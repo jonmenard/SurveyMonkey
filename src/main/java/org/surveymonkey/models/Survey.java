@@ -14,8 +14,14 @@ public class Survey {
     @OneToMany(cascade = CascadeType.ALL)
     List<Question> questions;
 
+    private boolean isClosed;
+
+    /**
+     * Default constructor for a Survey
+     */
     public Survey() {
         questions = new ArrayList<>();
+        isClosed = false;
     }
 
     public long getId() {
@@ -24,6 +30,21 @@ public class Survey {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    /**
+     * Check whether or not the survey is accepting responses
+     * @return True if the Survey is closed, false otherwise
+     */
+    public boolean isClosed() {
+        return this.isClosed;
+    }
+
+    /**
+     * Mark the Survey as closed (no longer accepting responses)
+     */
+    public void markAsClosed() {
+        this.isClosed = true;
     }
 
     /**
