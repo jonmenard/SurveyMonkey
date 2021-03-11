@@ -1,18 +1,23 @@
+import models.ChoiceQuestion;
+import models.NumberQuestion;
+import models.Survey;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
 public class SurveyTest {
+
     private Survey survey;
     private ChoiceQuestion question1;
     private NumberQuestion question2;
     private NumberQuestion question3;
-    public SurveyTest(){
+
+    public SurveyTest() {
     }
 
     @Before
-    public void setUp(){
+    public void setUp() {
         survey = new Survey();
         question1 = new ChoiceQuestion();
         question2 = new NumberQuestion();
@@ -24,7 +29,7 @@ public class SurveyTest {
     }
 
     @After
-    public void tearDown(){
+    public void tearDown() {
         survey = null;
         question1 = null;
         question2 = null;
@@ -32,20 +37,21 @@ public class SurveyTest {
     }
 
     @Test
-    public void testAddQuestion(){
+    public void testAddQuestion() {
         survey.addQuestion(question2);
         Assert.assertEquals(question2.getQuestion(), survey.getQuestion(1));
     }
 
     @Test
-    public void testRemoveQuestion(){
+    public void testRemoveQuestion() {
         survey.removeQuestion(1);
         survey.addQuestion(question3);
         Assert.assertEquals(question3.getQuestion(), survey.getQuestion(1));
     }
 
     @Test
-    public void testGetQuestion(){
+    public void testGetQuestion() {
         Assert.assertEquals(question1.getQuestion(), survey.getQuestion(0));
     }
+
 }
