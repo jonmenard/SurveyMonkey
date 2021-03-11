@@ -36,6 +36,15 @@ public class Survey {
     }
 
     /**
+     * Removes the given Question from this Survey.
+     *
+     * @param question The Question to remove.
+     */
+    public void removeQuestion(Question question) {
+        questions.remove(question);
+    }
+
+    /**
      * Remove a question from the list of questions.
      *
      * @param index The index of the question to be removed

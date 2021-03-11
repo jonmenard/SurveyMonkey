@@ -22,6 +22,11 @@ public class NumberQuestion implements Question {
         answers = new ArrayList<>();
     }
 
+    public NumberQuestion(String question) {
+        setQuestion(question);
+        answers = new ArrayList<>();
+    }
+
     public long getId() {
         return id;
     }

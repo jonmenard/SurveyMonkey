@@ -23,7 +23,7 @@ public class TextQuestionTest {
 
     @Test
     public void testReturnQuestion() {
-        String s = "Test models.Question 1";
+        String s = "Test Question 1";
         question.setQuestion(s);
         Assert.assertEquals(s, question.getQuestion());
 
