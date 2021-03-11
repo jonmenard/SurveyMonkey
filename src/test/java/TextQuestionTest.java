@@ -1,4 +1,4 @@
-import models.TextQuestion;
+import org.surveymonkey.models.TextQuestion;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;

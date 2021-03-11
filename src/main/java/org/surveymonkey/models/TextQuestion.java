@@ -1,16 +1,10 @@
-package models;
+package org.surveymonkey.models;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 
 @Entity
-public class TextQuestion implements Question {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
-
-    String question;
+public class TextQuestion extends Question {
 
     @Transient
     ArrayList<String> answers;
@@ -22,14 +16,6 @@ public class TextQuestion implements Question {
     public TextQuestion(String question) {
         setQuestion(question);
         answers = new ArrayList<>();
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
     }
 
     /**
@@ -51,7 +37,7 @@ public class TextQuestion implements Question {
      */
     @Override
     public String getQuestion() {
-        String s = "models.Question not yet set!";
+        String s = "org.surveymonkey.models.Question not yet set!";
         if (question != null) {
             return question;
         }

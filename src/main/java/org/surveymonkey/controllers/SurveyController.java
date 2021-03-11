@@ -1,10 +1,10 @@
-package controllers;
+package org.surveymonkey.controllers;
 
-import models.Survey;
+import org.surveymonkey.models.Survey;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import repositories.SurveyRepository;
+import org.surveymonkey.repositories.SurveyRepository;
 
 @Controller
 public class SurveyController {
