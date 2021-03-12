@@ -39,14 +39,6 @@ public class ChoiceQuestion extends Question {
         answers = new ArrayList<>();
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
-
     /**
      * Add a question to this Question
      *
