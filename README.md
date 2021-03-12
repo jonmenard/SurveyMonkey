@@ -22,6 +22,12 @@ https://www.travis-ci.com/github/jonmenard007/SYSC4806-Project/builds
 
 ---
 
+***Individual contributions***
+
+Click [here](https://github.com/jonmenard007/SYSC4806-Project/issues/23) to see the team's individual contributions.
+
+---
+
 ***Database schema***
 
 
