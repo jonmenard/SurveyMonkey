@@ -3,19 +3,37 @@ package org.surveymonkey.models;
 import javax.persistence.*;
 import java.util.ArrayList;
 
+/**
+ * This class models a Question that accepts certain choices as answers.
+ */
 @Entity
 public class ChoiceQuestion extends Question {
 
+    /**
+     * Choice-based answers are stored as strings
+     */
     @Transient
     ArrayList<String> answers;
 
+    /**
+     * The choices that a user can choose from when answering this question
+     */
     @Transient
-    ArrayList<String> choices; // Selectable answers for this question
+    ArrayList<String> choices;
 
+    /**
+     * Default constructor for a ChoiceQuestion.
+     * Does not set the actual "question" string
+     */
     public ChoiceQuestion() {
         answers = new ArrayList<>();
     }
 
+    /**
+     * Constructor for a ChoiceQuestion that sets the "question" string
+     *
+     * @param question The question to be set
+     */
     public ChoiceQuestion(String question) {
         setQuestion(question);
         answers = new ArrayList<>();
