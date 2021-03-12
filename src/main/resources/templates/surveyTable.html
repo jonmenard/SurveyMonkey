@@ -1,0 +1,43 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>SurveyMonkey</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+<body>
+<!-- form for sending delete request
+<form action="#" th:action="@{/survey/__${survey.getId()}__/removeTextQuestion}" method="post" id="deleteQuestionForm">
+-->
+<p th:text="${survey.getId()}"></p>
+<table class="surveyTable">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Type</th>
+        <th>Question</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="q : ${questions}">
+        <!-- radio button selector for questions
+        <td>
+            <input th:value="${q.getId()}" type="radio" name="textQuestionID" />
+        </td>
+        -->
+        <td th:text="${q.getId()}"></td>
+        <td th:text="${q.getType()}"></td>
+        <td th:text="${q.getQuestion()}"></td>
+    </tr>
+    </tbody>
+</table>
+<!-- button for submitting delete request
+    <button type="submit" form="deleteQuestionForm" value="Submit" >Remove Question!</button>
+</form>
+-->
+<form action="#" th:action="@{/survey/__${survey.getId()}__/textquestion}" method="post" id="questionForm">
+    <label for="question">Add Another Question:</label><br>
+    <input type="text" id="question" name="question"><br>
+    <button type="submit" form="questionForm" value="Submit" >Add Question!</button>
+</form>
+</body>
+</html>

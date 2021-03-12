@@ -117,4 +117,9 @@ public class Survey {
         }
     }
 
+    // Get list of question for web view
+    public List<Question> getQuestionList(){
+        return questions;
+    }
+
 }
