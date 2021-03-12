@@ -4,6 +4,12 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class models a Survey
+ * Surveys can have many Questions
+ * Surveys are open by default, but can be marked as closed.
+ * When a Survey is closed, it no longer accepts answers to any questions.
+ */
 @Entity
 public class Survey {
 
@@ -24,10 +30,18 @@ public class Survey {
         isClosed = false;
     }
 
+    /**
+     * Get the ID of the Survey
+     * @return The ID of the Survey
+     */
     public long getId() {
         return id;
     }
 
+    /**
+     * Set the ID of the Survey
+     * @param id The ID to set
+     */
     public void setId(long id) {
         this.id = id;
     }
