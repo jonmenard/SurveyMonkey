@@ -26,6 +26,14 @@ public class TextQuestionController {
         return survey;
     }
 
+    @PostMapping(value = "/survey/{surveyID}/textquestion")
+    public String createTextQuestion(@PathVariable long surveyID, @RequestParam String question) {
+        Survey survey = surveyRepository.findById(surveyID);
+        survey.addQuestion(new TextQuestion(question));
+        surveyRepository.save(survey);
+        return "redirect:/survey/" + surveyID;
+    }
+
     @DeleteMapping(value = "/survey/{surveyID}/textquestion/{textQuestionID}", produces = "application/json")
     @ResponseBody
     public Survey deleteTextQuestion(@PathVariable long surveyID, @PathVariable long textQuestionID) {
@@ -35,5 +43,4 @@ public class TextQuestionController {
         surveyRepository.save(survey);
         return survey;
     }
-
 }

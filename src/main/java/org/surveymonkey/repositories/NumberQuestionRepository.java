@@ -1,8 +1,9 @@
 package org.surveymonkey.repositories;
 
-import org.surveymonkey.models.NumberQuestion;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.transaction.annotation.Transactional;
+import org.surveymonkey.models.NumberQuestion;
 
 @Transactional
-public interface NumberQuestionRepository extends QuestionRepository<NumberQuestion> {
+public interface NumberQuestionRepository extends QuestionRepository<NumberQuestion>, PagingAndSortingRepository<NumberQuestion, Long> {
 }
