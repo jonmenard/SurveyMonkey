@@ -54,4 +54,14 @@ public class SurveyTest {
         Assert.assertEquals(question1.getQuestion(), survey.getQuestion(0));
     }
 
+    @Test
+    public void testIsClosed() {
+        Assert.assertEquals(false, survey.isClosed());
+    }
+
+    @Test
+    public void testMarkAsClosed() {
+        survey.markAsClosed();
+        Assert.assertEquals(true, survey.isClosed());
+    }
 }
