@@ -9,7 +9,7 @@ public class Form {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @Transient
+    @OneToOne(cascade = CascadeType.ALL)
     private Survey survey;
 
     public Form() {
@@ -21,6 +21,14 @@ public class Form {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public Survey getSurvey() {
+        return survey;
+    }
+
+    public void setSurvey(Survey survey) {
+        this.survey = survey;
     }
 
 }

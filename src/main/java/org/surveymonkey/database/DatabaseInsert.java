@@ -9,7 +9,7 @@ import java.sql.SQLException;
 
 public class DatabaseInsert {
 
-    public void sample(){
+    public void sample() {
 
         Connection connection = ConnectionFactory.getConnection();
         String sql = "  ?";
@@ -18,7 +18,7 @@ public class DatabaseInsert {
             PreparedStatement pstmt = connection.prepareStatement(sql);
             pstmt.setInt(1, 2);
             ResultSet results = pstmt.executeQuery();
-            while (results.next()){
+            while (results.next()) {
                 results.getInt(1);
             }
         } catch (SQLException e) {
@@ -27,5 +27,7 @@ public class DatabaseInsert {
         } finally {
             DbUtil.close(connection);
         }
+
     }
+
 }
