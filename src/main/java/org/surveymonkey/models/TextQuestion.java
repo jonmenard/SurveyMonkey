@@ -3,16 +3,31 @@ package org.surveymonkey.models;
 import javax.persistence.*;
 import java.util.ArrayList;
 
+/**
+ * This class models a Question that accepts text-based answers.
+ */
 @Entity
 public class TextQuestion extends Question {
 
+    /**
+     * List of text-based answers for this question.
+     */
     @Transient
     ArrayList<String> answers;
 
+    /**
+     * Default constructor for a TextQuestion.
+     * Does not set the actual "question" string
+     */
     public TextQuestion() {
         answers = new ArrayList<>();
     }
 
+    /**
+     * Constructor for a TextQuestion that sets the "question" string
+     *
+     * @param question The question to be set
+     */
     public TextQuestion(String question) {
         setQuestion(question);
         answers = new ArrayList<>();
