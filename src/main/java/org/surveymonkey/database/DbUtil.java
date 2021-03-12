@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 public class DbUtil {
+
     public static void close(Connection connection) {
         if (connection != null) {
             try {
@@ -38,4 +39,5 @@ public class DbUtil {
             }
         }
     }
+
 }
