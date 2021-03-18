@@ -1,10 +1,11 @@
-import org.surveymonkey.models.ChoiceQuestion;
-import org.surveymonkey.models.NumberQuestion;
-import org.surveymonkey.models.Survey;
+
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.surveymonkey.models.ChoiceQuestion;
+import org.surveymonkey.models.NumberQuestion;
+import org.surveymonkey.models.Survey;
 
 public class SurveyTest {
 
