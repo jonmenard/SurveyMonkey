@@ -1,8 +1,8 @@
-import org.surveymonkey.models.NumberQuestion;
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.surveymonkey.models.NumberQuestion;
 
 public class NumberQuestionTest {
 
