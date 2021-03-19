@@ -1,7 +1,6 @@
 package org.surveymonkey.controllers;
 
 import org.springframework.ui.Model;
-import org.surveymonkey.models.Question;
 import org.surveymonkey.models.Survey;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
