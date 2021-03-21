@@ -27,7 +27,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = Application.class)
 @AutoConfigureMockMvc
-public class mockTesting {
+public class MockIT {
 
     private MockMvc mockMvc;
 
@@ -37,11 +37,8 @@ public class mockTesting {
 
     @Before
     public void setUp() throws Exception {
-
         this.mockMvc = MockMvcBuilders.webAppContextSetup(this.wac).build();
     }
-
-
 
     @Test
     public void testingCreateUserTemplate() throws Exception {

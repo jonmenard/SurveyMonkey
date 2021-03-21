@@ -15,12 +15,8 @@ import org.springframework.util.Assert;
 
 
 
-
-
-
-
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class Integration {
+public class ITCase {
 
     @LocalServerPort
     private int port;
@@ -41,7 +37,6 @@ public class Integration {
     public void testUserController() throws Exception {
         ResponseEntity<String> response = template.getForEntity(base.toString() + "/userController/test",
                 String.class);
-        System.out.println((response.getBody()));
         Assert.isTrue(response.getBody().equals("UserController is working"),"UserController is not working");
     }
 
@@ -49,7 +44,6 @@ public class Integration {
     public void testTextQuestionController() throws Exception {
         ResponseEntity<String> response = template.getForEntity(base.toString() + "/TextQuestionController/test",
                 String.class);
-        System.out.println((response.getBody()));
         Assert.isTrue(response.getBody().equals("TextQuestionController is working"),"TextQuestionController is not working");
     }
 
@@ -57,7 +51,6 @@ public class Integration {
     public void testSurveyControllerController() throws Exception {
         ResponseEntity<String> response = template.getForEntity(base.toString() + "/SurveyControllerController/test",
                 String.class);
-        System.out.println((response.getBody()));
         Assert.isTrue(response.getBody().equals("SurveyController is working"),"SurveyControllerController is not working");
     }
 
@@ -65,7 +58,6 @@ public class Integration {
     public void testNumberQuestionController() throws Exception {
         ResponseEntity<String> response = template.getForEntity(base.toString() + "/NumberQuestionController/test",
                 String.class);
-        System.out.println((response.getBody()));
         Assert.isTrue(response.getBody().equals("NumberQuestionController is working"),"NumberQuestionController is not working");
     }
 
@@ -73,41 +65,6 @@ public class Integration {
     public void testChoiceQuestionController() throws Exception {
         ResponseEntity<String> response = template.getForEntity(base.toString() + "/ChoiceQuestionController/test",
                 String.class);
-        System.out.println((response.getBody()));
         Assert.isTrue(response.getBody().equals("ChoiceQuestionController is working"),"ChoiceQuestionController is not working");
     }
-
-//    @Test
-//    public void test() throws Exception {
-//        ResponseEntity<String> response = template.getForEntity(base.toString() + "/index/create",
-//                String.class);
-//        System.out.println((response.getBody()));
-//        Assert.isTrue(response.getBody().equals("<!DOCTYPE HTML>\n" +
-//                "<html xmlns:th=\"http://www.thymeleaf.org\" lang=\"en\">\n" +
-//                "<head>\n" +
-//                "   <title>SurveyMonkey</title>\n" +
-//                "   <meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\"/>\n" +
-//                "</head>\n" +
-//                "<body>\n" +
-//                "<form action=\"/index/user/success\" method=\"post\" id=\"userCreateForm\">\n" +
-//                "   <label for=\"name\">Username:</label><br>\n" +
-//                "   <input type=\"text\" id=\"name\" name=\"name\"><br>\n" +
-//                "   <button type=\"submit\" form=\"userCreateForm\" value=\"Submit\">Create a new User</button>\n" +
-//                "</form>\n" +
-//                "</body>\n" +
-//                "</html>"),"/index/create returns the wrong template: Thymeleaf is possibly not working");
-//    }
-
-
-
-
-
-
-//    @GetMapping(value = "/index/logon")
-//    public String logonUser() {
-//        return "logonPage";
-//    }
-
-
-
 }
