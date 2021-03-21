@@ -1,46 +1,49 @@
 package org.surveymonkey.controllers;
 
-import org.surveymonkey.models.Survey;
-import org.surveymonkey.models.TextQuestion;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.surveymonkey.repositories.SurveyRepository;
-import org.surveymonkey.repositories.TextQuestionRepository;
+import org.surveymonkey.models.Question;
+import org.surveymonkey.models.Survey;
+import org.surveymonkey.models.TextQuestion;
+import org.surveymonkey.services.iservices.ISurveyService;
+import org.surveymonkey.services.iservices.ITextQuestionService;
 
 @Controller
 public class TextQuestionController {
 
     @Autowired
-    private SurveyRepository surveyRepository;
+    private ISurveyService surveyService;
 
     @Autowired
-    private TextQuestionRepository textQuestionRepository;
+    private ITextQuestionService textQuestionService;
 
-    @PostMapping(value = "/survey/{surveyID}/textquestion", produces = "application/json")
+    @PostMapping(value = "/survey/{surveyID}/textquestion", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public Survey postTextQuestion(@PathVariable long surveyID, @RequestParam String question) {
-        Survey survey = surveyRepository.findById(surveyID);
+        Survey survey = surveyService.findById(surveyID);
         survey.addQuestion(new TextQuestion(question));
-        surveyRepository.save(survey);
+        surveyService.save(survey);
         return survey;
     }
 
     @PostMapping(value = "/survey/{surveyID}/textquestion")
     public String createTextQuestion(@PathVariable long surveyID, @RequestParam String question) {
-        Survey survey = surveyRepository.findById(surveyID);
+        Survey survey = surveyService.findById(surveyID);
         survey.addQuestion(new TextQuestion(question));
-        surveyRepository.save(survey);
+        surveyService.save(survey);
         return "redirect:/survey/" + surveyID;
     }
 
-    @DeleteMapping(value = "/survey/{surveyID}/textquestion/{textQuestionID}", produces = "application/json")
+    @DeleteMapping(value = "/survey/{surveyID}/textquestion/{textQuestionID}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public Survey deleteTextQuestion(@PathVariable long surveyID, @PathVariable long textQuestionID) {
-        Survey survey = surveyRepository.findById(surveyID);
-        TextQuestion textQuestion = textQuestionRepository.findById(textQuestionID);
+        Survey survey = surveyService.findById(surveyID);
+        Question textQuestion = textQuestionService.findById(textQuestionID);
         survey.removeQuestion(textQuestion);
-        surveyRepository.save(survey);
+        surveyService.save(survey);
         return survey;
     }
+
 }

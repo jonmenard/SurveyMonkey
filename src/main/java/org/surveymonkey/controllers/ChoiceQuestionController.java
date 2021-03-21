@@ -1,38 +1,40 @@
 package org.surveymonkey.controllers;
 
-import org.surveymonkey.models.ChoiceQuestion;
-import org.surveymonkey.models.Survey;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.surveymonkey.repositories.ChoiceQuestionRepository;
-import org.surveymonkey.repositories.SurveyRepository;
+import org.surveymonkey.models.ChoiceQuestion;
+import org.surveymonkey.models.Question;
+import org.surveymonkey.models.Survey;
+import org.surveymonkey.services.iservices.IChoiceQuestionService;
+import org.surveymonkey.services.iservices.ISurveyService;
 
 @Controller
 public class ChoiceQuestionController {
 
     @Autowired
-    private SurveyRepository surveyRepository;
+    private IChoiceQuestionService choiceQuestionService;
 
     @Autowired
-    private ChoiceQuestionRepository choiceQuestionRepository;
+    private ISurveyService surveyService;
 
-    @PostMapping(value = "/survey/{surveyID}/choicequestion", produces = "application/json")
+    @PostMapping(value = "/survey/{surveyID}/choicequestion", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public Survey postChoiceQuestion(@PathVariable long surveyID, @RequestParam String question) {
-        Survey survey = surveyRepository.findById(surveyID);
+        Survey survey = surveyService.findById(surveyID);
         survey.addQuestion(new ChoiceQuestion(question));
-        surveyRepository.save(survey);
+        surveyService.save(survey);
         return survey;
     }
 
-    @DeleteMapping(value = "/survey/{surveyID}/choicequestion/{choiceQuestionID}", produces = "application/json")
+    @DeleteMapping(value = "/survey/{surveyID}/choicequestion/{choiceQuestionID}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
     public Survey deleteChoiceQuestion(@PathVariable long surveyID, @PathVariable long choiceQuestionID) {
-        Survey survey = surveyRepository.findById(surveyID);
-        ChoiceQuestion choiceQuestion = choiceQuestionRepository.findById(choiceQuestionID);
+        Survey survey = surveyService.findById(surveyID);
+        Question choiceQuestion = choiceQuestionService.findById(choiceQuestionID);
         survey.removeQuestion(choiceQuestion);
-        surveyRepository.save(survey);
+        surveyService.save(survey);
         return survey;
     }
 
