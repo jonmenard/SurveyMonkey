@@ -20,7 +20,7 @@ import org.springframework.util.Assert;
 
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class integrationTesting {
+public class Integration {
 
     @LocalServerPort
     private int port;

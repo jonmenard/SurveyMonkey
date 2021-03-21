@@ -1,4 +1,5 @@
 language: java
+
 deploy:
  provider: heroku
  api-key: $HEROKU_API_KEY
@@ -6,3 +7,4 @@ deploy:
  on:
   branch: main
 dist: trusty
+script: mvn clean && mvn compile && mvn test-compile && mvn dependency:copy-dependencies && mvn jar:jar && mvn test
