@@ -1,19 +1,21 @@
+package org.surveymonkey.unit;
+
 import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.surveymonkey.models.NumberQuestion;
+import org.surveymonkey.models.*;
 
-public class NumberQuestionTest {
+public class ChoiceQuestionTest {
 
-    private NumberQuestion question;
+    private ChoiceQuestion question;
 
-    public NumberQuestionTest() {
+    public ChoiceQuestionTest() {
     }
 
     @Before
     public void buildUp() {
-        question = new NumberQuestion();
+        question = new ChoiceQuestion();
     }
 
     @After
@@ -26,7 +28,6 @@ public class NumberQuestionTest {
         String s = "Test Question 1";
         question.setQuestion(s);
         Assert.assertEquals(s, question.getQuestion());
-
     }
 
     @Test

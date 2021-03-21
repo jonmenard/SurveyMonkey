@@ -6,29 +6,50 @@ import java.util.List;
 
 @Entity
 public class User {
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    protected long id;
-    @OneToMany
-    private List<Survey> surveyList;
+    private long id;
+
+    @OneToMany(cascade = CascadeType.ALL)
+    private List<Survey> surveys;
+
     private String name;
 
-    public User(){ surveyList = new ArrayList<>();
+    public User() {
+        surveys = new ArrayList<>();
     }
 
-    public void setName(String n){
-        name = n;
+    public long getId() {
+        return id;
     }
 
-    public String getName(){
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public List<Survey> getSurveys() {
+        return surveys;
+    }
+
+    public void setSurveys(List<Survey> surveys) {
+        this.surveys = surveys;
+    }
+
+    public String getName() {
         return name;
     }
 
-    public void addSurvey(Survey s){
-        surveyList.add(s);
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public Survey getSurvey(int index){
-        return surveyList.get(index);
+    public Survey getSurvey(int index) {
+        return surveys.get(index);
     }
+
+    public void addSurvey(Survey survey) {
+        surveys.add(survey);
+    }
+
 }
