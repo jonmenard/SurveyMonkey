@@ -1,5 +1,5 @@
 language: java
-
+script: mvn verify -Pfailsafe
 deploy:
  provider: heroku
  api-key: $HEROKU_API_KEY
