@@ -1,11 +1,12 @@
 <!DOCTYPE HTML>
+<!-- Template name is logonPage -->
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <title>SurveyMonkey</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
-<form action="/user" method="post" id="userLogonForm">
+<form action="/applicationUser" method="post" id="userLogonForm">
     <label for="name">Username:</label><br>
     <input type="text" id="name" name="name"><br>
     <button type="submit" form="userLogonForm" value="Submit">Logon User</button>

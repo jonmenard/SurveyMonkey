@@ -53,4 +53,10 @@ public class SurveyController {
         return "surveyCreated";
     }
 
+    @GetMapping(value = "/SurveyControllerController/test")
+    @ResponseBody
+    public String testSurveyController() {
+        return "SurveyController is working";
+    }
+
 }

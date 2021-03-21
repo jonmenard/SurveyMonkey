@@ -1,12 +1,12 @@
 package org.surveymonkey.repositories;
 
 import org.springframework.data.repository.PagingAndSortingRepository;
-import org.surveymonkey.models.User;
+import org.surveymonkey.models.applicationUser;
 
-public interface UserRepository extends PagingAndSortingRepository<User, Long> {
+public interface UserRepository extends PagingAndSortingRepository<applicationUser, Long> {
 
-    User findById(long id);
+    applicationUser findById(long id);
 
-    User findByName(String name);
+    applicationUser findByName(String name);
 
 }

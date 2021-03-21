@@ -1,13 +1,13 @@
 package org.surveymonkey.services.iservices;
 
-import org.surveymonkey.models.User;
+import org.surveymonkey.models.applicationUser;
 
 public interface IUserService {
 
-    User findById(long id);
+    applicationUser findById(long id);
 
-    User findByName(String name);
+    applicationUser findByName(String name);
 
-    User save(User user);
+    applicationUser save(applicationUser applicationUser);
 
 }

@@ -1,7 +1,7 @@
 package org.surveymonkey.controllers;
 
 import org.springframework.ui.Model;
-import org.surveymonkey.models.User;
+import org.surveymonkey.models.applicationUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -15,9 +15,9 @@ public class UserController {
 
     @PostMapping(value = "/index/user/success")
     public String createUserConfirmed(@RequestParam String name) {
-        User user = new User();
-        user.setName(name);
-        userService.save(user);
+        applicationUser applicationUser = new applicationUser();
+        applicationUser.setName(name);
+        userService.save(applicationUser);
         return "redirect:/index/logon";
     }
 
@@ -39,6 +39,12 @@ public class UserController {
     @GetMapping(value = "/index/logon")
     public String logonUser() {
         return "logonPage";
+    }
+
+    @GetMapping(value = "/userController/test")
+    @ResponseBody
+    public String testUserController() {
+        return "UserController is working";
     }
 
 }
