@@ -20,12 +20,11 @@ public class ChoiceQuestionController {
     private ISurveyService surveyService;
 
     @PostMapping(value = "/survey/{surveyID}/choicequestion", produces = MediaType.APPLICATION_JSON_VALUE)
-    @ResponseBody
-    public Survey postChoiceQuestion(@PathVariable long surveyID, @RequestParam String question) {
+    public String postChoiceQuestion(@PathVariable long surveyID, @RequestParam String question) {
         Survey survey = surveyService.findById(surveyID);
         survey.addQuestion(new ChoiceQuestion(question));
         surveyService.save(survey);
-        return survey;
+        return "redirect:/survey/" + surveyID;
     }
 
     @DeleteMapping(value = "/survey/{surveyID}/choicequestion/{choiceQuestionID}", produces = MediaType.APPLICATION_JSON_VALUE)

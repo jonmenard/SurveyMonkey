@@ -36,9 +36,9 @@ public class TextQuestionController {
         return "redirect:/survey/" + surveyID;
     }
 
-    @DeleteMapping(value = "/survey/{surveyID}/textquestion/{textQuestionID}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(value = "/survey/{surveyID}/textquestion", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
-    public Survey deleteTextQuestion(@PathVariable long surveyID, @PathVariable long textQuestionID) {
+    public Survey deleteTextQuestion(@PathVariable long surveyID, @RequestParam long textQuestionID) {
         Survey survey = surveyService.findById(surveyID);
         Question textQuestion = textQuestionService.findById(textQuestionID);
         survey.removeQuestion(textQuestion);
