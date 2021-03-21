@@ -7,4 +7,4 @@ deploy:
  on:
   branch: main
 dist: trusty
-script: mvn clean && mvn compile && mvn test-compile && mvn dependency:copy-dependencies && mvn jar:jar && mvn test
+script: mvn package -integration
