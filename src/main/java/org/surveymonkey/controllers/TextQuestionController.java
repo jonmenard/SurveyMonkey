@@ -46,4 +46,10 @@ public class TextQuestionController {
         return survey;
     }
 
+    @GetMapping(value = "/TextQuestionController/test")
+    @ResponseBody
+    public String testTextQuestionController() {
+        return "TextQuestionController is working";
+    }
+
 }

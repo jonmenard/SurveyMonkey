@@ -38,4 +38,10 @@ public class ChoiceQuestionController {
         return survey;
     }
 
+    @GetMapping(value = "/ChoiceQuestionController/test")
+    @ResponseBody
+    public String testChoiceQuestionController() {
+        return "ChoiceQuestionController is working";
+    }
+
 }

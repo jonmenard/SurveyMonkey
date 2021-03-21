@@ -41,4 +41,10 @@ public class UserController {
         return "logonPage";
     }
 
+    @GetMapping(value = "/userController/test")
+    @ResponseBody
+    public String testUserController() {
+        return "UserController is working";
+    }
+
 }
