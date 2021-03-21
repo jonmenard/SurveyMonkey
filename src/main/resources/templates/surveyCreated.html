@@ -1,14 +1,14 @@
 <!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <title>SurveyMonkey</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
 <form action="#" th:action="@{/survey/__${survey.getId()}__/textquestion}" method="post" id="questionForm">
     <label for="question">Question:</label><br>
     <input type="text" id="question" name="question"><br>
-    <button type="submit" form="questionForm" value="Submit" >Add Question!</button>
+    <button type="submit" form="questionForm" value="Submit">Add Question!</button>
 </form>
 </body>
 </html>
