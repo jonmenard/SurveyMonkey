@@ -15,10 +15,36 @@
         <th>ID</th>
         <th>Type</th>
         <th>Question</th>
+        <th>Lower Bound</th>
+        <th>Upper Bound</th>
     </tr>
     </thead>
     <tbody>
-    <tr th:each="q : ${questions}">
+    <tr th:each="q : ${textQuestions}">
+        <!-- radio button selector for questions
+        <td>
+            <input th:value="${q.getId()}" type="radio" name="textQuestionID" />
+        </td>
+        -->
+        <td th:text="${q.getId()}"></td>
+        <td th:text="${q.getType()}"></td>
+        <td th:text="${q.getQuestion()}"></td>
+        <td> </td>
+        <td> </td>
+    </tr>
+    <tr th:each="q : ${numberQuestions}">
+        <!-- radio button selector for questions
+        <td>
+            <input th:value="${q.getId()}" type="radio" name="textQuestionID" />
+        </td>
+        -->
+        <td th:text="${q.getId()}"></td>
+        <td th:text="${q.getType()}"></td>
+        <td th:text="${q.getQuestion()}"></td>
+        <td th:text="${q.getLowerBound()}"></td>
+        <td th:text="${q.getUpperBound()}"></td>
+    </tr>
+    <tr th:each="q : ${choiceQuestions}">
         <!-- radio button selector for questions
         <td>
             <input th:value="${q.getId()}" type="radio" name="textQuestionID" />
@@ -30,13 +56,23 @@
     </tr>
     </tbody>
 </table>
+<br>
+<br>
 <!-- button for submitting delete request
     <button type="submit" form="deleteQuestionForm" value="Submit" >Remove Question!</button>
 </form>
 -->
-<form action="#" th:action="@{/survey/__${survey.getId()}__/textquestion}" method="post" id="questionForm">
-    <label for="question">Add Another Question:</label><br>
+<form action="#" th:action="@{/survey/__${survey.getId()}__/createQuestion}" method="post" id="questionForm">
+    <label for="questionType">What type of answer should the question have:</label>
+    <select  type="select" id="questionType" name="questionType">
+        <option value="textquestion">Text</option>
+        <option value="numberquestion">Number Range</option>
+        <option value="choicequestion"> Several Options </option>
+    </select><br>
+
+    <label for="question">Question:</label>
     <input type="text" id="question" name="question"><br>
+
     <button type="submit" form="questionForm" value="Submit">Add Question!</button>
 </form>
 </body>
