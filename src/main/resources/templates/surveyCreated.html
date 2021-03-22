@@ -9,7 +9,6 @@
 
 
 <form action="#" th:action="@{/survey/__${survey.getId()}__/createQuestion}" method="post" id="questionForm">
-
     <label for="questionType">What type of answer should the question have:</label>
     <select  type="select" id="questionType" name="questionType">
         <option value="textquestion">Text</option>
@@ -18,7 +17,7 @@
     </select><br>
 
     <label for="question">Question:</label><br>
-    <input type="text" id="question" name="question"><br>
+    <input type="text" id="question" name="question">
 
     <button type="submit" form="questionForm" value="Submit">Add Question!</button>
 </form>

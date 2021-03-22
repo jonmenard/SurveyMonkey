@@ -10,10 +10,12 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
-import org.surveymonkey.models.Survey;
+import org.surveymonkey.models.*;
 import org.surveymonkey.services.iservices.ISurveyService;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.ArrayList;
+import java.util.List;
 
 @Controller
 public class SurveyController {
@@ -35,7 +37,28 @@ public class SurveyController {
     @GetMapping(value = "/survey/{surveyID}")
     public String getSurvey(@PathVariable long surveyID, Model model) {
         model.addAttribute("survey", surveyService.findById(surveyID));
-        model.addAttribute("questions", surveyService.findById(surveyID).getQuestionList());
+
+        List<Question> questionList = surveyService.findById(surveyID).getQuestionList();
+        ArrayList<TextQuestion> textQuestionList = new ArrayList<TextQuestion>();
+        ArrayList<NumberQuestion> numberQuestionList = new ArrayList<NumberQuestion>();
+        ArrayList<ChoiceQuestion> choiceQuestionList = new ArrayList<ChoiceQuestion>();
+
+        for(int index = 0; index < questionList.size(); index++){
+            Question question = questionList.get(index);
+            Question.QuestionType type = question.getType();
+            if(type.compareTo(Question.QuestionType.TEXT) == 0){
+                textQuestionList.add((TextQuestion) question);
+            }else if(type.compareTo(Question.QuestionType.NUMBER) == 0){
+                numberQuestionList.add((NumberQuestion) question);
+            }else if(type.compareTo(Question.QuestionType.CHOICE) == 0){
+                choiceQuestionList.add((ChoiceQuestion) question);
+            }
+        }
+
+        model.addAttribute("textQuestions", textQuestionList);
+        model.addAttribute("numberQuestions", numberQuestionList);
+        model.addAttribute("choiceQuestions", choiceQuestionList);
+
         return "surveyTable";
     }
 

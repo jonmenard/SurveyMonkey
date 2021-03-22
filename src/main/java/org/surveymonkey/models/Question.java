@@ -38,7 +38,7 @@ public abstract class Question {
     /**
      * Possible Question subtypes.
      */
-    protected enum QuestionType {
+    public enum QuestionType {
         CHOICE, NUMBER, TEXT
     }
 
