@@ -1,12 +1,19 @@
 package org.surveymonkey.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.View;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import org.springframework.web.servlet.view.RedirectView;
 import org.surveymonkey.models.Survey;
 import org.surveymonkey.services.iservices.ISurveyService;
+
+import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class SurveyController {
@@ -52,6 +59,16 @@ public class SurveyController {
         model.addAttribute("survey", survey);
         return "surveyCreated";
     }
+
+    @PostMapping(value = "/survey/{surveyID}/createQuestion")
+    public ModelAndView addQuestion(HttpServletRequest request, @PathVariable long surveyID, @RequestParam String questionType , @RequestParam String question){
+        request.setAttribute(
+                View.RESPONSE_STATUS_ATTRIBUTE, HttpStatus.TEMPORARY_REDIRECT);
+
+        return new ModelAndView("redirect:/survey/" + surveyID + "/" +  questionType);
+    }
+
+
 
     @GetMapping(value = "/SurveyControllerController/test")
     @ResponseBody
