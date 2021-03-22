@@ -1,0 +1,25 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>SurveyMonkey</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<h1>Set Bounds</h1>
+
+<p th:text="'Add a choice to the question: ' +  ${question.getQuestion()}"></p>
+<p>
+    The current choices are: <br>
+    <ul th:each="choice : ${question.getChoices()}">
+        <li th:text="${choice}"> </li>
+    </ul>
+</p>
+
+<form action="#" th:action="@{/survey/__${survey.getId()}__/choicequestion/__${question.getId()}__/choices}" method="post" id="questionForm">
+    <label for="choice">add choice: </label>
+    <input type = "text" id="choice" name="choice"><br>
+
+    <button type="submit" form="questionForm" value="Submit">Add Choice</button>
+</form>
+</body>
+</html>

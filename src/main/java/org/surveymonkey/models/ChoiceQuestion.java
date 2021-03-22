@@ -72,4 +72,14 @@ public class ChoiceQuestion extends Question {
         this.choices = choices;
     }
 
+
+    /**
+     * Add a choice the quesiton cna be answered withg.
+     *
+     * @param choice the choice to be added to the choices list.
+     */
+    public void addChoice(String choice) {
+        this.choices.add(choice);
+    }
+
 }
