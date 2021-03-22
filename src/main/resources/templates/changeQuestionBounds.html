@@ -1,0 +1,18 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>SurveyMonkey</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+<h1>Set Bounds</h1>
+
+<form action="#" th:action="@{/survey/__${survey.getId()}__/numberquestion/__${question.getId()}__/bounds}" method="post" id="questionForm">
+    <label for="lowerBound">lowerBound</label>
+    <input type = "number" id="lowerBound" name="lowerBound" min="-1000000000000" max="10000000000"><br>
+    <label for="upperBound">upperBound</label>
+    <input type = "number" id="upperBound" name="upperBound" min="-1000000000000" max="10000000000"><br>
+    <button type="submit" form="questionForm" value="Submit">Add Question!</button>
+</form>
+</body>
+</html>
