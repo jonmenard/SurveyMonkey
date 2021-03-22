@@ -26,20 +26,16 @@ public class NumberQuestionController {
     public String getChangeBoundsTemplate(@PathVariable long surveyID, @PathVariable int questionID , Model model){
         Survey survey = surveyService.findById(surveyID);
         model.addAttribute("survey", survey);
-
         Question question = survey.findQuestion(questionID);
         model.addAttribute("question", question);
-        return "changeQuestionBounds";
 
+        return "changeQuestionBounds";
     }
 
     @PostMapping(value = "/survey/{surveyID}/numberquestion/{questionID}/bounds")
     public String postChangeBoundsTemplate(@PathVariable long surveyID, @PathVariable int questionID, @RequestParam int lowerBound, @RequestParam int upperBound, Model model){
 
-
-
         Survey survey = surveyService.findById(surveyID);
-
         NumberQuestion question = (NumberQuestion) survey.findQuestion(questionID);
 
         if (lowerBound <= upperBound) {
@@ -49,9 +45,7 @@ public class NumberQuestionController {
             question.setLowerBound(upperBound);
             question.setUpperBound(lowerBound);
         }
-
         surveyService.save(survey);
-
 
         return "redirect:/survey/" + surveyID;
     }
@@ -59,8 +53,6 @@ public class NumberQuestionController {
 
     @PostMapping(value = "/survey/{surveyID}/numberquestion", produces = MediaType.APPLICATION_JSON_VALUE)
     public String postNumberQuestion(@PathVariable long surveyID, @RequestParam String question, Model model) {
-
-
         Survey survey = surveyService.findById(surveyID);
         NumberQuestion numberQuestion = new NumberQuestion(question);
         survey.addQuestion(numberQuestion);
@@ -78,6 +70,7 @@ public class NumberQuestionController {
         Question numberQuestion = numberQuestionService.findById(numberQuestionID);
         survey.removeQuestion(numberQuestion);
         surveyService.save(survey);
+
         return survey;
     }
 

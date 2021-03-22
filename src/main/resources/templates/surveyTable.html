@@ -3,11 +3,15 @@
 <head>
     <title>SurveyMonkey</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+    </style>
 </head>
 <body>
-<!-- form for sending delete request
-<form action="#" th:action="@{/survey/__${survey.getId()}__/removeTextQuestion}" method="post" id="deleteQuestionForm">
--->
+
 <p th:text="${survey.getId()}"></p>
 <table class="surveyTable">
     <thead>
@@ -17,51 +21,43 @@
         <th>Question</th>
         <th>Lower Bound</th>
         <th>Upper Bound</th>
+        <th>Choices</th>
     </tr>
     </thead>
     <tbody>
-    <tr th:each="q : ${textQuestions}">
-        <!-- radio button selector for questions
-        <td>
-            <input th:value="${q.getId()}" type="radio" name="textQuestionID" />
-        </td>
-        -->
-        <td th:text="${q.getId()}"></td>
-        <td th:text="${q.getType()}"></td>
-        <td th:text="${q.getQuestion()}"></td>
+    <tr th:each="textQuestion : ${textQuestions}">
+        <td th:text="${textQuestion.getId()}"></td>
+        <td th:text="${textQuestion.getType()}"></td>
+        <td th:text="${textQuestion.getQuestion()}"></td>
+        <td> </td>
         <td> </td>
         <td> </td>
     </tr>
-    <tr th:each="q : ${numberQuestions}">
-        <!-- radio button selector for questions
-        <td>
-            <input th:value="${q.getId()}" type="radio" name="textQuestionID" />
-        </td>
-        -->
-        <td th:text="${q.getId()}"></td>
-        <td th:text="${q.getType()}"></td>
-        <td th:text="${q.getQuestion()}"></td>
-        <td th:text="${q.getLowerBound()}"></td>
-        <td th:text="${q.getUpperBound()}"></td>
+    <tr th:each="numberQuestion : ${numberQuestions}">
+        <td th:text="${numberQuestion.getId()}"></td>
+        <td th:text="${numberQuestion.getType()}"></td>
+        <td th:text="${numberQuestion.getQuestion()}"></td>
+        <td th:text="${numberQuestion.getLowerBound()}"></td>
+        <td th:text="${numberQuestion.getUpperBound()}"></td>
+        <td> </td>
     </tr>
-    <tr th:each="q : ${choiceQuestions}">
-        <!-- radio button selector for questions
+    <tr th:each="choiceQuestion : ${choiceQuestions}">
+        <td th:text="${choiceQuestion.getId()}"></td>
+        <td th:text="${choiceQuestion.getType()}"></td>
+        <td th:text="${choiceQuestion.getQuestion()}"></td>
+        <td> </td>
+        <td> </td>
         <td>
-            <input th:value="${q.getId()}" type="radio" name="textQuestionID" />
+            <ul th:each="choice : ${choiceQuestion.getChoices()}">
+                <li th:text="${choice}"> </li>
+            </ul>
         </td>
-        -->
-        <td th:text="${q.getId()}"></td>
-        <td th:text="${q.getType()}"></td>
-        <td th:text="${q.getQuestion()}"></td>
     </tr>
     </tbody>
 </table>
 <br>
 <br>
-<!-- button for submitting delete request
-    <button type="submit" form="deleteQuestionForm" value="Submit" >Remove Question!</button>
-</form>
--->
+
 <form action="#" th:action="@{/survey/__${survey.getId()}__/createQuestion}" method="post" id="questionForm">
     <label for="questionType">What type of answer should the question have:</label>
     <select  type="select" id="questionType" name="questionType">
