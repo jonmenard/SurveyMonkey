@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import org.surveymonkey.models.Question;
 import org.surveymonkey.models.Survey;
 import org.surveymonkey.models.TextQuestion;
+import org.surveymonkey.services.iservices.IQuestionService;
 import org.surveymonkey.services.iservices.ISurveyService;
-import org.surveymonkey.services.iservices.ITextQuestionService;
 
 @Controller
 public class TextQuestionController {
@@ -17,7 +17,7 @@ public class TextQuestionController {
     private ISurveyService surveyService;
 
     @Autowired
-    private ITextQuestionService textQuestionService;
+    private IQuestionService questionService;
 
     @PostMapping(value = "/survey/{surveyID}/textquestion", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
@@ -40,7 +40,7 @@ public class TextQuestionController {
     @ResponseBody
     public Survey deleteTextQuestion(@PathVariable long surveyID, @RequestParam long textQuestionID) {
         Survey survey = surveyService.findById(surveyID);
-        Question textQuestion = textQuestionService.findById(textQuestionID);
+        Question textQuestion = questionService.findById(textQuestionID);
         survey.removeQuestion(textQuestion);
         surveyService.save(survey);
         return survey;

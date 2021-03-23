@@ -1,13 +1,14 @@
 package org.surveymonkey.repositories;
 
 import org.springframework.data.repository.NoRepositoryBean;
+import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.Repository;
+import org.surveymonkey.models.Question;
 
-@NoRepositoryBean
-public interface QuestionRepository<T> extends Repository<T, Long> {
+public interface QuestionRepository extends PagingAndSortingRepository<Question, Long> {
 
-    T findById(long id);
+    Question findById(long id);
 
-    T findByQuestion(String question);
+    Question findByQuestion(String question);
 
 }

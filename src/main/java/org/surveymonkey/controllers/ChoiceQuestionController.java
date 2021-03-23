@@ -6,10 +6,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.surveymonkey.models.ChoiceQuestion;
-import org.surveymonkey.models.NumberQuestion;
 import org.surveymonkey.models.Question;
 import org.surveymonkey.models.Survey;
-import org.surveymonkey.services.iservices.IChoiceQuestionService;
+import org.surveymonkey.services.iservices.IQuestionService;
 import org.surveymonkey.services.iservices.ISurveyService;
 
 import java.util.List;
@@ -18,7 +17,7 @@ import java.util.List;
 public class ChoiceQuestionController {
 
     @Autowired
-    private IChoiceQuestionService choiceQuestionService;
+    private IQuestionService questionService;
 
     @Autowired
     private ISurveyService surveyService;
@@ -61,7 +60,7 @@ public class ChoiceQuestionController {
     @ResponseBody
     public Survey deleteChoiceQuestion(@PathVariable long surveyID, @PathVariable long choiceQuestionID) {
         Survey survey = surveyService.findById(surveyID);
-        Question choiceQuestion = choiceQuestionService.findById(choiceQuestionID);
+        Question choiceQuestion = questionService.findById(choiceQuestionID);
         survey.removeQuestion(choiceQuestion);
         surveyService.save(survey);
         return survey;

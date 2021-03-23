@@ -8,25 +8,7 @@
 <body>
 
 <p th:text="${survey.getId()}"></p>
-<form action = '#'>
-    <div class th:each="textQuestion : ${textQuestions}">
-        <label th:for = "${textQuestion.getId()}" th:text="${textQuestion.getQuestion()}">  </label>
-        <input type="text"  th:name = "${textQuestion.getId()}"><br>
-    </div>
-    <div th:each="numberQuestion : ${numberQuestions}">
-        <label th:for = "${numberQuestion.getId()}" th:text="${numberQuestion.getQuestion()}">  </label>
-        <input type="number"  th:name = "${numberQuestion.getId()}" th:min="${numberQuestion.getLowerBound()}" th:max="${numberQuestion.getUpperBound()}"><br>
-    </div>
-    <div th:each="choiceQuestion : ${choiceQuestions}">
-        <label th:for = "${choiceQuestion.getId()}" th:text="${choiceQuestion.getQuestion()}">  </label>
-        <select>
-            <option  th:name = "${choiceQuestion.getId()}" th:each="choice : ${choiceQuestion.getChoices()}" th:text = "${choice}">
-
-            </option>
-        </select>
-    </div>
-    <button type="submit"  value="Submit">Finish Survey!</button>
-</form> <br><br>
+<br><br>
 
 
 <table class="surveyTable">
@@ -38,6 +20,7 @@
         <th>Lower Bound</th>
         <th>Upper Bound</th>
         <th>Choices</th>
+        <th># of Answers</th>
     </tr>
     </thead>
     <tbody>
@@ -48,6 +31,7 @@
         <td> </td>
         <td> </td>
         <td> </td>
+        <td th:text="${textQuestion.getAnswers().size()}"></td>
     </tr>
     <tr th:each="numberQuestion : ${numberQuestions}">
         <td th:text="${numberQuestion.getId()}"></td>
@@ -56,6 +40,7 @@
         <td th:text="${numberQuestion.getLowerBound()}"></td>
         <td th:text="${numberQuestion.getUpperBound()}"></td>
         <td> </td>
+        <td th:text="${numberQuestion.getAnswers().size()}"></td>
     </tr>
     <tr th:each="choiceQuestion : ${choiceQuestions}">
         <td th:text="${choiceQuestion.getId()}"></td>
@@ -68,6 +53,7 @@
                 <li th:text="${choice}"> </li>
             </ul>
         </td>
+        <td th:text="${choiceQuestion.getAnswers().size()}"></td>
     </tr>
     </tbody>
 </table>
@@ -76,6 +62,10 @@
 
 <a th:href="${survey.getId() + '/createQuestion'}">
     Add another question
+</a>
+<br>
+<a th:href="${survey.getId() + '/fill'}">
+    Fill out this survey
 </a>
 
 </body>

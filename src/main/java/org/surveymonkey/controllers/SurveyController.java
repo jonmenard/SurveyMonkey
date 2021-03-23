@@ -5,23 +5,30 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.view.RedirectView;
 import org.surveymonkey.models.*;
+import org.surveymonkey.services.iservices.IQuestionService;
 import org.surveymonkey.services.iservices.ISurveyService;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 @Controller
 public class SurveyController {
 
     @Autowired
     private ISurveyService surveyService;
+
+    @Autowired
+    private IQuestionService questionService;
 
     @RequestMapping("/")
     public String home() {
@@ -61,6 +68,48 @@ public class SurveyController {
 
         return "doSurvey";
         //return "surveyTable";
+    }
+
+    @GetMapping(value = "/survey/{surveyID}/fill")
+    public String fillSurvey(@PathVariable long surveyID, Model model) {
+        model.addAttribute("survey", surveyService.findById(surveyID));
+
+        List<Question> questionList = surveyService.findById(surveyID).getQuestionList();
+        ArrayList<TextQuestion> textQuestionList = new ArrayList<TextQuestion>();
+        ArrayList<NumberQuestion> numberQuestionList = new ArrayList<NumberQuestion>();
+        ArrayList<ChoiceQuestion> choiceQuestionList = new ArrayList<ChoiceQuestion>();
+
+        for(int index = 0; index < questionList.size(); index++){
+            Question question = questionList.get(index);
+            Question.QuestionType type = question.getType();
+            if(type.compareTo(Question.QuestionType.TEXT) == 0){
+                textQuestionList.add((TextQuestion) question);
+            }else if(type.compareTo(Question.QuestionType.NUMBER) == 0){
+                numberQuestionList.add((NumberQuestion) question);
+            }else if(type.compareTo(Question.QuestionType.CHOICE) == 0){
+                choiceQuestionList.add((ChoiceQuestion) question);
+            }
+        }
+
+        model.addAttribute("textQuestions", textQuestionList);
+        model.addAttribute("numberQuestions", numberQuestionList);
+        model.addAttribute("choiceQuestions", choiceQuestionList);
+
+        return "fillSurvey";
+    }
+
+    @PostMapping(value = "/survey/{surveyID}/fill", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    public String fillSurveyComplete(@RequestBody MultiValueMap<String, String> formData, @PathVariable long surveyID, Model model) {
+
+        for (Map.Entry formElement : formData.entrySet()) {
+            String formKey = (String)formElement.getKey();
+            String formValue = (String)((LinkedList)formElement.getValue()).getFirst();
+
+            Question q = questionService.findById(Integer.parseInt(formKey));
+            q.setAnswer(formValue);
+            questionService.save(q);
+        }
+        return "redirect:/survey/" + surveyID;
     }
 
     @GetMapping("/survey")
