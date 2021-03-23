@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.surveymonkey.models.NumberQuestion;
 import org.surveymonkey.models.Question;
 import org.surveymonkey.models.Survey;
-import org.surveymonkey.services.iservices.INumberQuestionService;
+import org.surveymonkey.services.iservices.IQuestionService;
 import org.surveymonkey.services.iservices.ISurveyService;
 
 import java.util.List;
@@ -17,7 +17,7 @@ import java.util.List;
 public class NumberQuestionController {
 
     @Autowired
-    private INumberQuestionService numberQuestionService;
+    private IQuestionService questionService;
 
     @Autowired
     private ISurveyService surveyService;
@@ -67,7 +67,7 @@ public class NumberQuestionController {
     @ResponseBody
     public Survey deleteNumberQuestion(@PathVariable long surveyID, @PathVariable long numberQuestionID) {
         Survey survey = surveyService.findById(surveyID);
-        Question numberQuestion = numberQuestionService.findById(numberQuestionID);
+        Question numberQuestion = questionService.findById(numberQuestionID);
         survey.removeQuestion(numberQuestion);
         surveyService.save(survey);
 
