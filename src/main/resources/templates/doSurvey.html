@@ -1,0 +1,91 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>SurveyMonkey</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link  href = "../static/css/styling.css" th:href="@{/css/styling.css}" type="text/css" rel="stylesheet">
+</head>
+<body>
+
+<p th:text="${survey.getId()}"></p>
+<form action = '#'>
+    <div class th:each="textQuestion : ${textQuestions}">
+        <label th:for = "${textQuestion.getId()}" th:text="${textQuestion.getQuestion()}">  </label>
+        <input type="text"  th:name = "${textQuestion.getId()}"><br>
+    </div>
+    <div th:each="numberQuestion : ${numberQuestions}">
+        <label th:for = "${numberQuestion.getId()}" th:text="${numberQuestion.getQuestion()}">  </label>
+        <input type="number"  th:name = "${numberQuestion.getId()}" th:min="${numberQuestion.getLowerBound()}" th:max="${numberQuestion.getUpperBound()}"><br>
+    </div>
+    <div th:each="choiceQuestion : ${choiceQuestions}">
+        <label th:for = "${choiceQuestion.getId()}" th:text="${choiceQuestion.getQuestion()}">  </label>
+        <select>
+            <option  th:name = "${choiceQuestion.getId()}" th:each="choice : ${choiceQuestion.getChoices()}" th:text = "${choice}">
+
+            </option>
+        </select>
+    </div>
+    <button type="submit"  value="Submit">Finish Survey!</button>
+</form> <br><br>
+
+
+<table class="surveyTable">
+    <thead>
+    <tr>
+        <th>ID</th>
+        <th>Type</th>
+        <th>Question</th>
+        <th>Lower Bound</th>
+        <th>Upper Bound</th>
+        <th>Choices</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="textQuestion : ${textQuestions}">
+        <td th:text="${textQuestion.getId()}"></td>
+        <td th:text="${textQuestion.getType()}"></td>
+        <td th:text="${textQuestion.getQuestion()}"></td>
+        <td> </td>
+        <td> </td>
+        <td> </td>
+    </tr>
+    <tr th:each="numberQuestion : ${numberQuestions}">
+        <td th:text="${numberQuestion.getId()}"></td>
+        <td th:text="${numberQuestion.getType()}"></td>
+        <td th:text="${numberQuestion.getQuestion()}"></td>
+        <td th:text="${numberQuestion.getLowerBound()}"></td>
+        <td th:text="${numberQuestion.getUpperBound()}"></td>
+        <td> </td>
+    </tr>
+    <tr th:each="choiceQuestion : ${choiceQuestions}">
+        <td th:text="${choiceQuestion.getId()}"></td>
+        <td th:text="${choiceQuestion.getType()}"></td>
+        <td th:text="${choiceQuestion.getQuestion()}"></td>
+        <td> </td>
+        <td> </td>
+        <td>
+            <ul th:each="choice : ${choiceQuestion.getChoices()}">
+                <li th:text="${choice}"> </li>
+            </ul>
+        </td>
+    </tr>
+    </tbody>
+</table>
+<br>
+<br>
+
+<form action="#" th:action="@{/survey/__${survey.getId()}__/createQuestion}" method="post" id="questionForm">
+    <label for="questionType">What type of answer should the question have:</label>
+    <select  type="select" id="questionType" name="questionType">
+        <option value="textquestion">Text</option>
+        <option value="numberquestion">Number Range</option>
+        <option value="choicequestion"> Several Options </option>
+    </select><br>
+
+    <label for="question">Question:</label>
+    <input type="text" id="question" name="question"><br>
+
+    <button type="submit" form="questionForm" value="Submit">Add Question!</button>
+</form>
+</body>
+</html>
