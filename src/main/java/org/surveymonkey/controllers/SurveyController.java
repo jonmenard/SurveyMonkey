@@ -92,7 +92,11 @@ public class SurveyController {
         return new ModelAndView("redirect:/survey/" + surveyID + "/" +  questionType);
     }
 
-
+    @GetMapping(value = "/survey/{surveyID}/createQuestion")
+    public String addQuestion(Model model, @PathVariable long surveyID){
+        model.addAttribute("survey", surveyService.findById(surveyID));
+        return "createQuestion";
+    }
 
     @GetMapping(value = "/SurveyControllerController/test")
     @ResponseBody

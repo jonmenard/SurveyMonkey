@@ -74,18 +74,9 @@
 <br>
 <br>
 
-<form action="#" th:action="@{/survey/__${survey.getId()}__/createQuestion}" method="post" id="questionForm">
-    <label for="questionType">What type of answer should the question have:</label>
-    <select  type="select" id="questionType" name="questionType">
-        <option value="textquestion">Text</option>
-        <option value="numberquestion">Number Range</option>
-        <option value="choicequestion"> Several Options </option>
-    </select><br>
+<a th:href="${survey.getId() + '/createQuestion'}">
+    Add another question
+</a>
 
-    <label for="question">Question:</label>
-    <input type="text" id="question" name="question"><br>
-
-    <button type="submit" form="questionForm" value="Submit">Add Question!</button>
-</form>
 </body>
 </html>
