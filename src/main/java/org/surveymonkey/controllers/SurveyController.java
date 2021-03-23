@@ -59,7 +59,8 @@ public class SurveyController {
         model.addAttribute("numberQuestions", numberQuestionList);
         model.addAttribute("choiceQuestions", choiceQuestionList);
 
-        return "surveyTable";
+        return "doSurvey";
+        //return "surveyTable";
     }
 
     @GetMapping("/survey")
