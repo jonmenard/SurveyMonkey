@@ -6,3 +6,5 @@ deploy:
  on:
   branch: main
 dist: trusty
+script: mvn verify -Pfailsafe
+

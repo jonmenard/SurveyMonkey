@@ -97,6 +97,7 @@ public class Survey {
         return s;
     }
 
+
     /**
      * Removes the given Question from this Survey.
      *
@@ -104,6 +105,7 @@ public class Survey {
      */
     public void removeQuestion(Question question) {
         questions.remove(question);
+
     }
 
     /**
@@ -115,6 +117,21 @@ public class Survey {
         if (index > -1 && index < questions.size()) {
             questions.remove(index);
         }
+    }
+
+
+    /**
+     * Find a question objecy from the list of questions.
+     *
+     * @param id The index of the question object to be found
+     */
+    public Question findQuestion(int id) {
+       for(int i = 0; i < questions.size(); i++){
+           if(id == questions.get(i).getId()){
+               return questions.get(i);
+           }
+       }
+        return null;
     }
 
     // Get list of question for web view

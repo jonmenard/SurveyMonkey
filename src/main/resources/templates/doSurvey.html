@@ -3,16 +3,32 @@
 <head>
     <title>SurveyMonkey</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <style>
-        table, th, td {
-            border: 1px solid black;
-            border-collapse: collapse;
-        }
-    </style>
+    <link  href = "../static/css/styling.css" th:href="@{/css/styling.css}" type="text/css" rel="stylesheet">
 </head>
 <body>
 
 <p th:text="${survey.getId()}"></p>
+<form action = '#'>
+    <div class th:each="textQuestion : ${textQuestions}">
+        <label th:for = "${textQuestion.getId()}" th:text="${textQuestion.getQuestion()}">  </label>
+        <input type="text"  th:name = "${textQuestion.getId()}"><br>
+    </div>
+    <div th:each="numberQuestion : ${numberQuestions}">
+        <label th:for = "${numberQuestion.getId()}" th:text="${numberQuestion.getQuestion()}">  </label>
+        <input type="number"  th:name = "${numberQuestion.getId()}" th:min="${numberQuestion.getLowerBound()}" th:max="${numberQuestion.getUpperBound()}"><br>
+    </div>
+    <div th:each="choiceQuestion : ${choiceQuestions}">
+        <label th:for = "${choiceQuestion.getId()}" th:text="${choiceQuestion.getQuestion()}">  </label>
+        <select>
+            <option  th:name = "${choiceQuestion.getId()}" th:each="choice : ${choiceQuestion.getChoices()}" th:text = "${choice}">
+
+            </option>
+        </select>
+    </div>
+    <button type="submit"  value="Submit">Finish Survey!</button>
+</form> <br><br>
+
+
 <table class="surveyTable">
     <thead>
     <tr>
