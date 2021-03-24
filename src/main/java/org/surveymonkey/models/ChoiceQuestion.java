@@ -72,9 +72,8 @@ public class ChoiceQuestion extends Question {
         this.choices = choices;
     }
 
-
     /**
-     * Add a choice the quesiton cna be answered withg.
+     * Add a choice the question can be answered with.
      *
      * @param choice the choice to be added to the choices list.
      */

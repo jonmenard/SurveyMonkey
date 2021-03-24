@@ -23,17 +23,16 @@ public class NumberQuestionController {
     private ISurveyService surveyService;
 
     @GetMapping(value = "/survey/{surveyID}/numberquestion/{questionID}/bounds")
-    public String getChangeBoundsTemplate(@PathVariable long surveyID, @PathVariable int questionID , Model model){
+    public String getChangeBoundsTemplate(@PathVariable long surveyID, @PathVariable int questionID, Model model) {
         Survey survey = surveyService.findById(surveyID);
         model.addAttribute("survey", survey);
         Question question = survey.findQuestion(questionID);
         model.addAttribute("question", question);
-
         return "changeQuestionBounds";
     }
 
     @PostMapping(value = "/survey/{surveyID}/numberquestion/{questionID}/bounds")
-    public String postChangeBoundsTemplate(@PathVariable long surveyID, @PathVariable int questionID, @RequestParam int lowerBound, @RequestParam int upperBound, Model model){
+    public String postChangeBoundsTemplate(@PathVariable long surveyID, @PathVariable int questionID, @RequestParam int lowerBound, @RequestParam int upperBound) {
 
         Survey survey = surveyService.findById(surveyID);
         NumberQuestion question = (NumberQuestion) survey.findQuestion(questionID);
@@ -50,16 +49,14 @@ public class NumberQuestionController {
         return "redirect:/survey/" + surveyID;
     }
 
-
     @PostMapping(value = "/survey/{surveyID}/numberquestion", produces = MediaType.APPLICATION_JSON_VALUE)
-    public String postNumberQuestion(@PathVariable long surveyID, @RequestParam String question, Model model) {
+    public String postNumberQuestion(@PathVariable long surveyID, @RequestParam String question) {
         Survey survey = surveyService.findById(surveyID);
         NumberQuestion numberQuestion = new NumberQuestion(question);
         survey.addQuestion(numberQuestion);
         surveyService.save(survey);
         List<Question> questions = survey.getQuestions();
         numberQuestion = (NumberQuestion) questions.get(questions.size() - 1);
-
         return "redirect:/survey/" + surveyID + "/numberquestion/" + numberQuestion.getId() + "/bounds";
     }
 
@@ -70,7 +67,6 @@ public class NumberQuestionController {
         Question numberQuestion = questionService.findById(numberQuestionID);
         survey.removeQuestion(numberQuestion);
         surveyService.save(survey);
-
         return survey;
     }
 
