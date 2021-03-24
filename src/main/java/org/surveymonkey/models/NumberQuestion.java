@@ -8,8 +8,15 @@ import javax.persistence.Entity;
 @Entity
 public class NumberQuestion extends Question {
 
-    int lowerBound; // lower bound of the number range
-    int upperBound; // upper bound of the number range
+    /**
+     * The lower bound of the number range.
+     */
+    int lowerBound;
+
+    /**
+     * The upper bound of the number range.
+     */
+    int upperBound;
 
     /**
      * Default constructor for a NumberQuestion.

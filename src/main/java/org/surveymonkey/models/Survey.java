@@ -17,9 +17,15 @@ public class Survey {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
+    /**
+     * The Questions constituting this Survey.
+     */
     @OneToMany(cascade = CascadeType.ALL)
     private List<Question> questions;
 
+    /**
+     * Indicates whether this Survey is open or closed.
+     */
     private boolean isClosed;
 
     /**
@@ -97,7 +103,6 @@ public class Survey {
         return s;
     }
 
-
     /**
      * Removes the given Question from this Survey.
      *
@@ -119,24 +124,18 @@ public class Survey {
         }
     }
 
-
     /**
-     * Find a question objecy from the list of questions.
+     * Gets the Question having the given ID.
      *
-     * @param id The index of the question object to be found
+     * @param id The ID of the Question to get.
      */
     public Question findQuestion(int id) {
-       for(int i = 0; i < questions.size(); i++){
-           if(id == questions.get(i).getId()){
-               return questions.get(i);
-           }
-       }
+        for (Question question : questions) {
+            if (id == question.getId()) {
+                return question;
+            }
+        }
         return null;
-    }
-
-    // Get list of question for web view
-    public List<Question> getQuestionList(){
-        return questions;
     }
 
 }

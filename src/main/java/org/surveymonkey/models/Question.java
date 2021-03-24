@@ -6,7 +6,7 @@ import java.util.List;
 
 /**
  * Question is an abstract class that models a Survey question.
- * There are three different types of Questions.
+ * There are three different types of Questions - Choice, Number, and Text.
  * Questions must belong to a Survey.
  */
 @Entity
