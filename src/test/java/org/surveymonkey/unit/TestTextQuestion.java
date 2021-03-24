@@ -4,18 +4,18 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.surveymonkey.models.*;
+import org.surveymonkey.models.TextQuestion;
 
-public class ChoiceQuestionTest {
+public class TestTextQuestion {
 
-    private ChoiceQuestion question;
+    private TextQuestion question;
 
-    public ChoiceQuestionTest() {
+    public TestTextQuestion() {
     }
 
     @Before
     public void buildUp() {
-        question = new ChoiceQuestion();
+        question = new TextQuestion();
     }
 
     @After

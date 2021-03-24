@@ -6,11 +6,11 @@ import org.junit.Before;
 import org.junit.Test;
 import org.surveymonkey.models.NumberQuestion;
 
-public class NumberQuestionTest {
+public class TestNumberQuestion {
 
     private NumberQuestion question;
 
-    public NumberQuestionTest() {
+    public TestNumberQuestion() {
     }
 
     @Before
