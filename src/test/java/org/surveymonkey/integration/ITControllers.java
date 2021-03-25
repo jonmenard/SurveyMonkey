@@ -3,13 +3,18 @@ package org.surveymonkey.integration;
 import java.net.URL;
 import java.util.Objects;
 
+import org.junit.After;
+import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
+import org.springframework.context.ApplicationContext;
 import org.springframework.http.ResponseEntity;
 
 import org.springframework.util.Assert;
@@ -24,6 +29,9 @@ public class ITControllers {
 
     @Autowired
     private TestRestTemplate template;
+
+    @Autowired
+    private ApplicationContext context;
 
     @BeforeEach
     public void setUp() throws Exception {
@@ -59,5 +67,5 @@ public class ITControllers {
         ResponseEntity<String> response = template.getForEntity(base.toString() + "/ChoiceQuestionController/test", String.class);
         Assert.isTrue(Objects.equals(response.getBody(), "ChoiceQuestionController is working"), "ChoiceQuestionController is not working");
     }
-
 }
+
