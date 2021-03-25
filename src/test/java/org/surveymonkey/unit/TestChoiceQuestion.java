@@ -4,18 +4,18 @@ import org.junit.After;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
-import org.surveymonkey.models.TextQuestion;
+import org.surveymonkey.models.*;
 
-public class TextQuestionTest {
+public class TestChoiceQuestion {
 
-    private TextQuestion question;
+    private ChoiceQuestion question;
 
-    public TextQuestionTest() {
+    public TestChoiceQuestion() {
     }
 
     @Before
     public void buildUp() {
-        question = new TextQuestion();
+        question = new ChoiceQuestion();
     }
 
     @After
@@ -28,7 +28,6 @@ public class TextQuestionTest {
         String s = "Test Question 1";
         question.setQuestion(s);
         Assert.assertEquals(s, question.getQuestion());
-
     }
 
     @Test

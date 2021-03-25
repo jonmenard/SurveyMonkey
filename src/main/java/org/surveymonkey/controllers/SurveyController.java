@@ -9,8 +9,6 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.springframework.web.servlet.view.RedirectView;
 import org.surveymonkey.models.*;
 import org.surveymonkey.services.iservices.IQuestionService;
 import org.surveymonkey.services.iservices.ISurveyService;
@@ -45,19 +43,18 @@ public class SurveyController {
     public String getSurvey(@PathVariable long surveyID, Model model) {
         model.addAttribute("survey", surveyService.findById(surveyID));
 
-        List<Question> questionList = surveyService.findById(surveyID).getQuestionList();
-        ArrayList<TextQuestion> textQuestionList = new ArrayList<TextQuestion>();
-        ArrayList<NumberQuestion> numberQuestionList = new ArrayList<NumberQuestion>();
-        ArrayList<ChoiceQuestion> choiceQuestionList = new ArrayList<ChoiceQuestion>();
+        List<Question> questionList = surveyService.findById(surveyID).getQuestions();
+        ArrayList<TextQuestion> textQuestionList = new ArrayList<>();
+        ArrayList<NumberQuestion> numberQuestionList = new ArrayList<>();
+        ArrayList<ChoiceQuestion> choiceQuestionList = new ArrayList<>();
 
-        for(int index = 0; index < questionList.size(); index++){
-            Question question = questionList.get(index);
+        for (Question question : questionList) {
             Question.QuestionType type = question.getType();
-            if(type.compareTo(Question.QuestionType.TEXT) == 0){
+            if (type.compareTo(Question.QuestionType.TEXT) == 0) {
                 textQuestionList.add((TextQuestion) question);
-            }else if(type.compareTo(Question.QuestionType.NUMBER) == 0){
+            } else if (type.compareTo(Question.QuestionType.NUMBER) == 0) {
                 numberQuestionList.add((NumberQuestion) question);
-            }else if(type.compareTo(Question.QuestionType.CHOICE) == 0){
+            } else if (type.compareTo(Question.QuestionType.CHOICE) == 0) {
                 choiceQuestionList.add((ChoiceQuestion) question);
             }
         }
@@ -74,19 +71,18 @@ public class SurveyController {
     public String fillSurvey(@PathVariable long surveyID, Model model) {
         model.addAttribute("survey", surveyService.findById(surveyID));
 
-        List<Question> questionList = surveyService.findById(surveyID).getQuestionList();
-        ArrayList<TextQuestion> textQuestionList = new ArrayList<TextQuestion>();
-        ArrayList<NumberQuestion> numberQuestionList = new ArrayList<NumberQuestion>();
-        ArrayList<ChoiceQuestion> choiceQuestionList = new ArrayList<ChoiceQuestion>();
+        List<Question> questionList = surveyService.findById(surveyID).getQuestions();
+        ArrayList<TextQuestion> textQuestionList = new ArrayList<>();
+        ArrayList<NumberQuestion> numberQuestionList = new ArrayList<>();
+        ArrayList<ChoiceQuestion> choiceQuestionList = new ArrayList<>();
 
-        for(int index = 0; index < questionList.size(); index++){
-            Question question = questionList.get(index);
+        for (Question question : questionList) {
             Question.QuestionType type = question.getType();
-            if(type.compareTo(Question.QuestionType.TEXT) == 0){
+            if (type.compareTo(Question.QuestionType.TEXT) == 0) {
                 textQuestionList.add((TextQuestion) question);
-            }else if(type.compareTo(Question.QuestionType.NUMBER) == 0){
+            } else if (type.compareTo(Question.QuestionType.NUMBER) == 0) {
                 numberQuestionList.add((NumberQuestion) question);
-            }else if(type.compareTo(Question.QuestionType.CHOICE) == 0){
+            } else if (type.compareTo(Question.QuestionType.CHOICE) == 0) {
                 choiceQuestionList.add((ChoiceQuestion) question);
             }
         }
@@ -99,11 +95,11 @@ public class SurveyController {
     }
 
     @PostMapping(value = "/survey/{surveyID}/fill", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public String fillSurveyComplete(@RequestBody MultiValueMap<String, String> formData, @PathVariable long surveyID, Model model) {
+    public String fillSurveyComplete(@RequestBody MultiValueMap<String, String> formData, @PathVariable long surveyID) {
 
         for (Map.Entry formElement : formData.entrySet()) {
-            String formKey = (String)formElement.getKey();
-            String formValue = (String)((LinkedList)formElement.getValue()).getFirst();
+            String formKey = (String) formElement.getKey();
+            String formValue = (String) ((LinkedList) formElement.getValue()).getFirst();
 
             Question q = questionService.findById(Integer.parseInt(formKey));
             q.setAnswer(formValue);
@@ -134,15 +130,13 @@ public class SurveyController {
     }
 
     @PostMapping(value = "/survey/{surveyID}/createQuestion")
-    public ModelAndView addQuestion(HttpServletRequest request, @PathVariable long surveyID, @RequestParam String questionType , @RequestParam String question){
-        request.setAttribute(
-                View.RESPONSE_STATUS_ATTRIBUTE, HttpStatus.TEMPORARY_REDIRECT);
-
-        return new ModelAndView("redirect:/survey/" + surveyID + "/" +  questionType);
+    public ModelAndView addQuestion(HttpServletRequest request, @PathVariable long surveyID, @RequestParam String questionType) {
+        request.setAttribute(View.RESPONSE_STATUS_ATTRIBUTE, HttpStatus.TEMPORARY_REDIRECT);
+        return new ModelAndView("redirect:/survey/" + surveyID + "/" + questionType);
     }
 
     @GetMapping(value = "/survey/{surveyID}/createQuestion")
-    public String addQuestion(Model model, @PathVariable long surveyID){
+    public String addQuestion(@PathVariable long surveyID, Model model) {
         model.addAttribute("survey", surveyService.findById(surveyID));
         return "createQuestion";
     }

@@ -5,27 +5,27 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-public class applicationUser {
+public class EndUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long userId;
+    private long id;
 
     @OneToMany(cascade = CascadeType.ALL)
     private List<Survey> surveys;
 
     private String name;
 
-    public applicationUser() {
+    public EndUser() {
         surveys = new ArrayList<>();
     }
 
-    public long getUserId() {
-        return userId;
+    public long getId() {
+        return id;
     }
 
-    public void setUserId(long id) {
-        this.userId = id;
+    public void setId(long id) {
+        this.id = id;
     }
 
     public List<Survey> getSurveys() {

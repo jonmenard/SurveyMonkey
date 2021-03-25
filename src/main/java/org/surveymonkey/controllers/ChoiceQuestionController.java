@@ -23,24 +23,22 @@ public class ChoiceQuestionController {
     private ISurveyService surveyService;
 
     @GetMapping(value = "/survey/{surveyID}/choicequestion/{questionID}/choices")
-    public String getChangeBoundsTemplate(@PathVariable long surveyID, @PathVariable int questionID , Model model){
+    public String getChangeBoundsTemplate(@PathVariable long surveyID, @PathVariable int questionID, Model model) {
         Survey survey = surveyService.findById(surveyID);
         model.addAttribute("survey", survey);
         ChoiceQuestion question = (ChoiceQuestion) survey.findQuestion(questionID);
         model.addAttribute("question", question);
         return "addQuestionChoice";
-
     }
 
     @PostMapping(value = "/survey/{surveyID}/choicequestion/{questionID}/choices")
-    public String postChangeBoundsTemplate(@PathVariable long surveyID, @PathVariable int questionID, @RequestParam String choice, Model model){
+    public String postChangeBoundsTemplate(@PathVariable long surveyID, @PathVariable int questionID, @RequestParam String choice) {
         Survey survey = surveyService.findById(surveyID);
         ChoiceQuestion question = (ChoiceQuestion) survey.findQuestion(questionID);
         question.addChoice(choice);
         surveyService.save(survey);
         return "redirect:/survey/" + surveyID + "/choicequestion/" + questionID + "/choices";
     }
-
 
     @PostMapping(value = "/survey/{surveyID}/choicequestion", produces = MediaType.APPLICATION_JSON_VALUE)
     public String postNumberQuestion(@PathVariable long surveyID, @RequestParam String question) {
@@ -52,9 +50,6 @@ public class ChoiceQuestionController {
         choiceQuestion = (ChoiceQuestion) questions.get(questions.size() - 1);
         return "redirect:/survey/" + surveyID + "/choicequestion/" + choiceQuestion.getId() + "/choices";
     }
-
-
-
 
     @DeleteMapping(value = "/survey/{surveyID}/choicequestion/{choiceQuestionID}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseBody
