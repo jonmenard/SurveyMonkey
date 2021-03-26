@@ -1,0 +1,26 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <title>SurveyMonkey</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link  href = "../static/css/styling.css" th:href="@{/css/styling.css}" type="text/css" rel="stylesheet">
+</head>
+<body>
+<table>
+    <tr>
+        <th>Survey ID</th>
+        <th>Number of Questions</th>
+    </tr>
+    <tr th:each="survey : ${surveys}">
+        <td th:text="${survey.getId()}"/>
+        <td th:text="${survey.getQuestions().size()}"/>
+        <td><a th:href="${'/survey/'+ survey.getId()}">
+            Fill out this survey
+        </a></td>
+    </tr>
+</table>
+<a href="/" >
+    Return to Home
+</a>
+</body>
+</html>
