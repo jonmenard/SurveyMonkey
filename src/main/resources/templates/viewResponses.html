@@ -5,19 +5,20 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 </head>
 <body>
-    <main>
-
+<main>
+    <div class="ui centered grid container">
         <div th:each="question : ${questions}">
             <h2 th:text="${question.getQuestion()}">
 
             </h2>
 
-            <ul th:each="answer : ${question.getAnswers()}" >
+            <ul th:each="answer : ${question.getAnswers()}">
                 <li th:text="${answer}">
 
                 </li>
             </ul>
         </div>
-    </main>
+    </div>
+</main>
 </body>
 </html>
