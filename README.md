@@ -55,7 +55,7 @@ https://www.travis-ci.com/github/jonmenard007/SYSC4806-Project/builds
 
 ***Database schema***
 
-
+![OR Diagram](https://github.com/jonmenard007/SYSC4806-Project/blob/main/OR_Diagram.png?raw=true)
 
 ---
 
