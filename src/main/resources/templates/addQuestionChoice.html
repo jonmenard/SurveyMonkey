@@ -6,23 +6,58 @@
 </head>
 <body>
 <main>
-    <h1>Set Bounds</h1>
+    <div class="ui centered grid container">
+        <div class="row">
+            <h1>Add Option</h1>
+        </div>
+        <div class="row">
+            <p th:text="'Add a choice to the question: ' +  ${question.getQuestion()} + '?'"></p>
+        </div>
+        <table class="surveyTable">
+            <thead>
+                <tr>
+                    <th>Current Choices:</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr th:each="choice : ${question.getChoices()}">
+                <td th:text="${choice}"></td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="row">
+            <div class="ui buttons">
+                <form class="ui form" action="#" th:action="@{/survey/__${survey.getId()}__/choicequestion/__${question.getId()}__/choices}" method="post" id="questionForm">
+                    <div class="required field">
+                        <label for="choice">Add Choice: </label>
+                        <div class="ui icon input">
+                            <input type="text" id="choice" name="choice" required="required">
+                        </div>
+                    </div>
+                    <br>
+                    <button id="addOptionButton" class="ui fluid labeled icon green button" type="submit"
+                            form="questionForm" value="Submit">
+                        <i class="plus icon"></i>
+                        Add Choice
+                    </button>
+                </form>
+            </div>
+        </div>
+      <strong>Or</strong>
+        
 
-    <p th:text="'Add a choice to the question: ' +  ${question.getQuestion()}"></p>
-    <p>
-        The current choices are: <br>
-    <ul th:each="choice : ${question.getChoices()}">
-        <li th:text="${choice}"></li>
-    </ul>
-    </p>
-
-    <form action="#" th:action="@{/survey/__${survey.getId()}__/choicequestion/__${question.getId()}__/choices}"
-          method="post" id="questionForm">
-        <label for="choice">add choice: </label>
-        <input type="text" id="choice" name="choice"><br>
-
-        <button type="submit" form="questionForm" value="Submit">Add Choice</button>
-    </form>
+        <div class="row">
+            <div class="ui buttons">
+                <a th:href="@{/survey/__${survey.getId()}__}" id="viewSurvey">
+                    <button id="seeSurvey" class="ui fluid labeled icon blue button" type="submit"
+                            form="questionForm" value="Submit">
+                        <i class="eye icon"></i>
+                        See Survey
+                    </button>
+                </a>
+            </div>
+        </div>
+    </div>
 </main>
 </body>
 </html>
