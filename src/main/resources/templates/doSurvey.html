@@ -67,6 +67,13 @@
 <a th:href="${survey.getId() + '/fill'}">
     Fill out this survey
 </a>
-
+<p th:text="${survey.isClosed()} ? 'Survey is closed' : 'Survey is accepting responses'"/>
+</p>
+<form th:if="${survey.isClosed() == false}" th:action="@{/survey/__${survey.getId()}__/close}" method="post" id="closeForm">
+    <button type="submit" form="closeForm" value="Close">Close Survey</button>
+</form>
+<a th:if="${survey.isClosed() == true}" th:href="${survey.getId() + '/responses'}">
+    View responses
+</a>
 </body>
 </html>

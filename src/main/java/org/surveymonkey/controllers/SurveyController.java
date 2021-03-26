@@ -64,14 +64,18 @@ public class SurveyController {
         model.addAttribute("choiceQuestions", choiceQuestionList);
 
         return "doSurvey";
-        //return "surveyTable";
     }
 
     @GetMapping(value = "/survey/{surveyID}/fill")
     public String fillSurvey(@PathVariable long surveyID, Model model) {
-        model.addAttribute("survey", surveyService.findById(surveyID));
+        Survey s = surveyService.findById(surveyID);
+        if(s.isClosed()) {
+            // Don't add response if Survey is closed
+            return "redirect:/survey/" + surveyID;
+        }
+        model.addAttribute("survey", s);
 
-        List<Question> questionList = surveyService.findById(surveyID).getQuestions();
+        List<Question> questionList = s.getQuestions();
         ArrayList<TextQuestion> textQuestionList = new ArrayList<>();
         ArrayList<NumberQuestion> numberQuestionList = new ArrayList<>();
         ArrayList<ChoiceQuestion> choiceQuestionList = new ArrayList<>();
@@ -96,7 +100,11 @@ public class SurveyController {
 
     @PostMapping(value = "/survey/{surveyID}/fill", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
     public String fillSurveyComplete(@RequestBody MultiValueMap<String, String> formData, @PathVariable long surveyID) {
-
+        Survey s = surveyService.findById(surveyID);
+        if(s.isClosed()) {
+            // Don't add response if Survey is closed
+            return "redirect:/survey/" + surveyID;
+        }
         for (Map.Entry formElement : formData.entrySet()) {
             String formKey = (String) formElement.getKey();
             String formValue = (String) ((LinkedList) formElement.getValue()).getFirst();
@@ -139,6 +147,34 @@ public class SurveyController {
     public String addQuestion(@PathVariable long surveyID, Model model) {
         model.addAttribute("survey", surveyService.findById(surveyID));
         return "createQuestion";
+    }
+
+    /**
+     * View the responses of a survey
+     * @param surveyID Survey to view responses of
+     * @param model
+     * @return Renders a view containing survey responses
+     */
+    @GetMapping(value = "/survey/{surveyID}/responses")
+    public String surveyResponses(@PathVariable long surveyID, Model model) {
+        Survey survey = surveyService.findById(surveyID);
+        List<Question> questionList = survey.getQuestions();
+        model.addAttribute("survey", survey);
+        model.addAttribute("questions", questionList);
+        return "viewResponses";
+    }
+
+    /**
+     * This action allows a user to close a Survey
+     * @param surveyID Survey to close
+     * @return Redirect user to main Survey view page
+     */
+    @PostMapping(value = "/survey/{surveyID}/close")
+    public String closeQuestion(@PathVariable long surveyID) {
+        Survey survey = surveyService.findById(surveyID);
+        survey.markAsClosed();
+        surveyService.save(survey);
+        return "redirect:/survey/" + surveyID;
     }
 
     @GetMapping(value = "/SurveyControllerController/test")
