@@ -34,7 +34,7 @@ https://www.travis-ci.com/github/jonmenard007/SYSC4806-Project/builds
     <tbody>
         <tr>
             <td rowspan="3"> 2 </td>
-            <td> Mar 20–26 </td>
+            <td> <a href="https://github.com/jonmenard007/SYSC4806-Project/issues/80"> Mar 20–26 </td>
         </tr>
         <tr></tr>
         <tr>
