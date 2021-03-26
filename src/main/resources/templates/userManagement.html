@@ -10,15 +10,16 @@
         <div class="row">
             <form action="#" th:action="@{/user/__${user.getId()}__/displayAll}" method="post" id="surveyForm">
                 <button class="ui labeled icon green button" type="submit" form="surveyForm" value="Submit">
-                    <i class="plus icon"></i>
-                    Survey Management
+                    <i class="wrench icon"></i>
+                    Manage Surveys
                 </button>
             </form>
         </div>
         <div class="row">
             <div class="ui buttons">
                 <form action="/survey" method="post" id="answerSurveyForm">
-                    <button class="ui button" type="submit" form="answerSurveyForm" value="Submit">
+                    <button id="createSurveyFromUserManagementButton" class="ui button" type="submit"
+                            form="answerSurveyForm" value="Submit">
                         Create Survey
                     </button>
                 </form>
