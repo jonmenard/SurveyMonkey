@@ -14,7 +14,7 @@
     <tr th:each="survey : ${surveys}">
         <td th:text="${survey.getId()}"/>
         <td th:text="${survey.getQuestions().size()}"/>
-        <td><a th:href="${'/survey/'+ survey.getId() + '/fill'}">
+        <td><a th:href="${'/survey/'+ survey.getId()}">
             Fill out this survey
         </a></td>
     </tr>
