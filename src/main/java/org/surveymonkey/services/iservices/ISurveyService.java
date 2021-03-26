@@ -8,4 +8,6 @@ public interface ISurveyService {
 
     Survey save(Survey survey);
 
+    Iterable<Survey> findAll();
+
 }

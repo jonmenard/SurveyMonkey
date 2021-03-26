@@ -147,4 +147,15 @@ public class SurveyController {
         return "SurveyController is working";
     }
 
+    @GetMapping(value="survey/answer")
+    public String selectSurveyToAnswer(Model model){
+        List<Survey> surveys = new ArrayList<>();
+        for (Survey survey : surveyService.findAll()) {
+            if(!survey.isClosed()){
+                surveys.add(survey);
+            }
+        }
+        model.addAttribute("surveys", surveys);
+        return "displayAllOpenSurveys";
+    }
 }

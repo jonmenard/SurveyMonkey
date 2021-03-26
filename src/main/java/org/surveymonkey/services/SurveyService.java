@@ -22,4 +22,6 @@ public class SurveyService implements ISurveyService {
         return surveyRepository.save(survey);
     }
 
+    public Iterable<Survey> findAll(){return surveyRepository.findAll();}
+
 }
