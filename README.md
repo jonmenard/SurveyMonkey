@@ -6,7 +6,7 @@
 
 ***About***
 
-Someone needs to write something here. (Perhaps mention how we've implemented all required layers, etc.)
+With SurveyMonkey, a sureyor can create a survery with a variety of questions. The questions are text-based and can be answered with either opened ended answers, a number within a range, or a selection based on some provided options. When a user fills out a suvery, the questions are presented in a form. The survey can be closed at anypoint by its creator, and results are generated.
 
 ---
 
@@ -59,6 +59,12 @@ https://www.travis-ci.com/github/jonmenard007/SYSC4806-Project/builds
 
 ---
 
-***Draft UML class diagram***
+***Current UML class diagram - milestone2***
+
+![draft UML](https://github.com/jonmenard007/SYSC4806-Project/blob/main/milestone2.png?raw=true)
+
+---
+
+***Draft UML class diagram - milestone1***
 
 ![draft UML](https://github.com/jonmenard007/SYSC4806-Project/blob/Rohil/milestone1.png?raw=true)
