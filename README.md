@@ -6,7 +6,7 @@
 
 ***About***
 
-With SurveyMonkey, a sureyor can create a survery with a variety of questions. The questions are text-based and can be answered with either opened ended answers, a number within a range, or a selection based on some provided options. When a user fills out a suvery, the questions are presented in a form. The survey can be closed at anypoint by its creator, and results are generated.
+With SurveyMonkey, a surveyor can create a survery comprising a variety of questions. The questions are text-based and can be answered with either open-ended answers, a number within a range, or a selection based on some provided options. When a user fills out a survey, the questions are presented in a form. The survey can be closed at any point by its creator, and then results are generated.
 
 ---
 
@@ -59,12 +59,12 @@ https://www.travis-ci.com/github/jonmenard007/SYSC4806-Project/builds
 
 ---
 
-***Current UML class diagram - milestone2***
+***Current UML class diagram (Milestone 2)***
 
 ![draft UML](https://github.com/jonmenard007/SYSC4806-Project/blob/main/milestone2.png?raw=true)
 
 ---
 
-***Draft UML class diagram - milestone1***
+***Milestone 1 UML class diagram***
 
 ![draft UML](https://github.com/jonmenard007/SYSC4806-Project/blob/Rohil/milestone1.png?raw=true)
