@@ -1,0 +1,23 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:include="fragments/header :: header">
+    <title>Survey Responses</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+</head>
+<body>
+    <main>
+
+        <div th:each="question : ${questions}">
+            <h2 th:text="${question.getQuestion()}">
+
+            </h2>
+
+            <ul th:each="answer : ${question.getAnswers()}" >
+                <li th:text="${answer}">
+
+                </li>
+            </ul>
+        </div>
+    </main>
+</body>
+</html>
