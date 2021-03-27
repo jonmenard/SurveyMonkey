@@ -1,4 +1,8 @@
-<head th:fragment="header">
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head th:fragment="headerfiles">
+    <Title>SurveyMonkey</Title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/semantic-ui/2.4.1/semantic.min.css"
           integrity="sha512-8bHTC73gkZ7rZ7vpqUQThUDhqcNFyYi2xgDgPDHc+GXVGHXq+xPjynxIopALmOPqzo9JZj0k6OqqewdGO3EsrQ=="
           crossorigin="anonymous"/>
@@ -12,7 +16,7 @@
     <script>
         $(() => {
             $('#doSurveyTable')
-                .transition('scale in')
+                .transition('swing down in')
             ;
             $('.jiggle.buttons .button')
                 .transition({
@@ -27,7 +31,8 @@
         });
     </script>
 </head>
-<header>
+<body>
+<header th:fragment="header">
     <div class="ui centered grid container">
         <div class="row"></div>
         <h1 class="ui icon header">
@@ -44,3 +49,5 @@
         <div class="row"></div>
     </div>
 </header>
+</body>
+</html>

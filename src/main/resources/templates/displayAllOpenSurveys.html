@@ -1,11 +1,13 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-<head th:include="fragments/header :: header">
-    <title>SurveyMonkey</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <th:block th:include="fragments/general :: headerfiles"></th:block>
     <link href="../static/css/styling.css" th:href="@{/css/styling.css}" type="text/css" rel="stylesheet">
 </head>
 <body>
+<header>
+    <th:block th:include="fragments/general :: header"></th:block>
+</header>
 <main>
     <table>
         <tr>

@@ -1,6 +1,6 @@
 (() => {
     $('#doSurveyTable')
-        .transition('scale in')
+        .transition('swing down in')
     ;
     $('.jiggle.buttons .button')
         .transition({

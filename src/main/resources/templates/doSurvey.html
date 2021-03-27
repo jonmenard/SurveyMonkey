@@ -1,10 +1,12 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-<head th:include="fragments/header :: header">
-    <title>SurveyMonkey</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <th:block th:include="fragments/general :: headerfiles"></th:block>
 </head>
 <body>
+<header>
+    <th:block th:include="fragments/general :: header"></th:block>
+</header>
 <main>
     <div class="ui centered grid container">
         <div class="row">
@@ -78,7 +80,8 @@
                 <div class="or"></div>
                 <form class="ui form" th:if="${!survey.isClosed()}" th:action="@{/survey/__${survey.getId()}__/close}"
                       method="post" id="closeForm">
-                    <button class="ui animated fade orange button" type="submit" form="closeForm" value="Close">
+                    <button id="closeSurveyButton" class="ui animated fade orange button" type="submit" form="closeForm"
+                            value="Close">
                         <div class="visible content">Close Survey</div>
                         <div class="hidden content">
                             <i class="close icon"></i>
@@ -88,12 +91,9 @@
                 <form class="ui form" th:if="${survey.isClosed()}"
                       th:action="@{/survey/__${survey.getId()}__/responses}"
                       method="get" id="getResponsesForm">
-                    <button id="viewAnswersFromDoSurveyButton" class="ui animated fade green button" type="submit"
+                    <button id="viewAnswersButton" class="ui green button" type="submit"
                             form="getResponsesForm" value="Submit">
-                        <div class="visible content">View Answers</div>
-                        <div class="hidden content">
-                            <i class="eye icon"></i>
-                        </div>
+                        View Answers
                     </button>
                 </form>
             </div>
