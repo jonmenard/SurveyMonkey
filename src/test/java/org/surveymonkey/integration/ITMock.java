@@ -15,16 +15,18 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 public class ITMock {
 
+    private static final String HEADERFILES_FRAGMENT = "-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7";
     private static final String HEADER_FRAGMENT = "circular green edit outline icon";
 
     @Autowired
     private MockMvc mockMvc;
 
     @Test
-    public void testDoSurveyTemplate() throws Exception {
+    public void testIndexTemplate() throws Exception {
         mockMvc.perform(get("/"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("Template name is index")))
+                .andExpect(content().string(containsString(HEADERFILES_FRAGMENT)))
                 .andExpect(content().string(containsString(HEADER_FRAGMENT)));
     }
 
@@ -33,6 +35,7 @@ public class ITMock {
         mockMvc.perform(get("/index/create"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("Template name is createUser")))
+                .andExpect(content().string(containsString(HEADERFILES_FRAGMENT)))
                 .andExpect(content().string(containsString(HEADER_FRAGMENT)));
     }
 
@@ -41,6 +44,7 @@ public class ITMock {
         mockMvc.perform(get("/index/logon"))
                 .andExpect(status().isOk())
                 .andExpect(content().string(containsString("Template name is logonPage")))
+                .andExpect(content().string(containsString(HEADERFILES_FRAGMENT)))
                 .andExpect(content().string(containsString(HEADER_FRAGMENT)));
     }
 
