@@ -32,25 +32,25 @@
                 </button>
             </form>
         </div>
-        <br>
         <div class="row">
             <div class="sixteen wide center aligned column">
                 <p><b>Answer options you've provided:</b></p>
             </div>
-            <br>
-            <div class="four wide column">
-                <ol>
+            <div class="ui hidden divider"></div>
+            <div class="three wide column">
+                <ol class="ui list">
                     <li class="choiceQuestionChoiceOnAddQuestionChoice" th:each="choice : ${question.getChoices()}"
                         th:text="${choice}"></li>
                 </ol>
             </div>
         </div>
+        <div class="ui hidden divider"></div>
         <div class="row">
             <form class="ui form" th:action="@{/survey/__${survey.getId()}__}" method="get" id="viewSurveyForm">
-                <button class="ui fluid vertical animated button" type="submit" form="viewSurveyForm" value="Submit">
-                    <div class="visible content">I'm Done! View Survey</div>
+                <button class="ui animated fade button" type="submit" form="viewSurveyForm" value="Submit">
+                    <div class="visible content">I'm Done!</div>
                     <div class="hidden content">
-                        <i class="eye icon"></i>
+                        <i class="check icon"></i>
                     </div>
                 </button>
             </form>

@@ -52,8 +52,8 @@
                     <td></td>
                     <td></td>
                     <td>
-                        <ul class="ui list" th:each="choice : ${choiceQuestion.getChoices()}">
-                            <li th:text="${choice}"></li>
+                        <ul class="ui list">
+                            <li th:each="choice : ${choiceQuestion.getChoices()}" th:text="${choice}"></li>
                         </ul>
                     </td>
                     <td th:text="${choiceQuestion.getAnswers().size()}"></td>
