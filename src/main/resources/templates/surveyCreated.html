@@ -13,7 +13,8 @@
             <h2>Add the First Question</h2>
         </div>
         <div class="row">
-            <form class="ui form" action="#" th:action="@{/survey/__${survey.getId()}__/createQuestion}" method="post"
+            <form class="ui form addQuestionToSurvey" action="#"
+                  th:action="@{/survey/__${survey.getId()}__/createQuestion}" method="post"
                   id="questionForm">
                 <div class="required field">
                     <label for="questionType">Answer Type</label>

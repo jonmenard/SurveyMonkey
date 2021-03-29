@@ -10,56 +10,50 @@
 <main>
     <div class="ui centered grid container">
         <div class="row">
-            <h1>Add Option</h1>
+            <h2>Add Answer Options</h2>
         </div>
         <div class="row">
-            <p th:text="'Add a choice to the question: ' +  ${question.getQuestion()} + '?'"></p>
+            <p id="choiceQuestionOnAddQuestionChoice" th:text="${question.getQuestion()}"></p>
         </div>
-        <table class="surveyTable">
-            <thead>
-            <tr>
-                <th>Current Choices:</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="choice : ${question.getChoices()}">
-                <td th:text="${choice}"></td>
-            </tr>
-            </tbody>
-        </table>
         <div class="row">
-            <div class="ui buttons">
-                <form class="ui form" action="#"
-                      th:action="@{/survey/__${survey.getId()}__/choicequestion/__${question.getId()}__/choices}"
-                      method="post" id="questionForm">
-                    <div class="required field">
-                        <label for="choice">Add Choice: </label>
-                        <div class="ui icon input">
-                            <input type="text" id="choice" name="choice" required="required">
-                        </div>
+            <form class="ui form" action="#"
+                  th:action="@{/survey/__${survey.getId()}__/choicequestion/__${question.getId()}__/choices}"
+                  method="post" id="questionForm">
+                <div class="required field">
+                    <div class="ui input">
+                        <input type="text" id="choice" name="choice" required="required"
+                               placeholder="Enter an answer option...">
                     </div>
-                    <br>
-                    <button id="addOptionButton" class="ui fluid labeled icon green button" type="submit"
-                            form="questionForm" value="Submit">
-                        <i class="plus icon"></i>
-                        Add Choice
-                    </button>
-                </form>
+                </div>
+                <button id="addOptionButton" class="ui fluid labeled icon green button" type="submit"
+                        form="questionForm" value="Submit">
+                    <i class="plus icon"></i>
+                    Add Answer Option
+                </button>
+            </form>
+        </div>
+        <br>
+        <div class="row">
+            <div class="sixteen wide center aligned column">
+                <p><b>Answer options you've provided:</b></p>
+            </div>
+            <br>
+            <div class="four wide column">
+                <ol>
+                    <li class="choiceQuestionChoiceOnAddQuestionChoice" th:each="choice : ${question.getChoices()}"
+                        th:text="${choice}"></li>
+                </ol>
             </div>
         </div>
-        <strong>Or</strong>
-
-
         <div class="row">
-            <div class="ui buttons">
-                <a th:href="@{/survey/__${survey.getId()}__}" id="viewSurvey">
-                    <button id="seeSurvey" class="ui fluid labeled icon blue button"
-                            value="Submit">
+            <form class="ui form" th:action="@{/survey/__${survey.getId()}__}" method="get" id="viewSurveyForm">
+                <button class="ui fluid vertical animated button" type="submit" form="viewSurveyForm" value="Submit">
+                    <div class="visible content">I'm Done! View Survey</div>
+                    <div class="hidden content">
                         <i class="eye icon"></i>
-                        See Survey
-                    </button>
-                </a>
-            </div>
+                    </div>
+                </button>
+            </form>
         </div>
     </div>
 </main>
