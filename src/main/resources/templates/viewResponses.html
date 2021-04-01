@@ -8,29 +8,38 @@
     <th:block th:include="fragments/general :: header"></th:block>
 </header>
 <main>
-    <div class="ui grid container">
-        <div class='row' th:each="question : ${questions}">
-            <div class="ui grid">
-                <div class="row">
-                    <h2 th:text="${question.getQuestion()}">
-
-                    </h2>
-                </div>
-                <ul class="ui list">
-                    <li class='item' th:each="answer : ${question.getAnswers()}">
-                        <div class='content' th:text="${answer}">
-
-                        </div>
-                    </li>
-                </ul>
-            </div>
+    <div class='ui centered grid container'>
+        <div class="row">
+            <h2 th:text="'Survey ' + ${survey.getId()} + ' Responses'"></h2>
         </div>
-        <form class="ui form row" th:action="@{/survey/__${survey.getId()}__/}" method="get"
-              id="backForm">
-            <button class="ui button" type="submit" form="backForm" value="Submit">
-                Back to main view
-            </button>
-        </form>
+        <div class="row">
+            <table id="viewResponsesTable" class="ui selectable padded striped table">
+                <thead>
+                <tr>
+                    <th>Questions</th>
+                    <th>Responses</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="question : ${questions}">
+                    <td th:text="${question.getQuestion()}"></td>
+                    <td>
+                        <ul class="ui list">
+                            <li th:each="answer : ${question.getAnswers()}" th:text="${answer}"></li>
+                        </ul>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="row">
+            <form class="ui form" th:action="@{/survey/__${survey.getId()}__/}" method="get" id="backForm">
+                <button class="ui labeled icon green button" type="submit" form="backForm" value="Submit">
+                    <i class="left arrow icon"></i>
+                    Back to Survey
+                </button>
+            </form>
+        </div>
     </div>
 </main>
 </body>
