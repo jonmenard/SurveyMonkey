@@ -13,11 +13,10 @@
             <h2 th:text="'Survey ' + ${survey.getId()}"></h2>
         </div>
         <div class="row">
-            <table id="doSurveyTable" class="ui selectable striped padded celled table"
+            <table id="doSurveyTable" class="ui selectable striped padded table"
                    th:classappend="${!survey.isClosed()} ? 'green' : 'orange'">
                 <thead>
                 <tr>
-                    <th>ID</th>
                     <th>Type</th>
                     <th>Question</th>
                     <th>Lower Bound</th>
@@ -28,8 +27,7 @@
                 </thead>
                 <tbody>
                 <tr th:each="textQuestion : ${textQuestions}">
-                    <td th:text="${textQuestion.getId()}"></td>
-                    <td th:text="${textQuestion.getType()}"></td>
+                    <td th:text="${textQuestion.getTypeStr()}"></td>
                     <td th:text="${textQuestion.getQuestion()}"></td>
                     <td></td>
                     <td></td>
@@ -37,8 +35,7 @@
                     <td th:text="${textQuestion.getAnswers().size()}"></td>
                 </tr>
                 <tr th:each="numberQuestion : ${numberQuestions}">
-                    <td th:text="${numberQuestion.getId()}"></td>
-                    <td th:text="${numberQuestion.getType()}"></td>
+                    <td th:text="${numberQuestion.getTypeStr()}"></td>
                     <td th:text="${numberQuestion.getQuestion()}"></td>
                     <td th:text="${numberQuestion.getLowerBound()}"></td>
                     <td th:text="${numberQuestion.getUpperBound()}"></td>
@@ -46,8 +43,7 @@
                     <td th:text="${numberQuestion.getAnswers().size()}"></td>
                 </tr>
                 <tr th:each="choiceQuestion : ${choiceQuestions}">
-                    <td th:text="${choiceQuestion.getId()}"></td>
-                    <td th:text="${choiceQuestion.getType()}"></td>
+                    <td th:text="${choiceQuestion.getTypeStr()}"></td>
                     <td th:text="${choiceQuestion.getQuestion()}"></td>
                     <td></td>
                     <td></td>
@@ -66,14 +62,16 @@
             <div class="ui buttons">
                 <form class="ui form" th:action="@{/survey/__${survey.getId()}__/createQuestion}" method="get"
                       id="createQuestionForm">
-                    <button class="ui button" type="submit" form="createQuestionForm" value="Submit">
+                    <button class="ui button" type="submit" form="createQuestionForm" value="Submit"
+                            th:classappend="${survey.isClosed()} ? 'disabled'">
                         Add Another Question
                     </button>
                 </form>
                 <div class="or"></div>
                 <form class="ui form" th:action="@{/survey/__${survey.getId()}__/fill}" method="get"
                       id="fillSurveyForm">
-                    <button class="ui button" type="submit" form="fillSurveyForm" value="Submit">
+                    <button class="ui button" type="submit" form="fillSurveyForm" value="Submit"
+                            th:classappend="${survey.isClosed()} ? 'disabled'">
                         Answer Questions
                     </button>
                 </form>

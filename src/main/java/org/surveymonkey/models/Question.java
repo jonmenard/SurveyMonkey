@@ -103,6 +103,11 @@ public abstract class Question {
         return type;
     }
 
+    public String getTypeStr() {
+        String str = type.name();
+        return str.substring(0, 1).toUpperCase() + str.substring(1).toLowerCase();
+    }
+
     /**
      * Gets an answer from the list of answers for the given question.
      *
