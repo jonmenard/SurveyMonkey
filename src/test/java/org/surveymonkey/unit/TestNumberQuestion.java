@@ -38,4 +38,5 @@ public class TestNumberQuestion {
         Assert.assertEquals(s, question.getAnswer(0));
     }
 
+
 }
