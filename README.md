@@ -1,4 +1,4 @@
-# SurveyMonkey v0.3 (Milestone 3)
+# SurveyMonkey v1.0 (Milestone 3)
 ## SYSC 4806, Winter 2021 – Software Engineering Lab
 ### By: Rohil Dubey, Jacob Laboissonniere, Jon Menard, Paul Roode
 
@@ -6,7 +6,7 @@
 
 ***About***
 
-With SurveyMonkey, a surveyor can create a survey comprising a variety of questions. The questions are textual and can be answered with either open-ended text, a number in a range, or a selection from different options. When a user fills out a survey, the questions are presented in a form. The survey can be closed at any point by its creator, and then results are generated.
+With SurveyMonkey, a surveyor can create a survey comprising a variety of questions. The questions can be answered with either open-ended text, a number in a range, or a selection from different options. When a respondent fills out a survey, the questions are presented in a form. A survey can be closed by its creator at any time, and then results are generated.
 
 ---
 
@@ -27,8 +27,8 @@ https://www.travis-ci.com/github/jonmenard007/SYSC4806-Project/builds
 <table>
     <thead>
         <tr>
-            <th align="left"> Milestone </th>
             <th align="left"> Sprint </th>
+            <th align="left"> Weekly scrum </th>
         </tr>
     </thead>
     <tbody>
@@ -38,7 +38,7 @@ https://www.travis-ci.com/github/jonmenard007/SYSC4806-Project/builds
         </tr>
         <tr></tr>
         <tr>
-            <td> Mar 27 – Apr 2 </td>
+            <td> <a href="https://github.com/jonmenard007/SYSC4806-Project/issues/92"> Mar 27 – Apr 2 </a> </td>
         </tr>
         <tr>
             <td rowspan="3"> 2 </td>
