@@ -13,7 +13,7 @@
             <h2 th:text="'Survey ' + ${survey.getId()}"></h2>
         </div>
         <div class="row">
-            <table id="doSurveyTable" class="ui selectable striped padded table"
+            <table id="doSurveyTable" class="ui selectable striped very padded collapsing table"
                    th:classappend="${!survey.isClosed()} ? 'green' : 'orange'">
                 <thead>
                 <tr>
