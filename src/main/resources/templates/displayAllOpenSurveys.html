@@ -8,19 +8,28 @@
     <th:block th:include="fragments/general :: header"></th:block>
 </header>
 <main>
-    <table>
-        <tr>
-            <th>Survey ID</th>
-            <th>Number of Questions</th>
-        </tr>
-        <tr th:each="survey : ${surveys}">
-            <td th:text="${survey.getId()}"/>
-            <td th:text="${survey.getQuestions().size()}"/>
-            <td><a th:href="${'/survey/'+ survey.getId()}">
-                Fill out this survey
-            </a></td>
-        </tr>
-    </table>
+    <div class="ui centered grid container">
+        <div class="row">
+            <table id="userSurveyTable" class="ui selectable striped very padded collapsing table">
+                <thead>
+                <tr>
+                    <th>Survey ID</th>
+                    <th>No. of Questions</th>
+                    <th>Link to Survey</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="survey : ${surveys}">
+                    <td th:text="${survey.getId()}"/>
+                    <td th:text="${survey.getQuestions().size()}"/>
+                    <td><a th:href="${'/survey/'+ survey.getId()}">
+                        Fill out this survey
+                    </a></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
     <a href="/">
         Return to Home
     </a>
