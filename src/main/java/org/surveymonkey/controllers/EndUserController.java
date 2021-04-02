@@ -26,7 +26,7 @@ public class EndUserController {
         // Add user to model, potentially check if user exists first and send error page if no user?
         if (endUserService.findByName(name) != null) {
             model.addAttribute("user", endUserService.findByName(name));
-            return "redirect:/"; // Add view for user management (create, close survey)
+            return "userManagement"; // Add view for user management (create, close survey)
         }
         return "error"; // error page for now
     }
@@ -47,4 +47,10 @@ public class EndUserController {
         return "EndUserController is working";
     }
 
+    @PostMapping(value = "/user/{userId}/displayAll")
+    public String displayAllSurveys(Model model, @PathVariable long userId){
+        // Find user by userid and then return a list display of all surveys
+        model.addAttribute("surveys", endUserService.findById(userId).getSurveys());
+        return "displayUserSurveys";
+    }
 }
