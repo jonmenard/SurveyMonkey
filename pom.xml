@@ -35,6 +35,18 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+
+        <!-- Include log4j2 -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-log4j2</artifactId>
         </dependency>
 
         <dependency>
@@ -109,13 +121,10 @@
             <artifactId>tomcat-jdbc</artifactId>
             <version>9.0.10</version>
         </dependency>
-
     </dependencies>
-
-
-
     <build>
         <plugins>
+
 
 <!--            <plugin>-->
 <!--                <groupId>org.springframework.boot</groupId>-->
