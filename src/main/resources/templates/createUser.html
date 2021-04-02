@@ -1,25 +1,31 @@
 <!DOCTYPE HTML>
 <!-- Template name is createUser -->
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-<head th:include="fragments/header :: header">
-    <title>SurveyMonkey</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <th:block th:include="fragments/general :: headerfiles"></th:block>
 </head>
 <body>
+<header>
+    <th:block th:include="fragments/general :: header"></th:block>
+</header>
 <main>
     <div class="ui centered grid container">
         <div class="row">
-            <form action="/index/user/success" method="post" id="userCreateForm">
-                <div class="ui input">
-                    <input type="text" id="name" name="name" placeholder="New Username"><br>
+            <form class="ui form" action="/index/user/success" method="post" id="userCreateForm">
+                <div class="required field">
+                    <div class="ui input">
+                        <input type="text" id="name" name="name" placeholder="New Username">
+                    </div>
                 </div>
+                <br>
+                <button class="ui fluid animated fade green button" tabindex="0" type="submit" form="userCreateForm"
+                        value="Submit">
+                    <div class="visible content">Sign Up</div>
+                    <div class="hidden content">
+                        <i class="user plus icon"></i>
+                    </div>
+                </button>
             </form>
-        </div>
-        <div class="row">
-            <button class="ui labeled icon green button" type="submit" form="userCreateForm" value="Submit">
-                <i class="user plus icon"></i>
-                Sign Up
-            </button>
         </div>
     </div>
 </main>

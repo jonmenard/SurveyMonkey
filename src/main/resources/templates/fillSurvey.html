@@ -1,32 +1,73 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-    <title>Fill Survey</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <link  href = "../static/css/styling.css" th:href="@{/css/styling.css}" type="text/css" rel="stylesheet">
+    <th:block th:include="fragments/general :: headerfiles"></th:block>
 </head>
 <body>
-<h1>
-    Filling out Survey
-</h1>
-<form th:action="@{/survey/__${survey.getId()}__/fill}" method="post" id="fillSurveyForm">
-    <div class th:each="textQuestion : ${textQuestions}">
-        <label th:for = "${textQuestion.getId()}" th:text="${textQuestion.getQuestion()}">  </label>
-        <input type="text"  th:name = "${textQuestion.getId()}"><br>
+<header>
+    <th:block th:include="fragments/general :: header"></th:block>
+</header>
+<main>
+    <div class='ui centered grid container'>
+        <div class="row">
+            <h2>Complete the Survey</h2>
+        </div>
+        <div class="row">
+            <form class="ui form" th:action="@{/survey/__${survey.getId()}__/fill}" method="post" id="fillSurveyForm">
+                <table id="fillSurveyTable" class="ui very padded striped collapsing table">
+                    <thead>
+                    <tr>
+                        <th>Questions</th>
+                        <th>Provide Your Answers Below</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="textQuestion : ${textQuestions}">
+                        <td th:text="${textQuestion.getQuestion()}"></td>
+                        <td>
+                            <div class="required field">
+                                <div class="ui input">
+                                    <input type="text" th:name="${textQuestion.getId()}" placeholder="Enter Answer">
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr th:each="numberQuestion : ${numberQuestions}">
+                        <td th:text="${numberQuestion.getQuestion()}"></td>
+                        <td>
+                            <div class="required field">
+                                <div class="ui fluid input">
+                                    <input type="number" th:name="${numberQuestion.getId()}"
+                                           th:min="${numberQuestion.getLowerBound()}"
+                                           th:max="${numberQuestion.getUpperBound()}" placeholder="Enter Answer">
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr th:each="choiceQuestion : ${choiceQuestions}">
+                        <td th:text="${choiceQuestion.getQuestion()}"></td>
+                        <td>
+                            <div class="required field">
+                                <select class="ui dropdown" th:name="${choiceQuestion.getId()}">
+                                    <option value="">Select Answer</option>
+                                    <option th:each="choice : ${choiceQuestion.getChoices()}"
+                                            th:text="${choice}"></option>
+                                </select>
+                            </div>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+                <div class="ui hidden divider"></div>
+                <button type="submit" class="ui animated fade green button" value="Submit">
+                    <div class="visible content">I'm Done!</div>
+                    <div class="hidden content">
+                        <i class="check icon"></i>
+                    </div>
+                </button>
+            </form>
+        </div>
     </div>
-    <div th:each="numberQuestion : ${numberQuestions}">
-        <label th:for = "${numberQuestion.getId()}" th:text="${numberQuestion.getQuestion()}">  </label>
-        <input type="number"  th:name = "${numberQuestion.getId()}" th:min="${numberQuestion.getLowerBound()}" th:max="${numberQuestion.getUpperBound()}"><br>
-    </div>
-    <div th:each="choiceQuestion : ${choiceQuestions}">
-        <label th:for = "${choiceQuestion.getId()}" th:text="${choiceQuestion.getQuestion()}">  </label>
-        <select th:name = "${choiceQuestion.getId()}">
-            <option th:each="choice : ${choiceQuestion.getChoices()}" th:text = "${choice}">
-
-            </option>
-        </select>
-    </div>
-    <button type="submit"  value="Submit">Finish Survey!</button>
-</form>
+</main>
 </body>
 </html>

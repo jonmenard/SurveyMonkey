@@ -1,72 +1,102 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-    <title>SurveyMonkey</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <link  href = "../static/css/styling.css" th:href="@{/css/styling.css}" type="text/css" rel="stylesheet">
+    <th:block th:include="fragments/general :: headerfiles"></th:block>
 </head>
 <body>
-
-<p th:text="${survey.getId()}"></p>
-<br><br>
-
-
-<table class="surveyTable">
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>Type</th>
-        <th>Question</th>
-        <th>Lower Bound</th>
-        <th>Upper Bound</th>
-        <th>Choices</th>
-        <th># of Answers</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="textQuestion : ${textQuestions}">
-        <td th:text="${textQuestion.getId()}"></td>
-        <td th:text="${textQuestion.getType()}"></td>
-        <td th:text="${textQuestion.getQuestion()}"></td>
-        <td> </td>
-        <td> </td>
-        <td> </td>
-        <td th:text="${textQuestion.getAnswers().size()}"></td>
-    </tr>
-    <tr th:each="numberQuestion : ${numberQuestions}">
-        <td th:text="${numberQuestion.getId()}"></td>
-        <td th:text="${numberQuestion.getType()}"></td>
-        <td th:text="${numberQuestion.getQuestion()}"></td>
-        <td th:text="${numberQuestion.getLowerBound()}"></td>
-        <td th:text="${numberQuestion.getUpperBound()}"></td>
-        <td> </td>
-        <td th:text="${numberQuestion.getAnswers().size()}"></td>
-    </tr>
-    <tr th:each="choiceQuestion : ${choiceQuestions}">
-        <td th:text="${choiceQuestion.getId()}"></td>
-        <td th:text="${choiceQuestion.getType()}"></td>
-        <td th:text="${choiceQuestion.getQuestion()}"></td>
-        <td> </td>
-        <td> </td>
-        <td>
-            <ul th:each="choice : ${choiceQuestion.getChoices()}">
-                <li th:text="${choice}"> </li>
-            </ul>
-        </td>
-        <td th:text="${choiceQuestion.getAnswers().size()}"></td>
-    </tr>
-    </tbody>
-</table>
-<br>
-<br>
-
-<a th:href="${survey.getId() + '/createQuestion'}">
-    Add another question
-</a>
-<br>
-<a th:href="${survey.getId() + '/fill'}">
-    Fill out this survey
-</a>
-
+<header>
+    <th:block th:include="fragments/general :: header"></th:block>
+</header>
+<main>
+    <div class="ui centered grid container">
+        <div class="row">
+            <h2 th:text="'Survey ' + ${survey.getId()}"></h2>
+        </div>
+        <div class="row">
+            <table id="doSurveyTable" class="ui selectable striped very padded collapsing table"
+                   th:classappend="${!survey.isClosed()} ? 'green' : 'orange'">
+                <thead>
+                <tr>
+                    <th>Type</th>
+                    <th>Question</th>
+                    <th>Lower Bound</th>
+                    <th>Upper Bound</th>
+                    <th>Choices</th>
+                    <th>No. of Answers</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="textQuestion : ${textQuestions}">
+                    <td th:text="${textQuestion.getTypeStr()}"></td>
+                    <td th:text="${textQuestion.getQuestion()}"></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td th:text="${textQuestion.getAnswers().size()}"></td>
+                </tr>
+                <tr th:each="numberQuestion : ${numberQuestions}">
+                    <td th:text="${numberQuestion.getTypeStr()}"></td>
+                    <td th:text="${numberQuestion.getQuestion()}"></td>
+                    <td th:text="${numberQuestion.getLowerBound()}"></td>
+                    <td th:text="${numberQuestion.getUpperBound()}"></td>
+                    <td></td>
+                    <td th:text="${numberQuestion.getAnswers().size()}"></td>
+                </tr>
+                <tr th:each="choiceQuestion : ${choiceQuestions}">
+                    <td th:text="${choiceQuestion.getTypeStr()}"></td>
+                    <td th:text="${choiceQuestion.getQuestion()}"></td>
+                    <td></td>
+                    <td></td>
+                    <td>
+                        <ul class="ui list">
+                            <li th:each="choice : ${choiceQuestion.getChoices()}" th:text="${choice}"></li>
+                        </ul>
+                    </td>
+                    <td th:text="${choiceQuestion.getAnswers().size()}"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="row"></div>
+        <div class="row">
+            <div class="ui buttons">
+                <form class="ui form" th:action="@{/survey/__${survey.getId()}__/createQuestion}" method="get"
+                      id="createQuestionForm">
+                    <button class="ui button" type="submit" form="createQuestionForm" value="Submit"
+                            th:classappend="${survey.isClosed()} ? 'disabled'">
+                        Add Another Question
+                    </button>
+                </form>
+                <div class="or"></div>
+                <form class="ui form" th:action="@{/survey/__${survey.getId()}__/fill}" method="get"
+                      id="fillSurveyForm">
+                    <button class="ui button" type="submit" form="fillSurveyForm" value="Submit"
+                            th:classappend="${survey.isClosed()} ? 'disabled'">
+                        Answer Questions
+                    </button>
+                </form>
+                <div class="or"></div>
+                <form class="ui form" th:if="${!survey.isClosed()}" th:action="@{/survey/__${survey.getId()}__/close}"
+                      method="post" id="closeForm">
+                    <button id="closeSurveyButton" class="ui animated fade orange button" type="submit" form="closeForm"
+                            value="Close">
+                        <div class="visible content">Close Survey</div>
+                        <div class="hidden content">
+                            <i class="close icon"></i>
+                        </div>
+                    </button>
+                </form>
+                <form class="ui form" th:if="${survey.isClosed()}"
+                      th:action="@{/survey/__${survey.getId()}__/responses}"
+                      method="get" id="getResponsesForm">
+                    <button id="viewAnswersButton" class="ui green button" type="submit"
+                            form="getResponsesForm" value="Submit">
+                        View Answers
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
 </body>
 </html>

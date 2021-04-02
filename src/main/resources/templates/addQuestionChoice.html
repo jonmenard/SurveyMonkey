@@ -1,25 +1,61 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-    <title>SurveyMonkey</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <th:block th:include="fragments/general :: headerfiles"></th:block>
 </head>
 <body>
-<h1>Set Bounds</h1>
-
-<p th:text="'Add a choice to the question: ' +  ${question.getQuestion()}"></p>
-<p>
-    The current choices are: <br>
-    <ul th:each="choice : ${question.getChoices()}">
-        <li th:text="${choice}"> </li>
-    </ul>
-</p>
-
-<form action="#" th:action="@{/survey/__${survey.getId()}__/choicequestion/__${question.getId()}__/choices}" method="post" id="questionForm">
-    <label for="choice">add choice: </label>
-    <input type = "text" id="choice" name="choice"><br>
-
-    <button type="submit" form="questionForm" value="Submit">Add Choice</button>
-</form>
+<header>
+    <th:block th:include="fragments/general :: header"></th:block>
+</header>
+<main>
+    <div class="ui centered grid container">
+        <div class="row">
+            <h2>Add Answer Options</h2>
+        </div>
+        <div class="row">
+            <p id="choiceQuestionOnAddQuestionChoice" th:text="${question.getQuestion()}"></p>
+        </div>
+        <div class="row">
+            <form class="ui form" action="#"
+                  th:action="@{/survey/__${survey.getId()}__/choicequestion/__${question.getId()}__/choices}"
+                  method="post" id="questionForm">
+                <div class="required field">
+                    <div class="ui input">
+                        <input type="text" id="choice" name="choice" required="required"
+                               placeholder="Enter an answer option...">
+                    </div>
+                </div>
+                <button id="addOptionButton" class="ui fluid labeled icon green button" type="submit"
+                        form="questionForm" value="Submit">
+                    <i class="plus icon"></i>
+                    Add Answer Option
+                </button>
+            </form>
+        </div>
+        <div class="row">
+            <div class="sixteen wide center aligned column">
+                <p><b>Answer options you've provided:</b></p>
+            </div>
+            <div class="ui hidden divider"></div>
+            <div class="three wide column">
+                <ol class="ui list">
+                    <li class="choiceQuestionChoiceOnAddQuestionChoice" th:each="choice : ${question.getChoices()}"
+                        th:text="${choice}"></li>
+                </ol>
+            </div>
+        </div>
+        <div class="ui hidden divider"></div>
+        <div class="row">
+            <form class="ui form" th:action="@{/survey/__${survey.getId()}__}" method="get" id="viewSurveyForm">
+                <button class="ui animated fade button" type="submit" form="viewSurveyForm" value="Submit">
+                    <div class="visible content">I'm Done!</div>
+                    <div class="hidden content">
+                        <i class="check icon"></i>
+                    </div>
+                </button>
+            </form>
+        </div>
+    </div>
+</main>
 </body>
 </html>

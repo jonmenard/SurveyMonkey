@@ -1,23 +1,32 @@
 <!DOCTYPE HTML>
 <!-- Template name is logonPage -->
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
-<head th:include="fragments/header :: header">
-    <title>SurveyMonkey</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<head>
+    <th:block th:include="fragments/general :: headerfiles"></th:block>
 </head>
 <body>
+<header>
+    <th:block th:include="fragments/general :: header"></th:block>
+</header>
 <main>
     <div class="ui centered grid container">
         <div class="row">
-            <form action="/user" method="post" id="userLogonForm">
-                <div class="ui left icon input">
-                    <input type="text" id="name" name="name" placeholder="Username">
-                    <i class="user icon"></i>
+            <form class="ui form" action="/user" method="post" id="userLogonForm">
+                <div class="required field">
+                    <div class="ui left icon input">
+                        <input type="text" id="name" name="name" placeholder="Username">
+                        <i class="user icon"></i>
+                    </div>
                 </div>
+                <br>
+                <button class="ui fluid animated fade green button" tabindex="0" type="submit" form="userLogonForm"
+                        value="Submit">
+                    <div class="visible content">Log In</div>
+                    <div class="hidden content">
+                        <i class="sign-in icon"></i>
+                    </div>
+                </button>
             </form>
-        </div>
-        <div class="row">
-            <button class="ui green button" type="submit" form="userLogonForm" value="Submit">Log In</button>
         </div>
     </div>
 </main>

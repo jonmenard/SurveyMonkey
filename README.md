@@ -1,4 +1,4 @@
-# SurveyMonkey v0.2 (Milestone 2)
+# SurveyMonkey v1.0 (Milestone 3)
 ## SYSC 4806, Winter 2021 – Software Engineering Lab
 ### By: Rohil Dubey, Jacob Laboissonniere, Jon Menard, Paul Roode
 
@@ -6,7 +6,7 @@
 
 ***About***
 
-Someone needs to write something here. (Perhaps mention how we've implemented all required layers, etc.)
+With SurveyMonkey, a surveyor can create a survey comprising a variety of questions. The questions can be answered with either open-ended text, a number in a range, or a selection from different options. When a respondent fills out a survey, the questions are presented in a form. A survey can be closed by its creator at any time, and then results are generated.
 
 ---
 
@@ -27,14 +27,22 @@ https://www.travis-ci.com/github/jonmenard007/SYSC4806-Project/builds
 <table>
     <thead>
         <tr>
-            <th align="left"> Milestone </th>
             <th align="left"> Sprint </th>
+            <th align="left"> Weekly scrum </th>
         </tr>
     </thead>
     <tbody>
         <tr>
+            <td rowspan="3"> 3 </td>
+            <td> Apr 3–9 </td>
+        </tr>
+        <tr></tr>
+        <tr>
+            <td> <a href="https://github.com/jonmenard007/SYSC4806-Project/issues/92"> Mar 27 – Apr 2 </a> </td>
+        </tr>
+        <tr>
             <td rowspan="3"> 2 </td>
-            <td> Mar 20–26 </td>
+            <td> <a href="https://github.com/jonmenard007/SYSC4806-Project/issues/80"> Mar 20–26 </td>
         </tr>
         <tr></tr>
         <tr>
@@ -55,10 +63,16 @@ https://www.travis-ci.com/github/jonmenard007/SYSC4806-Project/builds
 
 ***Database schema***
 
-
+![OR Diagram](https://github.com/jonmenard007/SYSC4806-Project/blob/main/OR_Diagram.png?raw=true)
 
 ---
 
-***Draft UML class diagram***
+***Current UML class diagram (Milestone 2)***
+
+![draft UML](https://github.com/jonmenard007/SYSC4806-Project/blob/main/milestone2.png?raw=true)
+
+---
+
+***Milestone 1 UML class diagram***
 
 ![draft UML](https://github.com/jonmenard007/SYSC4806-Project/blob/Rohil/milestone1.png?raw=true)

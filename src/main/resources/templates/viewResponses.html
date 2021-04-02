@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <th:block th:include="fragments/general :: headerfiles"></th:block>
+</head>
+<body>
+<header>
+    <th:block th:include="fragments/general :: header"></th:block>
+</header>
+<main>
+    <div class='ui centered grid container'>
+        <div class="row">
+            <h2 th:text="'Survey ' + ${survey.getId()} + ' Results'"></h2>
+        </div>
+        <div class="row">
+            <table id="viewResponsesTable" class="ui selectable very padded striped collapsing table">
+                <thead>
+                <tr>
+                    <th>Questions</th>
+                    <th>Responses</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="question : ${questions}">
+                    <td th:text="${question.getQuestion()}"></td>
+                    <td>
+                        <ul class="ui list">
+                            <li th:each="answer : ${question.getAnswers()}" th:text="${answer}"></li>
+                        </ul>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="row">
+            <form class="ui form" th:action="@{/survey/__${survey.getId()}__/}" method="get" id="backForm">
+                <button class="ui labeled icon green button" type="submit" form="backForm" value="Submit">
+                    <i class="left arrow icon"></i>
+                    Back to Survey
+                </button>
+            </form>
+        </div>
+    </div>
+</main>
+</body>
+</html>

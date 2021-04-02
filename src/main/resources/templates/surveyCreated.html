@@ -1,25 +1,46 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
-    <title>SurveyMonkey</title>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <th:block th:include="fragments/general :: headerfiles"></th:block>
 </head>
 <body>
-<h1>Create a Question</h1>
-
-
-<form action="#" th:action="@{/survey/__${survey.getId()}__/createQuestion}" method="post" id="questionForm">
-    <label for="questionType">What type of answer should the question have:</label>
-    <select  type="select" id="questionType" name="questionType">
-        <option value="textquestion">Text</option>
-        <option value="numberquestion">Number Range</option>
-        <option value="choicequestion"> Several Options </option>
-    </select><br>
-
-    <label for="question">Question:</label><br>
-    <input type="text" id="question" name="question">
-
-    <button type="submit" form="questionForm" value="Submit">Add Question!</button>
-</form>
+<header>
+    <th:block th:include="fragments/general :: header"></th:block>
+</header>
+<main>
+    <div class="ui centered grid container">
+        <div class="row">
+            <h2>Add the First Question</h2>
+        </div>
+        <div class="row">
+            <form class="ui form addQuestionToSurvey" action="#"
+                  th:action="@{/survey/__${survey.getId()}__/createQuestion}" method="post"
+                  id="questionForm">
+                <div class="required field">
+                    <label for="questionType">Answer Type</label>
+                    <select class="ui fluid dropdown" id="questionType" name="questionType">
+                        <option value="">Answer Type</option>
+                        <option value="textquestion">Textual</option>
+                        <option value="numberquestion">Number in a range</option>
+                        <option value="choicequestion">Options</option>
+                    </select>
+                </div>
+                <div class="required field">
+                    <label for="question">Question</label>
+                    <div class="ui icon input">
+                        <input type="text" id="question" name="question" placeholder="Question">
+                        <i class="question icon"></i>
+                    </div>
+                </div>
+                <br>
+                <button id="addFirstQuestionButton" class="ui fluid labeled icon green button" type="submit"
+                        form="questionForm" value="Submit">
+                    <i class="plus icon"></i>
+                    Add Question
+                </button>
+            </form>
+        </div>
+    </div>
+</main>
 </body>
 </html>
