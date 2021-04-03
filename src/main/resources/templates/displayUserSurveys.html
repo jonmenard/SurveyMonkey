@@ -8,20 +8,20 @@
     <th:block th:include="fragments/general :: header"></th:block>
 </header>
 <main>
-    <div class="ui centered grid container">
+    <div class='ui centered grid container'>
         <div class="row">
-            <h2 th:text="'Surveys for User : ' + ${user.getName()}"></h2>
+            <h2 class="ui header">My Surveys</h2>
         </div>
         <div class="row">
-            <table id="userSurveyTable" class="ui selectable striped very padded collapsing table">
+            <table class="ui padded basic collapsing table">
                 <thead>
-                <tr>
+                <tr class="center aligned">
                     <th>Survey ID</th>
                     <th>No. of Questions</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="survey : ${surveys}">
+                <tr class="center aligned" th:each="survey : ${surveys}">
                     <td th:text="${survey.getId()}"/>
                     <td th:text="${survey.getQuestions().size()}"/>
                 </tr>
@@ -29,9 +29,6 @@
             </table>
         </div>
     </div>
-    <a href="/">
-        Return to Home
-    </a>
 </main>
 </body>
 </html>

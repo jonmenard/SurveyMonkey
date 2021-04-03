@@ -8,31 +8,31 @@
     <th:block th:include="fragments/general :: header"></th:block>
 </header>
 <main>
-    <div class="ui centered grid container">
+    <div class='ui centered grid container'>
         <div class="row">
-            <table id="userSurveyTable" class="ui selectable striped very padded collapsing table">
+            <h2 class="ui header">Open Surveys</h2>
+        </div>
+        <div class="row">
+            <table class="ui padded basic collapsing table">
                 <thead>
-                <tr>
+                <tr class="center aligned">
                     <th>Survey ID</th>
                     <th>No. of Questions</th>
-                    <th>Link to Survey</th>
+                    <th></th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr th:each="survey : ${surveys}">
+                <tr class="center aligned" th:each="survey : ${surveys}">
                     <td th:text="${survey.getId()}"/>
                     <td th:text="${survey.getQuestions().size()}"/>
-                    <td><a th:href="${'/survey/'+ survey.getId()}">
-                        Fill out this survey
-                    </a></td>
+                    <td>
+                        <a th:href="${'/survey/'+ survey.getId()}">Fill Out This Survey</a>
+                    </td>
                 </tr>
                 </tbody>
             </table>
         </div>
     </div>
-    <a href="/">
-        Return to Home
-    </a>
 </main>
 </body>
 </html>
