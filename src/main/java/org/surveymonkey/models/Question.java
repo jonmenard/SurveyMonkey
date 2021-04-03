@@ -59,10 +59,18 @@ public abstract class Question {
         setQuestion(question);
     }
 
+    /**
+     * Get the ID of this Question.
+     * @return The ID of this Question.
+     */
     public long getId() {
         return id;
     }
 
+    /**
+     * Set the ID of this Question.
+     * @param id The ID to be set to this Question.
+     */
     public void setId(long id) {
         this.id = id;
     }
@@ -91,18 +99,34 @@ public abstract class Question {
         }
     }
 
+    /**
+     * Get the answers for this Question.
+     * @return The String List of answers for this Question.
+     */
     public List<String> getAnswers() {
         return answers;
     }
 
+    /**
+     * Set the answers for this Question.
+     * @param answers The String List of answers to be set for this Question.
+     */
     public void setAnswers(List<String> answers) {
         this.answers = answers;
     }
 
+    /**
+     * Get the type of Question.
+     * @return The QuestionType of this Question.
+     */
     public QuestionType getType() {
         return type;
     }
 
+    /**
+     * Get the type of Question.
+     * @return The QuestionType of this Question as a String.
+     */
     public String getTypeStr() {
         String str = type.name();
         return str.substring(0, 1).toUpperCase() + str.substring(1).toLowerCase();

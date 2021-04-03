@@ -54,10 +54,18 @@ public class Survey {
         this.id = id;
     }
 
+    /**
+     * Get the List of Questions for this Survey.
+     * @return The List of Questions for this Survey.
+     */
     public List<Question> getQuestions() {
         return questions;
     }
 
+    /**
+     * Set the List of Questions for this Survey.
+     * @param questions The List of Questions to replace this Surveys current List.
+     */
     public void setQuestions(List<Question> questions) {
         this.questions = questions;
     }
