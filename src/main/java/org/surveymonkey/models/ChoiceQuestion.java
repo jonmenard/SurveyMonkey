@@ -64,6 +64,10 @@ public class ChoiceQuestion extends Question {
         }
     }
 
+    /**
+     * Get the choices of this ChoiceQuestion.
+     * @return The choices of this ChoiceQuestion in a String List.
+     */
     public List<String> getChoices() {
         return choices;
     }

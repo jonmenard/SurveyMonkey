@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
 import org.surveymonkey.models.*;
+import org.surveymonkey.services.iservices.IEndUserService;
 import org.surveymonkey.services.iservices.IQuestionService;
 import org.surveymonkey.services.iservices.ISurveyService;
 
@@ -27,6 +28,9 @@ public class SurveyController {
 
     @Autowired
     private IQuestionService questionService;
+
+    @Autowired
+    private IEndUserService endUserService;
 
     @RequestMapping("/")
     public String home() {
@@ -129,10 +133,13 @@ public class SurveyController {
         return survey;
     }
 
-    @PostMapping(value = "/survey")
-    public String postSurvey(Model model) {
+    @PostMapping(value = "/{userID}/survey")
+    public String postSurvey(Model model, @PathVariable long userID) {
         Survey survey = new Survey();
+        EndUser user = endUserService.findById(userID);
         surveyService.save(survey);
+        user.addSurvey(survey);
+        endUserService.save(user);
         model.addAttribute("survey", survey);
         return "surveyCreated";
     }

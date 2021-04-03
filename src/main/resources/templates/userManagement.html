@@ -19,7 +19,7 @@
         </div>
         <div class="row">
             <div class="ui buttons">
-                <form action="/survey" method="post" id="answerSurveyForm">
+                <form action="#" th:action="@{/__${user.getId()}__/survey}" method="post" id="answerSurveyForm">
                     <button id="createSurveyFromUserManagementButton" class="ui button" type="submit"
                             form="answerSurveyForm" value="Submit">
                         Create Survey

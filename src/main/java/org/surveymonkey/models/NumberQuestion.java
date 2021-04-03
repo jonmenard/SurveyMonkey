@@ -64,18 +64,34 @@ public class NumberQuestion extends Question {
         }
     }
 
+    /**
+     * Get the lower bound of this NumberQuestion.
+     * @return The lower bound of this NumberQuestion.
+     */
     public int getLowerBound() {
         return lowerBound;
     }
 
+    /**
+     * Set the lower bound of this NumberQuestion.
+     * @param lowerBound The lower bound to be set for this NumberQuestion.
+     */
     public void setLowerBound(int lowerBound) {
         this.lowerBound = lowerBound;
     }
 
+    /**
+     * Get the upper bound of this NumberQuestion.
+     * @return The upper bound of this NumberQuestion.
+     */
     public int getUpperBound() {
         return upperBound;
     }
 
+    /**
+     * Set the upper bound of this NumberQuestion.
+     * @param upperBound The upper bound to be set for this NumberQuestion.
+     */
     public void setUpperBound(int upperBound) {
         this.upperBound = upperBound;
     }
