@@ -29,6 +29,12 @@ public class ITControllers {
     }
 
     @Test
+    public void testErrorsController() {
+        ResponseEntity<String> response = template.getForEntity(base.toString() + "/errorscontroller/test", String.class);
+        Assert.isTrue(Objects.equals(response.getBody(), "ErrorsController is working"), "ErrorsController is not working");
+    }
+
+    @Test
     public void testEndUserController() {
         ResponseEntity<String> response = template.getForEntity(base.toString() + "/endusercontroller/test", String.class);
         Assert.isTrue(Objects.equals(response.getBody(), "EndUserController is working"), "EndUserController is not working");

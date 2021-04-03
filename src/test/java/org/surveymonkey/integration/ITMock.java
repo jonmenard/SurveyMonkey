@@ -22,6 +22,15 @@ public class ITMock {
     private MockMvc mockMvc;
 
     @Test
+    public void testErrorTemplate() throws Exception {
+        mockMvc.perform(get("/error"))
+                .andExpect(status().isOk())
+                .andExpect(content().string(containsString("Template name is error")))
+                .andExpect(content().string(containsString(HEADERFILES_FRAGMENT)))
+                .andExpect(content().string(containsString(HEADER_FRAGMENT)));
+    }
+
+    @Test
     public void testIndexTemplate() throws Exception {
         mockMvc.perform(get("/"))
                 .andExpect(status().isOk())
