@@ -4,6 +4,7 @@ import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -35,12 +36,18 @@ public class ErrorsController implements ErrorController {
 
     }
 
+    @RequestMapping("/error/{customErrorMessage}")
+    public String handleCustomError(@PathVariable String customErrorMessage, Model model) {
+        model.addAttribute("errorInfo", "Error: " + customErrorMessage + ".");
+        return "error";
+    }
+
     @Override
     public String getErrorPath() {
         return null;
     }
 
-    @GetMapping(value = "/errorscontroller/test")
+    @GetMapping("/errorscontroller/test")
     @ResponseBody
     public String testThisController() {
         return "ErrorsController is working";

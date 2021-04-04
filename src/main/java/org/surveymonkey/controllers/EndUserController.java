@@ -12,7 +12,6 @@ import org.surveymonkey.services.iservices.IEndUserService;
 @Controller
 public class EndUserController {
 
-
     private static final Logger LOG = LoggerFactory.getLogger(EndUserController.class);
 
     @Autowired
@@ -20,6 +19,11 @@ public class EndUserController {
 
     @PostMapping(value = "/index/user/success")
     public String createUserConfirmed(@RequestParam String name) {
+        if (endUserService.findByName(name) != null) {
+            String errorInfo = "User \"" + name + "\" already exists";
+            LOG.error(errorInfo);
+            return "redirect:/error/" + errorInfo;
+        }
         EndUser endUser = new EndUser();
         endUser.setName(name);
         endUserService.save(endUser);
@@ -30,14 +34,14 @@ public class EndUserController {
     @PostMapping(value = "/user")
     public String logonConfirmed(@RequestParam String name, Model model) {
         // Add user to model, potentially check if user exists first and send error page if no user?
-
         if (endUserService.findByName(name) != null) {
             model.addAttribute("user", endUserService.findByName(name));
             LOG.info("Logged on a user with the name: " + name);
             return "userManagement"; // Add view for user management (create, close survey)
         }
-        LOG.error("An error occured when trying to logon a user with the name " + name + ". The user does not exist");
-        return "error"; // error page for now
+        String errorInfo = "User \"" + name + "\" does not exist";
+        LOG.error(errorInfo);
+        return "redirect:/error/" + errorInfo;
     }
 
     @GetMapping(value = "/index/create")
@@ -48,8 +52,8 @@ public class EndUserController {
 
     @GetMapping(value = "/index/logon")
     public String logonUser() {
-        LOG.trace("Request to login user, returning logonPage template");
-        return "logonPage";
+        LOG.trace("Request to login user, returning index template");
+        return "index";
     }
 
     @GetMapping(value = "/endusercontroller/test")
@@ -60,7 +64,7 @@ public class EndUserController {
     }
 
     @PostMapping(value = "/user/{userId}/displayAll")
-    public String displayAllSurveys(Model model, @PathVariable long userId){
+    public String displayAllSurveys(Model model, @PathVariable long userId) {
         EndUser user = endUserService.findById(userId);
         if (user == null) {
             LOG.error("An error occured when trying to get surveys for a user that does not exist");
@@ -68,11 +72,11 @@ public class EndUserController {
             return "redirect:/";
         }
 
-
         // Find user by userid and then return a list display of all surveys
         model.addAttribute("user", user);
         model.addAttribute("surveys", user.getSurveys());
         LOG.trace("Request to view all surveys for user: " + user.getName() + "returning displayUserSurveys template");
         return "displayUserSurveys";
     }
+
 }
