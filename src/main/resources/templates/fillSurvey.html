@@ -8,13 +8,13 @@
     <th:block th:include="fragments/general :: header"></th:block>
 </header>
 <main>
-    <div class='ui centered grid container'>
+    <div class="ui centered grid container">
         <div class="row">
             <h2 class="ui header">Complete the Survey</h2>
         </div>
         <div class="row">
             <form class="ui form" th:action="@{/survey/__${survey.getId()}__/fill}" method="post" id="fillSurveyForm">
-                <table id="fillSurveyTable" class="ui very padded striped collapsing table">
+                <table id="fillSurveyTable" class="ui padded striped collapsing table">
                     <thead>
                     <tr>
                         <th>Questions</th>
@@ -59,7 +59,7 @@
                     </tbody>
                 </table>
                 <div class="ui hidden divider"></div>
-                <button type="submit" class="ui animated fade green button" value="Submit">
+                <button type="submit" class="ui animated fade green button" tabindex="0" value="Submit">
                     <div class="visible content">I'm Done!</div>
                     <div class="hidden content">
                         <i class="check icon"></i>

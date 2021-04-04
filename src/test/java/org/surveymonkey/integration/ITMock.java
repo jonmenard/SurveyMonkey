@@ -48,13 +48,4 @@ public class ITMock {
                 .andExpect(content().string(containsString(HEADER_FRAGMENT)));
     }
 
-    @Test
-    public void testLogonPageTemplate() throws Exception {
-        mockMvc.perform(get("/index/logon"))
-                .andExpect(status().isOk())
-                .andExpect(content().string(containsString("Template name is logonPage")))
-                .andExpect(content().string(containsString(HEADERFILES_FRAGMENT)))
-                .andExpect(content().string(containsString(HEADER_FRAGMENT)));
-    }
-
 }

@@ -14,7 +14,6 @@ import org.surveymonkey.services.iservices.IEndUserService;
 @Controller
 public class EndUserController {
 
-
     private static final Logger LOG = LoggerFactory.getLogger(EndUserController.class);
 
     @Autowired
@@ -28,6 +27,11 @@ public class EndUserController {
 
     @PostMapping(value = "/index/user/success")
     public String createUserConfirmed(@RequestParam String name) {
+        if (endUserService.findByName(name) != null) {
+            String errorInfo = "User \"" + name + "\" already exists";
+            LOG.error(errorInfo);
+            return "redirect:/error/" + errorInfo;
+        }
         EndUser endUser = new EndUser();
         endUser.setName(name);
         endUserService.save(endUser);
@@ -40,12 +44,12 @@ public class EndUserController {
     @PostMapping(value = "/user")
     public String logonConfirmed(@RequestParam String name, Model model) {
         // Add user to model, potentially check if user exists first and send error page if no user?
-
         if (endUserService.findByName(name) != null) {
             model.addAttribute("user", endUserService.findByName(name));
             return "userManagement"; // Add view for user management (create, close survey)
         }
-        return "error"; // error page for now
+        String errorInfo = "User \"" + name + "\" does not exist";
+        return "redirect:/error/" + errorInfo;
     }
 
     @GetMapping(value = "/index/create")
@@ -55,7 +59,7 @@ public class EndUserController {
 
     @GetMapping(value = "/index/logon")
     public String logonUser() {
-        return "logonPage";
+        return "index";
     }
 
     @GetMapping(value = "/endusercontroller/test")
@@ -65,7 +69,7 @@ public class EndUserController {
     }
 
     @PostMapping(value = "/user/{userId}/displayAll")
-    public String displayAllSurveys(Model model, @PathVariable long userId){
+    public String displayAllSurveys(Model model, @PathVariable long userId) {
         EndUser user = endUserService.findById(userId);
         if (user == null) {
             return "error";
@@ -76,4 +80,5 @@ public class EndUserController {
         model.addAttribute("surveys", user.getSurveys());
         return "displayUserSurveys";
     }
+
 }
