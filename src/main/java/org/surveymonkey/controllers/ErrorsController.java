@@ -1,5 +1,6 @@
 package org.surveymonkey.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,12 +8,21 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.surveymonkey.kafka.Producer;
+import org.surveymonkey.kafka.Message;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
 public class ErrorsController implements ErrorController {
+
+
+    @Autowired
+    private Producer producer;
+
+
+    private final String TOPIC = "Error";
 
     @RequestMapping("/error")
     public String handleError(HttpServletRequest request, Model model) {
@@ -32,6 +42,7 @@ public class ErrorsController implements ErrorController {
         String errorInfo = "Error" + errorStatusCodeStr + ": " + errorMessageStr + ".";
         model.addAttribute("errorInfo", errorInfo);
 
+        producer.send(TOPIC,new Message(0, errorInfo));
         return "error";
 
     }
