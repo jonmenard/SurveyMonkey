@@ -9,6 +9,8 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.View;
+import org.surveymonkey.kafka.Producer;
+import org.surveymonkey.kafka.Message;
 import org.surveymonkey.models.*;
 import org.surveymonkey.services.iservices.IEndUserService;
 import org.surveymonkey.services.iservices.IQuestionService;
@@ -31,6 +33,12 @@ public class SurveyController {
 
     @Autowired
     private IEndUserService endUserService;
+
+    @Autowired
+    private Producer producer;
+
+
+    private final String TOPIC = "Survey";
 
     @RequestMapping("/")
     public String home() {
@@ -116,6 +124,9 @@ public class SurveyController {
             Question q = questionService.findById(Integer.parseInt(formKey));
             q.setAnswer(formValue);
             questionService.save(q);
+
+            String message = "Adding answer to survey: " + surveyID + " for question: " + q.getId();
+            producer.send(TOPIC,new Message(0, message));
         }
         return "redirect:/survey/" + surveyID;
     }
@@ -130,6 +141,10 @@ public class SurveyController {
     public Survey postSurvey() {
         Survey survey = new Survey();
         surveyService.save(survey);
+
+        String message = "Creating a new survey";
+        producer.send(TOPIC,new Message(0, message));
+
         return survey;
     }
 
@@ -141,6 +156,11 @@ public class SurveyController {
         user.addSurvey(survey);
         endUserService.save(user);
         model.addAttribute("survey", survey);
+
+
+        String message = "Creating a new survey for user: " + userID;
+        producer.send(TOPIC,new Message(0, message));
+
         return "surveyCreated";
     }
 
@@ -181,6 +201,10 @@ public class SurveyController {
         Survey survey = surveyService.findById(surveyID);
         survey.markAsClosed();
         surveyService.save(survey);
+
+        String message = "Closing survey: " + surveyID;
+        producer.send(TOPIC,new Message(0, message));
+
         return "redirect:/survey/" + surveyID;
     }
 

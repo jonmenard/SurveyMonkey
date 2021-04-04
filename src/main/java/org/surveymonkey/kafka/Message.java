@@ -3,15 +3,15 @@ package org.surveymonkey.kafka;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class SampleMessage {
+public class Message {
 
     private final Integer id;
 
     private final String message;
 
     @JsonCreator
-    public SampleMessage(@JsonProperty("id") Integer id,
-                         @JsonProperty("message") String message) {
+    public Message(@JsonProperty("id") Integer id,
+                   @JsonProperty("message") String message) {
         this.id = id;
         this.message = message;
     }

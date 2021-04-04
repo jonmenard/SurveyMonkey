@@ -97,4 +97,9 @@ public class EndUser {
         surveys.add(survey);
     }
 
+    @Override
+    public String toString() {
+        return "{\"id\":" + id + ",\"surveys\":" + getSurveys() + ",\"name\":" + name + "}";
+    }
+
 }

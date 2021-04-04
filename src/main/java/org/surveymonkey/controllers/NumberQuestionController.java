@@ -5,6 +5,8 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.surveymonkey.kafka.Producer;
+import org.surveymonkey.kafka.Message;
 import org.surveymonkey.models.NumberQuestion;
 import org.surveymonkey.models.Question;
 import org.surveymonkey.models.Survey;
@@ -21,6 +23,12 @@ public class NumberQuestionController {
 
     @Autowired
     private ISurveyService surveyService;
+
+    @Autowired
+    private Producer producer;
+
+
+    private final String TOPIC = "Question";
 
     @GetMapping(value = "/survey/{surveyID}/numberquestion/{questionID}/bounds")
     public String getChangeBoundsTemplate(@PathVariable long surveyID, @PathVariable int questionID, Model model) {
@@ -46,6 +54,9 @@ public class NumberQuestionController {
         }
         surveyService.save(survey);
 
+        String message = "Changing the bounds to : " + lowerBound + "-" + upperBound + " for question: " + questionID + " in survey: " + surveyID;
+        producer.send(TOPIC,new Message(0, message));
+
         return "redirect:/survey/" + surveyID;
     }
 
@@ -57,6 +68,9 @@ public class NumberQuestionController {
         surveyService.save(survey);
         List<Question> questions = survey.getQuestions();
         numberQuestion = (NumberQuestion) questions.get(questions.size() - 1);
+
+        String message = "Adding question: '" + question + "' to survey: " + surveyID;
+        producer.send(TOPIC,new Message(0, message));
         return "redirect:/survey/" + surveyID + "/numberquestion/" + numberQuestion.getId() + "/bounds";
     }
 
@@ -67,6 +81,10 @@ public class NumberQuestionController {
         Question numberQuestion = questionService.findById(numberQuestionID);
         survey.removeQuestion(numberQuestion);
         surveyService.save(survey);
+
+        String message = "Deleting question: " + numberQuestionID + "from survey: " + surveyID;
+        producer.send(TOPIC,new Message(0, message));
+
         return survey;
     }
 

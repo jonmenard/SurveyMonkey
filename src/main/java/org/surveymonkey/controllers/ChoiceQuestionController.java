@@ -5,6 +5,8 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.surveymonkey.kafka.Producer;
+import org.surveymonkey.kafka.Message;
 import org.surveymonkey.models.ChoiceQuestion;
 import org.surveymonkey.models.Question;
 import org.surveymonkey.models.Survey;
@@ -22,6 +24,12 @@ public class ChoiceQuestionController {
     @Autowired
     private ISurveyService surveyService;
 
+    @Autowired
+    private Producer producer;
+
+
+    private final String TOPIC = "Question";
+
     @GetMapping(value = "/survey/{surveyID}/choicequestion/{questionID}/choices")
     public String getChangeBoundsTemplate(@PathVariable long surveyID, @PathVariable int questionID, Model model) {
         Survey survey = surveyService.findById(surveyID);
@@ -37,6 +45,10 @@ public class ChoiceQuestionController {
         ChoiceQuestion question = (ChoiceQuestion) survey.findQuestion(questionID);
         question.addChoice(choice);
         surveyService.save(survey);
+
+        String message = "Adding choice: '" + choice + "' to question: " + questionID + "in survey: " + surveyID;
+        producer.send(TOPIC,new Message(0, message));
+
         return "redirect:/survey/" + surveyID + "/choicequestion/" + questionID + "/choices";
     }
 
@@ -46,8 +58,13 @@ public class ChoiceQuestionController {
         ChoiceQuestion choiceQuestion = new ChoiceQuestion(question);
         survey.addQuestion(choiceQuestion);
         surveyService.save(survey);
+
         List<Question> questions = survey.getQuestions();
         choiceQuestion = (ChoiceQuestion) questions.get(questions.size() - 1);
+
+        String message = "Adding  question: '" + question + "' to survey: " + surveyID;
+        producer.send(TOPIC,new Message(0, message));
+
         return "redirect:/survey/" + surveyID + "/choicequestion/" + choiceQuestion.getId() + "/choices";
     }
 
@@ -58,6 +75,9 @@ public class ChoiceQuestionController {
         Question choiceQuestion = questionService.findById(choiceQuestionID);
         survey.removeQuestion(choiceQuestion);
         surveyService.save(survey);
+
+        String message = "Deleting question: " + choiceQuestionID + "from survey: " + surveyID;
+        producer.send(TOPIC,new Message(0, message));
         return survey;
     }
 
