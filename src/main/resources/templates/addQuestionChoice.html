@@ -47,7 +47,7 @@
         <div class="ui hidden divider"></div>
         <div class="row">
             <form class="ui form" th:action="@{/survey/__${survey.getId()}__}" method="get" id="viewSurveyForm">
-                <button class="ui animated fade button" type="submit" form="viewSurveyForm" value="Submit">
+                <button class="ui animated fade button" tabindex="0" type="submit" form="viewSurveyForm" value="Submit">
                     <div class="visible content">I'm Done!</div>
                     <div class="hidden content">
                         <i class="check icon"></i>
