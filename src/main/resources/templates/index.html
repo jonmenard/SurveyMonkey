@@ -11,35 +11,47 @@
 <main>
     <div class="ui centered grid container">
         <div class="row">
-            <form class="ui form" action="/survey" method="post" id="surveyForm">
-                <button id="createSurveyFromIndexButton" class="ui fluid labeled icon green button" type="submit"
-                        form="surveyForm" value="Submit">
-                    <i class="plus icon"></i>
-                    Create Survey
-                </button>
-            </form>
-        </div>
-        <div class="row">
-            <div class="ui jiggle buttons">
-                <form class="ui form" action="/index/logon" method="get" id="userLogonForm">
-                    <button class="ui vertical animated button" type="submit" form="userLogonForm"
-                            value="Submit">
-                        <div class="visible content">Log In</div>
-                        <div class="hidden content">
-                            <i class="sign-in icon"></i>
+            <div class="thirteen wide column">
+                <div class="ui placeholder padded segment">
+                    <div class="ui two column very relaxed stackable grid">
+                        <div class="column">
+                            <form class="ui form" action="/user" method="post" id="userLogonForm">
+                                <div class="field">
+                                    <label>Username</label>
+                                    <div class="ui left icon input">
+                                        <input type="text" id="name" name="name" placeholder="Username">
+                                        <i class="user icon"></i>
+                                    </div>
+                                </div>
+                                <div class="field">
+                                    <label>Password</label>
+                                    <div class="ui left icon input">
+                                        <input type="password">
+                                        <i class="lock icon"></i>
+                                    </div>
+                                </div>
+                                <button class="ui fluid green animated fade button" tabindex="0" type="submit"
+                                        form="userLogonForm" value="Submit">
+                                    <div class="visible content">Log In</div>
+                                    <div class="hidden content">
+                                        <i class="sign-in icon"></i>
+                                    </div>
+                                </button>
+                            </form>
                         </div>
-                    </button>
-                </form>
-                <div class="or"></div>
-                <form class="ui form" action="/index/create" method="get" id="userCreateForm">
-                    <button class="ui animated button" type="submit" form="userCreateForm"
-                            value="Submit">
-                        <div class="visible content">Sign Up</div>
-                        <div class="hidden content">
-                            <i class="user plus icon"></i>
+                        <div class="middle aligned column">
+                            <form class="ui form" action="/index/create" method="get" id="userCreateForm">
+                                <button class="ui fluid big button" type="submit" form="userCreateForm" value="Submit">
+                                    <i class="signup icon"></i>
+                                    Sign Up
+                                </button>
+                            </form>
                         </div>
-                    </button>
-                </form>
+                    </div>
+                    <div class="ui vertical divider">
+                        Or
+                    </div>
+                </div>
             </div>
         </div>
     </div>
