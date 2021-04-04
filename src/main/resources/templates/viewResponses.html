@@ -8,12 +8,12 @@
     <th:block th:include="fragments/general :: header"></th:block>
 </header>
 <main>
-    <div class='ui centered grid container'>
+    <div class="ui centered grid container">
         <div class="row">
             <h2 class="ui header" th:text="'Survey ' + ${survey.getId()} + ' Results'"></h2>
         </div>
         <div class="row">
-            <table id="viewResponsesTable" class="ui selectable very padded striped collapsing table">
+            <table id="viewResponsesTable" class="ui selectable padded striped collapsing table">
                 <thead>
                 <tr>
                     <th>Questions</th>
