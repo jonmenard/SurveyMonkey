@@ -2,22 +2,38 @@
 <html xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <th:block th:include="fragments/general :: headerfiles"></th:block>
+    <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
 </head>
 <body>
 <header>
     <th:block th:include="fragments/general :: header"></th:block>
 </header>
+<style>
+    .histogram  {
+        all: unset;
+        width: 700px;
+    }
+    .pie  {
+        all: unset;
+        width: 700px;
+    }
+</style>
+
 <main>
+
     <div class="ui centered grid container">
+
         <div class="row">
             <h2 class="ui header" th:text="'Survey ' + ${survey.getId()} + ' Results'"></h2>
         </div>
+
         <div class="row">
             <table id="viewResponsesTable" class="ui selectable padded striped collapsing table">
                 <thead>
                 <tr>
                     <th>Questions</th>
                     <th>Responses</th>
+                    <th>Statistics</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -28,10 +44,66 @@
                             <li th:each="answer : ${question.getAnswers()}" th:text="${answer}"></li>
                         </ul>
                     </td>
+                    <td>
+                    <div th:switch="${question.getType().toString()}">
+                        <div th:case="'NUMBER'" th:with="dataSet=${questionHistogramData.get(__${question.getId()}__)}">
+                            <div class = "histogram" th:id=" 'histogram' + ${question.getId()}"><!-- Plotly chart will be drawn inside this DIV --></div>
+                            <script >
+                                var x = [[${dataSet}]];
+                                var questionId = [[${question.getId()}]];
+                                var trace = {
+                                    x: x,
+                                    type: 'histogram',
+                                };
+                                var data = [trace];
+                                Plotly.newPlot('histogram' + questionId, data);
+                            </script>
+                        </div>
+                        <div th:case="CHOICE" th:with="dataSet=${questionHistogramData.get(__${question.getId()}__)}">
+                            <div class = "pie" th:id=" 'pie' + ${question.getId()}"><!-- Plotly chart will be drawn inside this DIV --></div>
+
+                            <script>
+                                var choices = [];
+                                let i = 0;
+                            </script>
+
+                            <script th:each="choice : ${question.getChoices()}">
+                                i = choices.length;
+                                choices[i] = "[[${choice}]]";
+                            </script>
+
+
+                            <script >
+                                var x = [[${dataSet}]];
+
+                                console.log(choices);
+                                var questionId = [[${question.getId()}]];
+
+
+
+                                var data = [{
+                                    values: x,
+                                    labels: choices,
+                                    type: 'pie'
+                                }];
+                                var layout = {
+                                    height: 400,
+                                    width: 700
+                                };
+                                Plotly.newPlot('pie' + questionId, data,layout);
+                            </script>
+
+                        </div>
+                    </div>
+
+                    </td>
                 </tr>
                 </tbody>
             </table>
         </div>
+
+
+
         <div class="row">
             <form class="ui form" th:action="@{/survey/__${survey.getId()}__/}" method="get" id="backForm">
                 <button class="ui labeled icon green button" type="submit" form="backForm" value="Submit">

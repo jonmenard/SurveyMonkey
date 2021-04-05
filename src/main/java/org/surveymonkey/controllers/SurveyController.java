@@ -15,12 +15,12 @@ import org.surveymonkey.models.*;
 import org.surveymonkey.services.iservices.IEndUserService;
 import org.surveymonkey.services.iservices.IQuestionService;
 import org.surveymonkey.services.iservices.ISurveyService;
+import org.surveymonkey.statistics.Histogram;
 
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.lang.reflect.Array;
+import java.util.*;
 
 @Controller
 public class SurveyController {
@@ -187,6 +187,42 @@ public class SurveyController {
         Survey survey = surveyService.findById(surveyID);
         List<Question> questionList = survey.getQuestions();
         model.addAttribute("survey", survey);
+
+
+        HashMap<Integer, ArrayList<Integer>>  questionHistogramData = new HashMap<Integer, ArrayList<Integer>>();
+
+        for(int i = 0; i < questionList.size(); i++){
+            Question question = questionList.get(i);
+            if(question instanceof NumberQuestion) {
+                NumberQuestion numberQuestion = (NumberQuestion) question;
+                List<String> answers = numberQuestion.getAnswers();
+                ArrayList<Integer> dataSet = new ArrayList<Integer>();
+                for (int j = 0; j < answers.size(); j++) {
+                    if(!answers.get(j).equals("")) {
+                        dataSet.add(Integer.parseInt(answers.get(j)));
+                    }
+                }
+                questionHistogramData.put((int) question.getId(), dataSet);
+            }else if(question instanceof ChoiceQuestion){
+                ChoiceQuestion choiceQuestion = (ChoiceQuestion) question;
+                List<String> answers = choiceQuestion.getAnswers();
+                List<String> options = choiceQuestion.getChoices();
+                ArrayList<String> choices = new ArrayList<String>();
+                ArrayList<Integer> occurences = new ArrayList<Integer>();
+                for (int j = 0; j < options.size(); j++) {
+
+                    String option = (options.get(j));
+                    int occurrence = Collections.frequency(answers, option);
+                    occurences.add(occurrence);
+
+                }
+                questionHistogramData.put((int) question.getId(), occurences);
+            }
+
+        }
+
+
+        model.addAttribute("questionHistogramData", questionHistogramData);
         model.addAttribute("questions", questionList);
         return "viewResponses";
     }
