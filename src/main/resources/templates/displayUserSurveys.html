@@ -22,7 +22,9 @@
                 </thead>
                 <tbody>
                 <tr class="center aligned" th:each="survey : ${surveys}">
-                    <td th:text="${survey.getId()}"/>
+                    <td>
+                        <a th:href="@{|/survey/${survey.getId()}|}"  th:text="${survey.getId()}"></a>
+                    </td>
                     <td th:text="${survey.getQuestions().size()}"/>
                 </tr>
                 </tbody>
