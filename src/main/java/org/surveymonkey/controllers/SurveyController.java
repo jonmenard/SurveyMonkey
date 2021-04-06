@@ -51,10 +51,10 @@ public class SurveyController {
         return surveyService.findById(surveyID);
     }
 
-    @GetMapping(value = "/survey/{surveyID}")
-    public String getSurvey(@PathVariable long surveyID, Model model) {
+    @GetMapping(value = "/survey/{surveyID}/{userID}")
+    public String getSurvey(@PathVariable long surveyID, @PathVariable long userID, Model model) {
         model.addAttribute("survey", surveyService.findById(surveyID));
-
+        model.addAttribute("userID", userID);
         List<Question> questionList = surveyService.findById(surveyID).getQuestions();
         ArrayList<TextQuestion> textQuestionList = new ArrayList<>();
         ArrayList<NumberQuestion> numberQuestionList = new ArrayList<>();
@@ -78,14 +78,15 @@ public class SurveyController {
         return "doSurvey";
     }
 
-    @GetMapping(value = "/survey/{surveyID}/fill")
-    public String fillSurvey(@PathVariable long surveyID, Model model) {
+    @GetMapping(value = "/survey/{surveyID}/{userID}/fill")
+    public String fillSurvey(@PathVariable long surveyID, @PathVariable long userID, Model model) {
         Survey s = surveyService.findById(surveyID);
         if(s.isClosed()) {
             // Don't add response if Survey is closed
-            return "redirect:/survey/" + surveyID;
+            return "redirect:/survey/" + surveyID + "/" + userID;
         }
         model.addAttribute("survey", s);
+        model.addAttribute("userID", userID);
 
         List<Question> questionList = s.getQuestions();
         ArrayList<TextQuestion> textQuestionList = new ArrayList<>();
@@ -110,12 +111,12 @@ public class SurveyController {
         return "fillSurvey";
     }
 
-    @PostMapping(value = "/survey/{surveyID}/fill", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public String fillSurveyComplete(@RequestBody MultiValueMap<String, String> formData, @PathVariable long surveyID) {
+    @PostMapping(value = "/survey/{surveyID}/{userID}/fill", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    public String fillSurveyComplete(@RequestBody MultiValueMap<String, String> formData, @PathVariable long surveyID, @PathVariable long userID) {
         Survey s = surveyService.findById(surveyID);
         if(s.isClosed()) {
             // Don't add response if Survey is closed
-            return "redirect:/survey/" + surveyID;
+            return  "redirect:/survey/" + surveyID + "/" + userID;
         }
         for (Map.Entry formElement : formData.entrySet()) {
             String formKey = (String) formElement.getKey();
@@ -128,7 +129,7 @@ public class SurveyController {
             String message = "Adding answer to survey: " + surveyID + " for question: " + q.getId();
             sendMessage(message);
         }
-        return "redirect:/survey/" + surveyID;
+        return  "redirect:/survey/" + surveyID + "/" + userID;
     }
 
     @GetMapping("/survey")
@@ -150,7 +151,7 @@ public class SurveyController {
 
     @PostMapping(value = "/{userID}/survey")
     public String postSurvey(Model model, @PathVariable long userID) {
-        Survey survey = new Survey();
+        Survey survey = new Survey(userID);
         EndUser user = endUserService.findById(userID);
         surveyService.save(survey);
         user.addSurvey(survey);
@@ -208,7 +209,7 @@ public class SurveyController {
         String message = "Closing survey: " + surveyID;
         sendMessage(message);
 
-        return "redirect:/survey/" + surveyID;
+        return  "redirect:/survey/" + surveyID + "/" + survey.getEndUserId();
     }
 
     @GetMapping(value = "/SurveyControllerController/test")
@@ -217,8 +218,8 @@ public class SurveyController {
         return "SurveyController is working";
     }
 
-    @GetMapping(value="survey/answer")
-    public String selectSurveyToAnswer(Model model){
+    @GetMapping(value="survey/answer/{userID}")
+    public String selectSurveyToAnswer(@PathVariable long userID, Model model){
         List<Survey> surveys = new ArrayList<>();
         for (Survey survey : surveyService.findAll()) {
             if(!survey.isClosed()){
@@ -226,6 +227,7 @@ public class SurveyController {
             }
         }
         model.addAttribute("surveys", surveys);
+        model.addAttribute("user", userID);
         return "displayAllOpenSurveys";
     }
 
