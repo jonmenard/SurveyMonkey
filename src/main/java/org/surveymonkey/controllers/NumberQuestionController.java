@@ -57,7 +57,7 @@ public class NumberQuestionController {
         String message = "Changing the bounds to : " + lowerBound + "-" + upperBound + " for question: " + questionID + " in survey: " + surveyID;
         sendMessage(message);
 
-        return "redirect:/survey/" + surveyID;
+        return  "redirect:/survey/" + surveyID + "/" + survey.getEndUserId();
     }
 
     @PostMapping(value = "/survey/{surveyID}/numberquestion", produces = MediaType.APPLICATION_JSON_VALUE)

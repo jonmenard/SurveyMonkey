@@ -47,7 +47,8 @@ public class TextQuestionController {
         String message = "Adding question: '" + question + "' to survey: " + surveyID;
         sendMessage(message);
 
-        return "redirect:/survey/" + surveyID;
+        return "redirect:/survey/" + surveyID + "/" + survey.getEndUserId();
+
     }
 
     @DeleteMapping(value = "/survey/{surveyID}/textquestion", produces = MediaType.APPLICATION_JSON_VALUE)
