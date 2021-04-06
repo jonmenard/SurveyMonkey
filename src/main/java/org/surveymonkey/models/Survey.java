@@ -29,11 +29,26 @@ public class Survey {
     private boolean isClosed;
 
     /**
+     * EndUser ID of the EndUser that creates this survey.
+     */
+    private long endUserID;
+
+    /**
      * Default constructor for a Survey.
      */
     public Survey() {
         questions = new ArrayList<>();
         isClosed = false;
+        endUserID = 0;
+    }
+
+    /**
+     * Constructor for a Survey created by an EndUser.
+     */
+    public Survey(long endUserID){
+        questions = new ArrayList<>();
+        isClosed = false;
+        this.endUserID = endUserID;
     }
 
     /**
@@ -144,6 +159,23 @@ public class Survey {
             }
         }
         return null;
+    }
+
+    /**
+     * Get the EndUser ID of the Survey.
+     *
+     * @return The EndUser ID of the Survey.
+     */
+    public long getEndUserId() {
+        return endUserID;
+    }
+
+    /**
+     * Set the EndUser ID of the Survey.
+     *
+     * @param id The EndUser ID to set.
+     */
+    public void setEndUserId(long id) { endUserID = id;
     }
 
 }
