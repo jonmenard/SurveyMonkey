@@ -126,7 +126,7 @@ public class SurveyController {
             questionService.save(q);
 
             String message = "Adding answer to survey: " + surveyID + " for question: " + q.getId();
-            producer.send(TOPIC,new Message(0, message));
+            sendMessage(message);
         }
         return "redirect:/survey/" + surveyID;
     }
@@ -143,7 +143,7 @@ public class SurveyController {
         surveyService.save(survey);
 
         String message = "Creating a new survey";
-        producer.send(TOPIC,new Message(0, message));
+        sendMessage(message);
 
         return survey;
     }
@@ -159,7 +159,7 @@ public class SurveyController {
 
 
         String message = "Creating a new survey for user: " + userID;
-        producer.send(TOPIC,new Message(0, message));
+        sendMessage(message);
 
         return "surveyCreated";
     }
@@ -167,6 +167,8 @@ public class SurveyController {
     @PostMapping(value = "/survey/{surveyID}/createQuestion")
     public ModelAndView addQuestion(HttpServletRequest request, @PathVariable long surveyID, @RequestParam String questionType) {
         request.setAttribute(View.RESPONSE_STATUS_ATTRIBUTE, HttpStatus.TEMPORARY_REDIRECT);
+        String message = "Adding " + questionType + " question to survey: " + surveyID;
+        sendMessage(message);
         return new ModelAndView("redirect:/survey/" + surveyID + "/" + questionType);
     }
 
@@ -204,7 +206,7 @@ public class SurveyController {
         surveyService.save(survey);
 
         String message = "Closing survey: " + surveyID;
-        producer.send(TOPIC,new Message(0, message));
+        sendMessage(message);
 
         return "redirect:/survey/" + surveyID;
     }
@@ -225,5 +227,9 @@ public class SurveyController {
         }
         model.addAttribute("surveys", surveys);
         return "displayAllOpenSurveys";
+    }
+
+    public void sendMessage(String message){
+        producer.send(TOPIC, new Message(0, message));
     }
 }

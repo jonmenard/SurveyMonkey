@@ -37,7 +37,7 @@ public class EndUserController {
         endUserService.save(endUser);
 
         String message = "Creating a new user with the name " + name;
-        producer.send(TOPIC,new Message(0, message));
+        sendMessage(message);
         return "redirect:/index/logon";
     }
 
@@ -45,7 +45,10 @@ public class EndUserController {
     public String logonConfirmed(@RequestParam String name, Model model) {
         // Add user to model, potentially check if user exists first and send error page if no user?
         if (endUserService.findByName(name) != null) {
-            model.addAttribute("user", endUserService.findByName(name));
+            EndUser user = endUserService.findByName(name);
+            model.addAttribute("user", user);
+            String message = "User " + user.getId() + " logged in";
+            sendMessage(message);
             return "userManagement"; // Add view for user management (create, close survey)
         }
         String errorInfo = "User \"" + name + "\" does not exist";
@@ -75,10 +78,16 @@ public class EndUserController {
             return "error";
         }
 
+
         // Find user by userid and then return a list display of all surveys
         model.addAttribute("user", user);
         model.addAttribute("surveys", user.getSurveys());
+        String message = "User " + user.getId() + " accessing open survey list";
+        sendMessage(message);
         return "displayUserSurveys";
     }
 
+    public void sendMessage(String message){
+        producer.send(TOPIC, new Message(0, message));
+    }
 }

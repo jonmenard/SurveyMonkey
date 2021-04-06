@@ -42,7 +42,7 @@ public class ErrorsController implements ErrorController {
         String errorInfo = "Error" + errorStatusCodeStr + ": " + errorMessageStr + ".";
         model.addAttribute("errorInfo", errorInfo);
 
-        producer.send(TOPIC,new Message(0, errorInfo));
+        sendMessage(errorInfo);
         return "error";
 
     }
@@ -64,4 +64,7 @@ public class ErrorsController implements ErrorController {
         return "ErrorsController is working";
     }
 
+    public void sendMessage(String message){
+        producer.send(TOPIC, new Message(0, message));
+    }
 }

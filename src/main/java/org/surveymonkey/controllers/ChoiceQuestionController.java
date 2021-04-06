@@ -47,7 +47,7 @@ public class ChoiceQuestionController {
         surveyService.save(survey);
 
         String message = "Adding choice: '" + choice + "' to question: " + questionID + "in survey: " + surveyID;
-        producer.send(TOPIC,new Message(0, message));
+        sendMessage(message);
 
         return "redirect:/survey/" + surveyID + "/choicequestion/" + questionID + "/choices";
     }
@@ -63,7 +63,7 @@ public class ChoiceQuestionController {
         choiceQuestion = (ChoiceQuestion) questions.get(questions.size() - 1);
 
         String message = "Adding  question: '" + question + "' to survey: " + surveyID;
-        producer.send(TOPIC,new Message(0, message));
+        sendMessage(message);
 
         return "redirect:/survey/" + surveyID + "/choicequestion/" + choiceQuestion.getId() + "/choices";
     }
@@ -77,7 +77,7 @@ public class ChoiceQuestionController {
         surveyService.save(survey);
 
         String message = "Deleting question: " + choiceQuestionID + "from survey: " + surveyID;
-        producer.send(TOPIC,new Message(0, message));
+        sendMessage(message);
         return survey;
     }
 
@@ -87,4 +87,7 @@ public class ChoiceQuestionController {
         return "ChoiceQuestionController is working";
     }
 
+    public void sendMessage(String message){
+        producer.send(TOPIC, new Message(0, message));
+    }
 }
