@@ -34,7 +34,7 @@ public class TextQuestionController {
         surveyService.save(survey);
 
         String message = "Adding question: " + question + "to survey: " + surveyID;
-        producer.send(TOPIC,new Message(0, message));
+        sendMessage(message);
         return survey;
     }
 
@@ -45,9 +45,10 @@ public class TextQuestionController {
         surveyService.save(survey);
 
         String message = "Adding question: '" + question + "' to survey: " + surveyID;
-        producer.send(TOPIC,new Message(0, message));
+        sendMessage(message);
 
-        return "redirect:/survey/" + surveyID;
+        return "redirect:/survey/" + surveyID + "/" + survey.getEndUserId();
+
     }
 
     @DeleteMapping(value = "/survey/{surveyID}/textquestion", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -59,7 +60,7 @@ public class TextQuestionController {
         surveyService.save(survey);
 
         String message = "Deleting question: " + textQuestionID + "from survey: " + surveyID;
-        producer.send(TOPIC,new Message(0, message));
+        sendMessage(message);
 
         return survey;
     }
@@ -70,4 +71,7 @@ public class TextQuestionController {
         return "TextQuestionController is working";
     }
 
+    public void sendMessage(String message){
+        producer.send(TOPIC, new Message(0, message));
+    }
 }

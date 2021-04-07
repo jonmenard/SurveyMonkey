@@ -34,7 +34,7 @@ https://www.travis-ci.com/github/jonmenard007/SYSC4806-Project/builds
     <tbody>
         <tr>
             <td rowspan="3"> 3 </td>
-            <td> <a href="https://github.com/jonmenard007/SYSC4806-Project/issues/97"> Apr 3–9 </a> </td>
+            <td> <a href="https://github.com/jonmenard007/SYSC4806-Project/issues/115"> Apr 3–9 </a> </td>
         </tr>
         <tr></tr>
         <tr>

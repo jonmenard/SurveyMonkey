@@ -18,14 +18,16 @@
                 <tr class="center aligned">
                     <th>Survey ID</th>
                     <th>No. of Questions</th>
+                    <th>Link</th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr class="center aligned" th:each="survey : ${surveys}">
-                    <td>
-                        <a th:href="@{|/survey/${survey.getId()}|}"  th:text="${survey.getId()}"></a>
-                    </td>
+                    <td th:text="${survey.getId()}"></td>
                     <td th:text="${survey.getQuestions().size()}"/>
+                    <td>
+                        <a th:href="${'/survey/'+ survey.getId() + '/' + user.getId()}">View This Survey</a>
+                    </td>
                 </tr>
                 </tbody>
             </table>

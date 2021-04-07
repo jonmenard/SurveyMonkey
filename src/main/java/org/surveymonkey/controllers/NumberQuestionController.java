@@ -55,9 +55,9 @@ public class NumberQuestionController {
         surveyService.save(survey);
 
         String message = "Changing the bounds to : " + lowerBound + "-" + upperBound + " for question: " + questionID + " in survey: " + surveyID;
-        producer.send(TOPIC,new Message(0, message));
+        sendMessage(message);
 
-        return "redirect:/survey/" + surveyID;
+        return  "redirect:/survey/" + surveyID + "/" + survey.getEndUserId();
     }
 
     @PostMapping(value = "/survey/{surveyID}/numberquestion", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -70,7 +70,7 @@ public class NumberQuestionController {
         numberQuestion = (NumberQuestion) questions.get(questions.size() - 1);
 
         String message = "Adding question: '" + question + "' to survey: " + surveyID;
-        producer.send(TOPIC,new Message(0, message));
+        sendMessage(message);
         return "redirect:/survey/" + surveyID + "/numberquestion/" + numberQuestion.getId() + "/bounds";
     }
 
@@ -83,7 +83,7 @@ public class NumberQuestionController {
         surveyService.save(survey);
 
         String message = "Deleting question: " + numberQuestionID + "from survey: " + surveyID;
-        producer.send(TOPIC,new Message(0, message));
+        sendMessage(message);
 
         return survey;
     }
@@ -94,4 +94,7 @@ public class NumberQuestionController {
         return "NumberQuestionController is working";
     }
 
+    public void sendMessage(String message){
+        producer.send(TOPIC, new Message(0, message));
+    }
 }

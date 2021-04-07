@@ -26,7 +26,7 @@
                     <td th:text="${survey.getId()}"/>
                     <td th:text="${survey.getQuestions().size()}"/>
                     <td>
-                        <a th:href="${'/survey/'+ survey.getId()}">Fill Out This Survey</a>
+                        <a th:href="${'/survey/'+ survey.getId()+'/'+ userID }">Fill Out This Survey</a>
                     </td>
                 </tr>
                 </tbody>

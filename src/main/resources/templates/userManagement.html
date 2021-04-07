@@ -26,7 +26,7 @@
                     </button>
                 </form>
                 <div class="or"></div>
-                <form action="/survey/answer" method="get" id="userCreateForm">
+                <form action="#" th:action="@{/survey/answer/__${user.getId()}__}" method="get" id="userCreateForm">
                     <button class="ui button" type="submit" form="userCreateForm" value="Submit">
                         Answer Survey
                     </button>
