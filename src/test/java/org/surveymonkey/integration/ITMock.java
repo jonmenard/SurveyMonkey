@@ -1,10 +1,16 @@
 package org.surveymonkey.integration;
 
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.surveymonkey.models.EndUser;
+import org.surveymonkey.services.EndUserService;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -20,6 +26,9 @@ public class ITMock {
 
     @Autowired
     private MockMvc mockMvc;
+
+    @Mock
+    EndUserService endUserService;
 
     @Test
     public void testErrorTemplate() throws Exception {
@@ -46,6 +55,17 @@ public class ITMock {
                 .andExpect(content().string(containsString("Template name is createUser")))
                 .andExpect(content().string(containsString(HEADERFILES_FRAGMENT)))
                 .andExpect(content().string(containsString(HEADER_FRAGMENT)));
+    }
+
+    @Test
+    public void testUserLogin() throws Exception {
+        EndUser user = new EndUser();//whichever data your entity class have
+        user.setName("testuser");
+        Mockito.when(endUserService.save(Mockito.any(EndUser.class))).thenReturn(user);
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/user")
+                .param("name",user.getName()))
+                .andExpect(status().isFound());
     }
 
 }
