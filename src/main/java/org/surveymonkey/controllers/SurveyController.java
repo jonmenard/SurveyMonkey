@@ -154,8 +154,8 @@ public class SurveyController extends ApplicationController {
         return survey;
     }
 
-    @PostMapping(value = "/{userID}/survey")
-    public String postSurvey(Model model, @PathVariable long userID) {
+    @GetMapping(value = "/{userID}/survey")
+    public String createNewSurvey(Model model, @PathVariable long userID) {
         Survey survey = new Survey(userID);
         EndUser user = endUserService.findById(userID);
         surveyService.save(survey);

@@ -13,7 +13,7 @@ import org.surveymonkey.services.iservices.IQuestionService;
 import org.surveymonkey.services.iservices.ISurveyService;
 
 @Controller
-public class TextQuestionController {
+public class TextQuestionController extends ApplicationController {
 
     @Autowired
     private ISurveyService surveyService;

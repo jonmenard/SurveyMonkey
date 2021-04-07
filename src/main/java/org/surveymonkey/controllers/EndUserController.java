@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @Controller
-public class EndUserController {
+public class EndUserController extends ApplicationController {
 
     private static final Logger LOG = LoggerFactory.getLogger(EndUserController.class);
 
@@ -90,7 +90,7 @@ public class EndUserController {
         return "EndUserController is working";
     }
 
-    @PostMapping(value = "/user/{userId}/displayAll")
+    @GetMapping(value = "/user/{userId}/surveys")
     public String displayAllSurveys(Model model, @PathVariable long userId) {
         EndUser user = endUserService.findById(userId);
         if (user == null) {

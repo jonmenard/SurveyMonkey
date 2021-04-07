@@ -16,7 +16,7 @@ import org.surveymonkey.services.iservices.ISurveyService;
 import java.util.List;
 
 @Controller
-public class ChoiceQuestionController {
+public class ChoiceQuestionController extends ApplicationController {
 
     @Autowired
     private IQuestionService questionService;

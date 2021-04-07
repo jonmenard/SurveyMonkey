@@ -10,27 +10,16 @@
 <main>
     <div class="ui centered grid container">
         <div class="row">
-            <form action="#" th:action="@{/user/__${user.getId()}__/displayAll}" method="post" id="surveyForm">
-                <button class="ui labeled icon green button" type="submit" form="surveyForm" value="Submit">
-                    <i class="wrench icon"></i>
-                    Manage Surveys
-                </button>
-            </form>
+            <a th:href="@{/user/__${user.getId()}__/surveys}" class="ui labeled icon green button">
+                <i class="wrench icon"></i>
+                Manage Surveys
+            </a>
         </div>
         <div class="row">
             <div class="ui jiggle buttons">
-                <form action="#" th:action="@{/__${user.getId()}__/survey}" method="post" id="answerSurveyForm">
-                    <button id="createSurveyFromUserManagementButton" class="ui button" type="submit"
-                            form="answerSurveyForm" value="Submit">
-                        Create Survey
-                    </button>
-                </form>
-                <div class="or"></div>
-                <form action="#" th:action="@{/survey/answer/__${user.getId()}__}" method="get" id="userCreateForm">
-                    <button class="ui button" type="submit" form="userCreateForm" value="Submit">
-                        Answer Survey
-                    </button>
-                </form>
+                <a th:href="@{/__${user.getId()}__/survey}" class="ui button">
+                    Create a new survey
+                </a>
             </div>
         </div>
     </div>
