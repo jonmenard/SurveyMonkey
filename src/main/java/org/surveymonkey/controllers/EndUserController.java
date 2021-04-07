@@ -11,6 +11,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.surveymonkey.services.iservices.IEndUserService;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 @Controller
 public class EndUserController {
 
@@ -42,13 +46,18 @@ public class EndUserController {
     }
 
     @PostMapping(value = "/user")
-    public String logonConfirmed(@RequestParam String name, Model model) {
+    public String logonConfirmed(HttpServletResponse response, @RequestParam String name, Model model) {
         // Add user to model, potentially check if user exists first and send error page if no user?
         if (endUserService.findByName(name) != null) {
             EndUser user = endUserService.findByName(name);
             model.addAttribute("user", user);
             String message = "User " + user.getId() + " logged in";
             sendMessage(message);
+
+            // Use a cookie to store the current user's id
+            Cookie cookie = new Cookie("user_id", String.valueOf(user.getId()));
+            response.addCookie(cookie); // Add cookie to response
+
             return "userManagement"; // Add view for user management (create, close survey)
         }
         String errorInfo = "User \"" + name + "\" does not exist";
