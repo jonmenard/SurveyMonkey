@@ -23,7 +23,7 @@ import java.lang.reflect.Array;
 import java.util.*;
 
 @Controller
-public class SurveyController {
+public class SurveyController extends ApplicationController {
 
     @Autowired
     private ISurveyService surveyService;
@@ -41,7 +41,12 @@ public class SurveyController {
     private final String TOPIC = "Survey";
 
     @RequestMapping("/")
-    public String home() {
+    public String home(@CookieValue(value = "user_id", defaultValue = "-1") String user_id, Model model) {
+        EndUser user = endUserService.findById(Long.parseLong(user_id));
+        if(user != null) {
+            model.addAttribute("user", user);
+            return "userManagement";
+        }
         return "index";
     }
 

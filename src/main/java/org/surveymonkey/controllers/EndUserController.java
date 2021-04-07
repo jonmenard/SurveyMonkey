@@ -56,12 +56,22 @@ public class EndUserController {
 
             // Use a cookie to store the current user's id
             Cookie cookie = new Cookie("user_id", String.valueOf(user.getId()));
+            cookie.setMaxAge(-1); // Treat as a session cookie
             response.addCookie(cookie); // Add cookie to response
 
-            return "userManagement"; // Add view for user management (create, close survey)
+            return "redirect:/";
         }
         String errorInfo = "User \"" + name + "\" does not exist";
         return "redirect:/error/" + errorInfo;
+    }
+
+    @GetMapping(value = "/logout")
+    public String logout(HttpServletResponse response) {
+        Cookie cookie = new Cookie("user_id", null);
+        cookie.setMaxAge(0);
+        response.addCookie(cookie);
+
+        return "redirect:/";
     }
 
     @GetMapping(value = "/index/create")
