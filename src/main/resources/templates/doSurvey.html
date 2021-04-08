@@ -10,7 +10,10 @@
 <main>
     <div class="ui centered grid container">
         <div class="row">
-            <h2 class="ui header" th:text="'Survey ' + ${survey.getId()}"></h2>
+            <h2 class="ui header" th:text="${survey.getSurveyName()}"></h2>
+        </div>
+        <div class="row">
+            <span class="ui" th:text="${survey.getSurveyDescription()}"></span>
         </div>
         <div class="row">
             <table id="doSurveyTable" class="ui selectable striped padded collapsing table"
@@ -57,7 +60,17 @@
                 </tbody>
             </table>
         </div>
-        <div class="row"></div>
+        <div class="row">
+
+        </div>
+        <div class="row">
+            <span>Share this survey:</span>
+            <br>
+            <div class="ui input">
+                <input th:value="@{__${hostName}__/survey/__${survey.getId()}__/fill}" type="text" id="copyInput" readonly>
+            </div>
+            <button id="copyBtn" class="ui button">Copy</button>
+        </div>
         <div class="row">
             <div class="ui buttons">
                 <form class="ui form" th:action="@{/survey/__${survey.getId()}__/createQuestion}" method="get"
@@ -68,7 +81,7 @@
                     </button>
                 </form>
                 <div class="or"></div>
-                <form class="ui form" th:action="@{/survey/__${survey.getId()}__/__${userID}__/fill}" method="get"
+                <form class="ui form" th:action="@{/survey/__${survey.getId()}__/fill}" method="get"
                       id="fillSurveyForm">
                     <button class="ui button" type="submit" form="fillSurveyForm" value="Submit"
                             th:classappend="${survey.isClosed()} ? 'disabled'">

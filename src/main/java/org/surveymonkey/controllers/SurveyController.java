@@ -83,15 +83,14 @@ public class SurveyController extends ApplicationController {
         return "doSurvey";
     }
 
-    @GetMapping(value = "/survey/{surveyID}/{userID}/fill")
-    public String fillSurvey(@PathVariable long surveyID, @PathVariable long userID, Model model) {
+    @GetMapping(value = "/survey/{surveyID}/fill")
+    public String fillSurvey(@PathVariable long surveyID, Model model) {
         Survey s = surveyService.findById(surveyID);
         if(s.isClosed()) {
             // Don't add response if Survey is closed
-            return "redirect:/survey/" + surveyID + "/" + userID;
+            return "redirect:/survey/" + surveyID;
         }
         model.addAttribute("survey", s);
-        model.addAttribute("userID", userID);
 
         List<Question> questionList = s.getQuestions();
         ArrayList<TextQuestion> textQuestionList = new ArrayList<>();
@@ -116,12 +115,12 @@ public class SurveyController extends ApplicationController {
         return "fillSurvey";
     }
 
-    @PostMapping(value = "/survey/{surveyID}/{userID}/fill", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public String fillSurveyComplete(@RequestBody MultiValueMap<String, String> formData, @PathVariable long surveyID, @PathVariable long userID) {
+    @PostMapping(value = "/survey/{surveyID}/fill", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    public String fillSurveyComplete(@RequestBody MultiValueMap<String, String> formData, @PathVariable long surveyID) {
         Survey s = surveyService.findById(surveyID);
         if(s.isClosed()) {
             // Don't add response if Survey is closed
-            return  "redirect:/survey/" + surveyID + "/" + userID;
+            return  "redirect:/survey/" + surveyID;
         }
         for (Map.Entry formElement : formData.entrySet()) {
             String formKey = (String) formElement.getKey();
@@ -134,7 +133,7 @@ public class SurveyController extends ApplicationController {
             String message = "Adding answer to survey: " + surveyID + " for question: " + q.getId();
             sendMessage(message);
         }
-        return  "redirect:/survey/" + surveyID + "/" + userID;
+        return  "redirect:/survey/" + surveyID;
     }
 
     @GetMapping("/survey")
