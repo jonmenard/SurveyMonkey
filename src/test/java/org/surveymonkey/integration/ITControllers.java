@@ -82,7 +82,7 @@ public class ITControllers {
 
     @Test
     public void testSurveyService() {
-        List<Survey> usersSurveys = surveyService.findSurveysByUserId(953);
+        List<Survey> usersSurveys = surveyService.findSurveysByUser(endUserService.findById(953));
         boolean isTrue = true;
         for(int i = 0; i < usersSurveys.size(); i++){
             if(usersSurveys.get(i).getEndUserId() != 953){
@@ -96,7 +96,7 @@ public class ITControllers {
     @Test
     public void testEndUserService() {
         EndUser endUser = endUserService.findByName("testingAccount");
-        Assert.isTrue((endUser.getId() == 953), "get enduser by name is not working");
+        Assert.isTrue((endUser.getEndUserId() == 953), "get enduser by name is not working");
     }
 
     @Test

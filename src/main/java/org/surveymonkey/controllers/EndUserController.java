@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import org.surveymonkey.services.iservices.IEndUserService;
 
 import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 @Controller
@@ -51,11 +50,11 @@ public class EndUserController extends ApplicationController {
         if (endUserService.findByName(name) != null) {
             EndUser user = endUserService.findByName(name);
             model.addAttribute("user", user);
-            String message = "User " + user.getId() + " logged in";
+            String message = "User " + user.getEndUserId() + " logged in";
             sendMessage(message);
 
             // Use a cookie to store the current user's id
-            Cookie cookie = new Cookie("user_id", String.valueOf(user.getId()));
+            Cookie cookie = new Cookie("user_id", String.valueOf(user.getEndUserId()));
             cookie.setMaxAge(-1); // Treat as a session cookie
             response.addCookie(cookie); // Add cookie to response
 

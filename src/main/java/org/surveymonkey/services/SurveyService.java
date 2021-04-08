@@ -2,10 +2,7 @@ package org.surveymonkey.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.surveymonkey.models.ChoiceQuestion;
-import org.surveymonkey.models.NumberQuestion;
-import org.surveymonkey.models.Question;
-import org.surveymonkey.models.Survey;
+import org.surveymonkey.models.*;
 import org.surveymonkey.repositories.SurveyRepository;
 import org.surveymonkey.services.iservices.ISurveyService;
 
@@ -25,8 +22,8 @@ public class SurveyService implements ISurveyService {
         return surveyRepository.findById(id);
     }
 
-    public List<Survey> findSurveysByUserId(long userId){
-        return surveyRepository.findByEndUserIDOrderById(userId);
+    public List<Survey> findSurveysByUser(EndUser endUser){
+        return surveyRepository.findByEndUser(endUser);
     }
 
     @Override

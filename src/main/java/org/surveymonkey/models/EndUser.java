@@ -1,8 +1,6 @@
 package org.surveymonkey.models;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * This class models a EndUser that accepts Surveys which are stored in a List.
@@ -12,7 +10,7 @@ public class EndUser {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private long id;
+    private long endUserId;
 
     /**
      * The collection of Surveys that this EndUser has.
@@ -35,16 +33,16 @@ public class EndUser {
      * Returns the ID of this EndUser.
      * @return The ID for this EndUser.
      */
-    public long getId() {
-        return id;
+    public long getEndUserId() {
+        return endUserId;
     }
 
     /**
      * Set the ID of this EndUser.
      * @param id The ID to replace this EndUsers ID.
      */
-    public void setId(long id) {
-        this.id = id;
+    public void setEndUserId(long id) {
+        this.endUserId = id;
     }
 
     /**
@@ -67,7 +65,7 @@ public class EndUser {
 
     @Override
     public String toString() {
-        return "{\"id\":" + id + ", \"name\":" + name + "}";
+        return "{\"id\":" + endUserId + ", \"name\":" + name + "}";
     }
 
 }

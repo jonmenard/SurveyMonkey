@@ -130,8 +130,7 @@ public class SurveyController extends ApplicationController {
 
     @PostMapping(value = "/survey/createNew")
     public String createNewSurvey(Model model, @RequestParam long userID, @RequestParam String surveyName, @RequestParam String surveyDescription) {
-
-        Survey survey = new Survey(userID, surveyName, surveyDescription);
+        Survey survey = new Survey(endUserService.findById(userID), surveyName, surveyDescription);
         surveyService.save(survey);
         model.addAttribute("survey", survey);
 
@@ -213,7 +212,7 @@ public class SurveyController extends ApplicationController {
     public String displayAllUsersSurveys(Model model, @PathVariable long userId) {
 
         // Find surveys by userid
-        List<Survey> surveys = surveyService.findSurveysByUserId((long) userId);
+        List<Survey> surveys = surveyService.findSurveysByUser(endUserService.findById(userId));
 
         model.addAttribute("userId", userId);
         model.addAttribute("surveys", surveys);

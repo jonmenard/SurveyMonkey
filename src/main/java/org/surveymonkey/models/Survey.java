@@ -31,8 +31,9 @@ public class Survey {
     /**
      * EndUser ID of the EndUser that creates this survey.
      */
-    @Column(name="end_user_id")
-    private long endUserID;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "end_user_id", referencedColumnName = "endUserId")
+    private EndUser endUser;
 
     private String surveyName;
     private String surveyDescription;
@@ -44,16 +45,16 @@ public class Survey {
     public Survey() {
         questions = new ArrayList<>();
         isClosed = false;
-        endUserID = 0;
+        endUser = null;
     }
 
     /**
      * Constructor for a Survey created by an EndUser.
      */
-    public Survey(long endUserID, String name, String description){
+    public Survey(EndUser endUserID, String name, String description){
         questions = new ArrayList<>();
         isClosed = false;
-        this.endUserID = endUserID;
+        this.endUser = endUserID;
         this.surveyName = name;
         this.surveyDescription = description;
     }
@@ -173,8 +174,8 @@ public class Survey {
      *
      * @return The EndUser ID of the Survey.
      */
-    public long getEndUserId() {
-        return endUserID;
+    public EndUser getEndUser() {
+        return endUser;
     }
 
     /**
@@ -182,8 +183,8 @@ public class Survey {
      *
      * @param id The EndUser ID to set.
      */
-    public void setEndUserId(long id) {
-        endUserID = id;
+    public void setEndUserId(EndUser id) {
+        endUser = id;
     }
 
 
@@ -223,5 +224,9 @@ public class Survey {
      */
     public void setSurveyDescription(String surveyDescription) {
         this.surveyDescription = surveyDescription;
+    }
+
+    public long getEndUserId(){
+        return this.endUser.getEndUserId();
     }
 }

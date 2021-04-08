@@ -17,7 +17,7 @@ public interface ISurveyService {
 
     HashMap<Integer, ArrayList<Integer>> getSurveyStatistics(int surveyId);
 
-    List<Survey> findSurveysByUserId(long userId);
+    List<Survey> findSurveysByUser(EndUser endUser);
 
     void swapQuestion(int surveyId, int questionId, String direction);
 }
