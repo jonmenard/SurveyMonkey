@@ -1,5 +1,6 @@
 package org.surveymonkey.repositories;
 
+import org.surveymonkey.models.EndUser;
 import org.surveymonkey.models.Survey;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
@@ -10,5 +11,5 @@ public interface SurveyRepository extends PagingAndSortingRepository<Survey, Lon
 
     Survey findById(long id);
 
-    List<Survey> findByEndUserIDOrderById(long end_User_Id);
+    List<Survey> findByEndUser(EndUser end_User);
 }

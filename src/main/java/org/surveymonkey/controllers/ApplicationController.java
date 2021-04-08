@@ -29,7 +29,7 @@ public class ApplicationController {
     public long currentUserID(@CookieValue(value = "user_id", defaultValue = "-1") String user_id) {
         if(user_id == "-1") return -1;
         EndUser user = endUserService.findById(Long.parseLong(user_id));
-        if(user != null) return user.getId();
+        if(user != null) return user.getEndUserId();
         return -1;
     }
 
