@@ -10,16 +10,15 @@
 <main>
     <div class="ui centered grid container">
         <div class="row">
-            <h2 class="ui header" th:text="${survey.getSurveyName()}"></h2>
+            <h2 class="ui header" th:text="'Survey: ' + ${survey.getSurveyName()}"></h2>
         </div>
         <div class="row">
-            <span class="ui" th:text="${survey.getSurveyDescription()}"></span>
-        </div>
-        <div class="row">
+            <<form class="ui form" th:action="@{/survey/__${survey.getId()}__/__${survey.getEndUserId()}__/swapQuestion}" method="post" >
             <table id="doSurveyTable" class="ui selectable striped padded collapsing table"
                    th:classappend="${!survey.isClosed()} ? 'green' : 'red'">
                 <thead>
                 <tr>
+                    <th>Question Number</th>
                     <th>Type</th>
                     <th>Question</th>
                     <th>Lower Bound</th>
@@ -28,59 +27,45 @@
                     <th>No. of Answers</th>
                 </tr>
                 </thead>
-                <tbody>
-                <tr th:each="textQuestion : ${textQuestions}">
-                    <td th:text="${textQuestion.getTypeStr()}"></td>
-                    <td th:text="${textQuestion.getQuestion()}"></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td th:text="${textQuestion.getAnswers().size()}"></td>
-                </tr>
-                <tr th:each="numberQuestion : ${numberQuestions}">
-                    <td th:text="${numberQuestion.getTypeStr()}"></td>
-                    <td th:text="${numberQuestion.getQuestion()}"></td>
-                    <td th:text="${numberQuestion.getLowerBound()}"></td>
-                    <td th:text="${numberQuestion.getUpperBound()}"></td>
-                    <td></td>
-                    <td th:text="${numberQuestion.getAnswers().size()}"></td>
-                </tr>
-                <tr th:each="choiceQuestion : ${choiceQuestions}">
-                    <td th:text="${choiceQuestion.getTypeStr()}"></td>
-                    <td th:text="${choiceQuestion.getQuestion()}"></td>
-                    <td></td>
-                    <td></td>
+                <tbody th:each="question : ${questions}">
+                <tr th:switch="${question.getType().toString()}">
                     <td>
-                        <ul class="ui list">
-                            <li th:each="choice : ${choiceQuestion.getChoices()}" th:text="${choice}"></li>
+                        <input type="radio" name = "selectedQuestion" th:id="${question.getId()}" th:value="${question.getId()}"  th:hidden="${survey.getEndUserId()!=userID}" required>
+                        <label th:for="${question.getId()}" th:text="${questions.indexOf(question)} + 1"> </label>
+                    </td>
+                    <td th:text="${question.getTypeStr()}"></td>
+                    <td th:text="${question.getQuestion()}"></td>
+                    <td th:text="${question.getType().toString() == 'NUMBER'} ? ${question.getLowerBound()}"></td>
+                    <td th:text="${question.getType().toString() == 'NUMBER'} ? ${question.getUpperBound()}"></td>
+                    <td>
+                        <ul th:case="CHOICE" class="ui list">
+                            <li th:each="choice : ${question.getChoices()}" th:text="${choice}"></li>
                         </ul>
                     </td>
-                    <td th:text="${choiceQuestion.getAnswers().size()}"></td>
+                    <td th:text="${question.getAnswers().size()}"></td>
                 </tr>
                 </tbody>
             </table>
-        </div>
-        <div class="row">
-
-        </div>
-        <div class="row">
-            <span>Share this survey:</span>
-        </div>
-        <div class="row">
-            <div class="ui input">
-                <input th:value="@{__${hostName}__/survey/__${survey.getId()}__/fill}" type="text" id="copyInput" readonly>
+            <div th:hidden="${survey.getEndUserId()!=userID}">
+                <button type="submit" class="ui animated fade green button" name = "submit" tabindex="0" value="Up">
+                    <div class="visible content">Move Up <i class="arrow up icon"></i></div>
+                </button>
+                <button type="submit" class="ui animated fade red button" name = "submit" tabindex="0" value="Down">
+                    <div class="visible content">Move Down <i class="arrow down icon"></i> </div>
+                </button>
             </div>
-            <button id="copyBtn" class="ui button">Copy</button>
+        </form>
         </div>
+        <div class="row"></div>
         <div class="row">
             <div class="ui buttons">
                 <a th:href="@{/survey/__${survey.getId()}__/createQuestion}"class="ui button"
-                        th:if="${!survey.isClosed() and !(survey.getEndUserId() != currentUserID)}">
+                   th:if="${!survey.isClosed() and !(survey.getEndUserId() != currentUserID)}">
                     Add Another Question
                 </a>
                 <div th:if="${!survey.isClosed() and !(survey.getEndUserId() != currentUserID)}" class="or"></div>
                 <a th:href="@{/survey/__${survey.getId()}__/fill}"class="ui button"
-                        th:classappend="${survey.isClosed()} ? 'disabled'">
+                   th:classappend="${survey.isClosed()} ? 'disabled'">
                     Answer Questions
                 </a>
 

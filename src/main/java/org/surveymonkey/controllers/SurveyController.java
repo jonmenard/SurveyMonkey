@@ -121,7 +121,7 @@ public class SurveyController extends ApplicationController {
         return survey;
     }
 
-    @GetMapping(value = "/{userID}/survey")
+    @GetMapping(value = "/user/{userID}/survey")
     public String createSurvey(Model model, @PathVariable long userID) {
         model.addAttribute("userID", userID);
         return "createSurvey";
@@ -196,8 +196,8 @@ public class SurveyController extends ApplicationController {
         return "SurveyController is working";
     }
 
-    @GetMapping(value="survey/answer/{userID}")
-    public String selectSurveyToAnswer(@PathVariable long userID, Model model){
+    @GetMapping(value="all-surveys")
+    public String selectSurveyToAnswer(Model model){
         List<Survey> surveys = new ArrayList<>();
         for (Survey survey : surveyService.findAll()) {
             if(!survey.isClosed()){
@@ -205,12 +205,11 @@ public class SurveyController extends ApplicationController {
             }
         }
         model.addAttribute("surveys", surveys);
-        model.addAttribute("user", userID);
         return "displayAllOpenSurveys";
     }
 
 
-    @GetMapping(value = "/survey/{userId}/allsurveys")
+    @GetMapping(value = "/user/{userId}/surveys")
     public String displayAllUsersSurveys(Model model, @PathVariable long userId) {
 
         // Find surveys by userid

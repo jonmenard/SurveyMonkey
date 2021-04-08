@@ -30,7 +30,7 @@
                     <td th:text="${survey.getSurveyName()}"/>
                     <td th:text="${survey.getSurveyDescription()}"/>
                     <td>
-                        <a th:href="${'/survey/'+ survey.getId()+'/'+ userID }">Fill Out This Survey</a>
+                        <a th:href="${'/survey/'+ survey.getId()+'/fill'}">Fill Out This Survey</a>
                     </td>
                 </tr>
                 </tbody>
