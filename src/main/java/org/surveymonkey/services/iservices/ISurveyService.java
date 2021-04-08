@@ -1,9 +1,11 @@
 package org.surveymonkey.services.iservices;
 
+import org.surveymonkey.models.EndUser;
 import org.surveymonkey.models.Survey;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public interface ISurveyService {
 
@@ -15,4 +17,7 @@ public interface ISurveyService {
 
     HashMap<Integer, ArrayList<Integer>> getSurveyStatistics(int surveyId);
 
+    List<Survey> findSurveysByUserId(long userId);
+
+    void swapQuestion(int surveyId, int questionId, String direction);
 }

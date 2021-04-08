@@ -18,6 +18,8 @@
                 <tr class="center aligned">
                     <th>Survey ID</th>
                     <th>No. of Questions</th>
+                    <th>Survey Name</th>
+                    <th>Survey Description</th>
                     <th>Link</th>
                 </tr>
                 </thead>
@@ -25,6 +27,8 @@
                 <tr class="center aligned" th:each="survey : ${surveys}">
                     <td th:text="${survey.getId()}"/>
                     <td th:text="${survey.getQuestions().size()}"/>
+                    <td th:text="${survey.getSurveyName()}"/>
+                    <td th:text="${survey.getSurveyDescription()}"/>
                     <td>
                         <a th:href="${'/survey/'+ survey.getId()+'/'+ userID }">Fill Out This Survey</a>
                     </td>
