@@ -25,6 +25,14 @@ public class ApplicationController {
         return (user != null);
     }
 
+    @ModelAttribute("currentUserID")
+    public long currentUserID(@CookieValue(value = "user_id", defaultValue = "-1") String user_id) {
+        if(user_id == "-1") return -1;
+        EndUser user = endUserService.findById(Long.parseLong(user_id));
+        if(user != null) return user.getId();
+        return -1;
+    }
+
     @ModelAttribute("hostName")
     public String hostname() {
         return InetAddress.getLoopbackAddress().getHostAddress();
