@@ -155,20 +155,29 @@ public class SurveyController extends ApplicationController {
     }
 
     @GetMapping(value = "/{userID}/survey")
-    public String createNewSurvey(Model model, @PathVariable long userID) {
-        Survey survey = new Survey(userID);
+    public String createSurvey(Model model, @PathVariable long userID) {
+        model.addAttribute("userID", userID);
+        return "createSurvey";
+    }
+
+
+    @PostMapping(value = "/survey/createNew")
+    public String createNewSurvey(Model model, @RequestParam long userID, @RequestParam String surveyName, @RequestParam String surveyDescription) {
+
+        Survey survey = new Survey(userID, surveyName, surveyDescription);
         EndUser user = endUserService.findById(userID);
         surveyService.save(survey);
         user.addSurvey(survey);
         endUserService.save(user);
         model.addAttribute("survey", survey);
 
+       String message = "Creating a new survey for user: " + userID;
+       sendMessage(message);
 
-        String message = "Creating a new survey for user: " + userID;
-        sendMessage(message);
-
-        return "surveyCreated";
+       return "surveyCreated";
     }
+
+
 
     @PostMapping(value = "/survey/{surveyID}/createQuestion")
     public ModelAndView addQuestion(HttpServletRequest request, @PathVariable long surveyID, @RequestParam String questionType) {

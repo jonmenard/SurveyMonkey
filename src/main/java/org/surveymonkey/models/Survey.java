@@ -34,6 +34,10 @@ public class Survey {
     @Column(name="end_user_id")
     private long endUserID;
 
+    private String surveyName;
+    private String surveyDescription;
+
+
     /**
      * Default constructor for a Survey.
      */
@@ -46,10 +50,12 @@ public class Survey {
     /**
      * Constructor for a Survey created by an EndUser.
      */
-    public Survey(long endUserID){
+    public Survey(long endUserID, String name, String description){
         questions = new ArrayList<>();
         isClosed = false;
         this.endUserID = endUserID;
+        this.surveyName = name;
+        this.surveyDescription = description;
     }
 
     /**
@@ -176,7 +182,46 @@ public class Survey {
      *
      * @param id The EndUser ID to set.
      */
-    public void setEndUserId(long id) { endUserID = id;
+    public void setEndUserId(long id) {
+        endUserID = id;
     }
 
+
+    /**
+     * Get the EndUser ID of the Survey.
+     *
+     * @return The surveyName is the name of the survey
+     */
+    public String getSurveyName() {
+        return surveyName;
+    }
+
+
+    /**
+     * Set the name of the Survey.
+     *
+     * @param surveyName is the string containing the survey's name.
+     */
+    public void setSurveyName(String surveyName) {
+        this.surveyName = surveyName;
+    }
+
+
+    /**
+     * Get the description of the survey
+     *
+     * @return The surveyDescription is the description of the survey
+     */
+    public String getSurveyDescription() {
+        return surveyDescription;
+    }
+
+    /**
+     * Set the description of the Survey.
+     *
+     * @param surveyDescription is the string for containing the description.
+     */
+    public void setSurveyDescription(String surveyDescription) {
+        this.surveyDescription = surveyDescription;
+    }
 }
