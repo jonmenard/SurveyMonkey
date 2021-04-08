@@ -86,6 +86,7 @@ public class SurveyController extends ApplicationController {
     @GetMapping(value = "/survey/{surveyID}/fill")
     public String fillSurvey(@PathVariable long surveyID, Model model) {
         Survey s = surveyService.findById(surveyID);
+        if(s == null) return "error";
         if(s.isClosed()) {
             // Don't add response if Survey is closed
             return "redirect:/survey/" + surveyID;
@@ -133,7 +134,7 @@ public class SurveyController extends ApplicationController {
             String message = "Adding answer to survey: " + surveyID + " for question: " + q.getId();
             sendMessage(message);
         }
-        return  "redirect:/survey/" + surveyID;
+        return  "responseThankYou";
     }
 
     @GetMapping("/survey")

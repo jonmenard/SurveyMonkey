@@ -13,7 +13,7 @@
             <h2 class="ui header">Complete the Survey</h2>
         </div>
         <div class="row">
-            <form class="ui form" th:action="@{/survey/__${survey.getId()}__/__${userID}__/fill}" method="post" id="fillSurveyForm">
+            <form class="ui form" th:action="@{/survey/__${survey.getId()}__/fill}" method="post" id="fillSurveyForm">
                 <table id="fillSurveyTable" class="ui padded striped collapsing table">
                     <thead>
                     <tr>
