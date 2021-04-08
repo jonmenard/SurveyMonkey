@@ -47,6 +47,12 @@
                 </tbody>
             </table>
                 <div th:hidden="${survey.getEndUserId()!=userID}">
+                    <button type="submit" class="ui animated fade orange button" name = "submit" tabindex="0" value="EditBounds">
+                        <div class="visible content">Edit Bounds</div>
+                    </button>
+                    <button type="submit" class="ui animated fade orange button" name = "submit" tabindex="0" value="EditChoices">
+                        <div class="visible content">Edit Choices</div>
+                    </button>
                     <button type="submit" class="ui animated fade green button" name = "submit" tabindex="0" value="Up">
                         <div class="visible content">Move Up <i class="arrow up icon"></i></div>
                     </button>

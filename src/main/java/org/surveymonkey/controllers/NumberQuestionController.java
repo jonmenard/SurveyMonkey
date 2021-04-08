@@ -35,8 +35,12 @@ public class NumberQuestionController extends ApplicationController  {
         Survey survey = surveyService.findById(surveyID);
         model.addAttribute("survey", survey);
         Question question = survey.findQuestion(questionID);
-        model.addAttribute("question", question);
-        return "changeQuestionBounds";
+        if(question instanceof NumberQuestion){
+            model.addAttribute("question", (NumberQuestion) question);
+            return "changeQuestionBounds";
+        }else{
+            return "redirect:/survey/" + surveyID + "/" + survey.getEndUserId();
+        }
     }
 
     @PostMapping(value = "/survey/{surveyID}/numberquestion/{questionID}/bounds")

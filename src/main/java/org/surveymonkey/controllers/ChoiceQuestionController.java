@@ -34,9 +34,13 @@ public class ChoiceQuestionController extends ApplicationController {
     public String getChangeBoundsTemplate(@PathVariable long surveyID, @PathVariable int questionID, Model model) {
         Survey survey = surveyService.findById(surveyID);
         model.addAttribute("survey", survey);
-        ChoiceQuestion question = (ChoiceQuestion) survey.findQuestion(questionID);
-        model.addAttribute("question", question);
-        return "addQuestionChoice";
+        Question question =  survey.findQuestion(questionID);
+        if(question instanceof ChoiceQuestion) {
+            model.addAttribute("question",(ChoiceQuestion) question);
+            return "addQuestionChoice";
+        }else{
+            return "redirect:/survey/" + surveyID + "/" + survey.getEndUserId();
+        }
     }
 
     @PostMapping(value = "/survey/{surveyID}/choicequestion/{questionID}/choices")
