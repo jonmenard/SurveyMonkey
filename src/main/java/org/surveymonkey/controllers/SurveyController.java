@@ -222,11 +222,19 @@ public class SurveyController extends ApplicationController {
         return "displayUserSurveys";
     }
 
+
+
     @PostMapping(value = "/survey/{surveyId}/{userID}/swapQuestion")
     public String swapQuestionOrder(Model model, @PathVariable long surveyId, @PathVariable long userID, @RequestParam int selectedQuestion, @RequestParam String submit){
 
-        surveyService.swapQuestion((int) surveyId,selectedQuestion,submit);
+        if(submit.equals("EditBounds")){
+            return "redirect:/survey/" +  surveyId + "/numberquestion/" + selectedQuestion +"/bounds";
+        }else if(submit.equals("EditChoices")){
+            return "redirect:/survey/" +  surveyId + "/choicequestion/" + selectedQuestion +"/choices";
+        }
 
+
+        surveyService.swapQuestion((int) surveyId,selectedQuestion,submit);
         return "redirect:/survey/" + surveyId + "/" + userID;
 
     }
