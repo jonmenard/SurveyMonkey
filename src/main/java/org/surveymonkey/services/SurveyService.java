@@ -25,12 +25,50 @@ public class SurveyService implements ISurveyService {
         return surveyRepository.findById(id);
     }
 
+    public List<Survey> findSurveysByUserId(long userId){
+        return surveyRepository.findByEndUserIDOrderById(userId);
+    }
+
     @Override
     public Survey save(Survey survey) {
         return surveyRepository.save(survey);
     }
 
     public Iterable<Survey> findAll(){return surveyRepository.findAll();}
+
+    @Override
+    public void swapQuestion(int surveyId, int questionId, String direction){
+
+        Survey survey = this.findById(surveyId);
+        List<Question> questions = survey.getQuestions();
+
+        Question last = questions.get(0);
+        if(last.getId() != questionId || !direction.equals("Up")) {
+            for (int i = 0; i < questions.size(); i++) {
+                Question current = questions.get(i);
+                if (current.getId() == questionId) {
+                    if (direction.equals("Up")) {
+                        questions.set((i - 1), current);
+                        questions.set(i, last);
+                        break;
+                    } else if (direction.equals("Down")) {
+                        if ((i + 1) < questions.size()) {
+                            questions.set(i, questions.get(i + 1));
+                            questions.set(i + 1, current);
+                        }
+                        break;
+                    }
+                } else {
+                    last = current;
+                }
+            }
+        }
+
+        survey.setQuestions(questions);
+        this.save(survey);
+    }
+
+
 
     @Override
     public HashMap<Integer, ArrayList<Integer>> getSurveyStatistics(int surveyId){

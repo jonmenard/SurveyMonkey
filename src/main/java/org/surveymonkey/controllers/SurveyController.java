@@ -61,25 +61,8 @@ public class SurveyController extends ApplicationController {
         model.addAttribute("survey", surveyService.findById(surveyID));
         model.addAttribute("userID", userID);
         List<Question> questionList = surveyService.findById(surveyID).getQuestions();
-        ArrayList<TextQuestion> textQuestionList = new ArrayList<>();
-        ArrayList<NumberQuestion> numberQuestionList = new ArrayList<>();
-        ArrayList<ChoiceQuestion> choiceQuestionList = new ArrayList<>();
 
-        for (Question question : questionList) {
-            Question.QuestionType type = question.getType();
-            if (type.compareTo(Question.QuestionType.TEXT) == 0) {
-                textQuestionList.add((TextQuestion) question);
-            } else if (type.compareTo(Question.QuestionType.NUMBER) == 0) {
-                numberQuestionList.add((NumberQuestion) question);
-            } else if (type.compareTo(Question.QuestionType.CHOICE) == 0) {
-                choiceQuestionList.add((ChoiceQuestion) question);
-            }
-        }
-
-        model.addAttribute("textQuestions", textQuestionList);
-        model.addAttribute("numberQuestions", numberQuestionList);
-        model.addAttribute("choiceQuestions", choiceQuestionList);
-
+        model.addAttribute("questions", questionList);
         return "doSurvey";
     }
 
@@ -94,25 +77,9 @@ public class SurveyController extends ApplicationController {
         model.addAttribute("survey", s);
 
         List<Question> questionList = s.getQuestions();
-        ArrayList<TextQuestion> textQuestionList = new ArrayList<>();
-        ArrayList<NumberQuestion> numberQuestionList = new ArrayList<>();
-        ArrayList<ChoiceQuestion> choiceQuestionList = new ArrayList<>();
 
-        for (Question question : questionList) {
-            Question.QuestionType type = question.getType();
-            if (type.compareTo(Question.QuestionType.TEXT) == 0) {
-                textQuestionList.add((TextQuestion) question);
-            } else if (type.compareTo(Question.QuestionType.NUMBER) == 0) {
-                numberQuestionList.add((NumberQuestion) question);
-            } else if (type.compareTo(Question.QuestionType.CHOICE) == 0) {
-                choiceQuestionList.add((ChoiceQuestion) question);
-            }
-        }
 
-        model.addAttribute("textQuestions", textQuestionList);
-        model.addAttribute("numberQuestions", numberQuestionList);
-        model.addAttribute("choiceQuestions", choiceQuestionList);
-
+        model.addAttribute("questions", questionList);
         return "fillSurvey";
     }
 
@@ -165,10 +132,7 @@ public class SurveyController extends ApplicationController {
     public String createNewSurvey(Model model, @RequestParam long userID, @RequestParam String surveyName, @RequestParam String surveyDescription) {
 
         Survey survey = new Survey(userID, surveyName, surveyDescription);
-        EndUser user = endUserService.findById(userID);
         surveyService.save(survey);
-        user.addSurvey(survey);
-        endUserService.save(user);
         model.addAttribute("survey", survey);
 
        String message = "Creating a new survey for user: " + userID;
@@ -244,6 +208,31 @@ public class SurveyController extends ApplicationController {
         model.addAttribute("user", userID);
         return "displayAllOpenSurveys";
     }
+
+
+    @GetMapping(value = "/survey/{userId}/allsurveys")
+    public String displayAllUsersSurveys(Model model, @PathVariable long userId) {
+
+        // Find surveys by userid
+        List<Survey> surveys = surveyService.findSurveysByUserId((long) userId);
+
+        model.addAttribute("userId", userId);
+        model.addAttribute("surveys", surveys);
+        String message = "User " + userId + " accessing open survey list";
+        sendMessage(message);
+        return "displayUserSurveys";
+    }
+
+    @PostMapping(value = "/survey/{surveyId}/{userID}/swapQuestion")
+    public String swapQuestionOrder(Model model, @PathVariable long surveyId, @PathVariable long userID, @RequestParam int selectedQuestion, @RequestParam String submit){
+
+        surveyService.swapQuestion((int) surveyId,selectedQuestion,submit);
+
+        return "redirect:/survey/" + surveyId + "/" + userID;
+
+    }
+
+
 
     public void sendMessage(String message){
         producer.send(TOPIC, new Message(0, message));

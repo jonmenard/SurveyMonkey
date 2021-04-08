@@ -21,41 +21,43 @@
                         <th>Provide Your Answers Below</th>
                     </tr>
                     </thead>
-                    <tbody>
-                    <tr th:each="textQuestion : ${textQuestions}">
-                        <td th:text="${textQuestion.getQuestion()}"></td>
-                        <td>
-                            <div class="required field">
-                                <div class="ui input">
-                                    <input type="text" th:name="${textQuestion.getId()}" placeholder="Enter Answer">
+                    <tbody th:each="question : ${questions}">
+                    <div th:switch="${question.getType().toString()}">
+                        <tr th:case="'TEXT'">
+                            <td th:text="${question.getQuestion()}"></td>
+                            <td>
+                                <div class="required field">
+                                    <div class="ui input">
+                                        <input type="text" th:name="${question.getId()}" placeholder="Enter Answer" required>
+                                    </div>
                                 </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr th:each="numberQuestion : ${numberQuestions}">
-                        <td th:text="${numberQuestion.getQuestion()}"></td>
-                        <td>
-                            <div class="required field">
-                                <div class="ui fluid input">
-                                    <input type="number" th:name="${numberQuestion.getId()}"
-                                           th:min="${numberQuestion.getLowerBound()}"
-                                           th:max="${numberQuestion.getUpperBound()}" placeholder="Enter Answer">
+                            </td>
+                        </tr>
+                        <tr th:case="'NUMBER'" >
+                            <td th:text="${question.getQuestion()}"></td>
+                            <td>
+                                <div class="required field">
+                                    <div class="ui fluid input">
+                                        <input type="number" th:name="${question.getId()}"
+                                               th:min="${question.getLowerBound()}"
+                                               th:max="${question.getUpperBound()}" placeholder="Enter Answer" required>
+                                    </div>
                                 </div>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr th:each="choiceQuestion : ${choiceQuestions}">
-                        <td th:text="${choiceQuestion.getQuestion()}"></td>
-                        <td>
-                            <div class="required field">
-                                <select class="ui dropdown" th:name="${choiceQuestion.getId()}">
-                                    <option value="">Select Answer</option>
-                                    <option th:each="choice : ${choiceQuestion.getChoices()}"
-                                            th:text="${choice}"></option>
-                                </select>
-                            </div>
-                        </td>
-                    </tr>
+                            </td>
+                        </tr>
+                        <tr th:case="CHOICE">
+                            <td th:text="${question.getQuestion()}"></td>
+                            <td>
+                                <div class="required field">
+                                    <select class="ui dropdown" th:name="${question.getId()}" required>
+                                        <option value="">Select Answer</option>
+                                        <option th:each="choice : ${question.getChoices()}"
+                                                th:text="${choice}"></option>
+                                    </select>
+                                </div>
+                            </td>
+                        </tr>
+                    </div>
                     </tbody>
                 </table>
                 <div class="ui hidden divider"></div>

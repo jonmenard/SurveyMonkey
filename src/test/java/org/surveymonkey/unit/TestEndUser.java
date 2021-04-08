@@ -32,19 +32,5 @@ public class TestEndUser {
         survey2 = null;
     }
 
-    @Test
-    public void testAddGetSurvey(){
-        user.addSurvey(survey);
-        user.addSurvey(survey2);
-        Assert.assertEquals(survey2, user.getSurvey(1));
-    }
 
-    @Test
-    public void testSetGetSurveys(){
-        user.addSurvey(survey);
-        List<Survey> surveyList = new ArrayList<>();
-        surveyList.add(survey2);
-        user.setSurveys(surveyList);
-        Assert.assertEquals(surveyList, user.getSurveys());
-    }
 }
