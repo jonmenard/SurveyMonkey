@@ -35,10 +35,10 @@
                             </td>
                             <td th:text="${question.getTypeStr()}"></td>
                             <td th:text="${question.getQuestion()}"></td>
-                            <td th:case="'NUMBER'" th:text="${question.getLowerBound()}"></td>
-                            <td th:case="'NUMBER'" th:text="${question.getUpperBound()}"></td>
-                            <td th:case="CHOICE">
-                                <ul class="ui list">
+                            <td th:text="${question.getType().toString() == 'NUMBER'} ? ${question.getLowerBound()}"></td>
+                            <td th:text="${question.getType().toString() == 'NUMBER'} ? ${question.getUpperBound()}"></td>
+                            <td>
+                                <ul th:case="CHOICE" class="ui list">
                                     <li th:each="choice : ${question.getChoices()}" th:text="${choice}"></li>
                                 </ul>
                             </td>
