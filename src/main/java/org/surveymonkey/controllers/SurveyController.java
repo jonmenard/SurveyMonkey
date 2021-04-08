@@ -66,15 +66,15 @@ public class SurveyController extends ApplicationController {
         return "doSurvey";
     }
 
-    @GetMapping(value = "/survey/{surveyID}/{userID}/fill")
-    public String fillSurvey(@PathVariable long surveyID, @PathVariable long userID, Model model) {
+    @GetMapping(value = "/survey/{surveyID}/fill")
+    public String fillSurvey(@PathVariable long surveyID, Model model) {
         Survey s = surveyService.findById(surveyID);
+        if(s == null) return "error";
         if(s.isClosed()) {
             // Don't add response if Survey is closed
-            return "redirect:/survey/" + surveyID + "/" + userID;
+            return "redirect:/survey/" + surveyID;
         }
         model.addAttribute("survey", s);
-        model.addAttribute("userID", userID);
 
         List<Question> questionList = s.getQuestions();
 
@@ -83,12 +83,12 @@ public class SurveyController extends ApplicationController {
         return "fillSurvey";
     }
 
-    @PostMapping(value = "/survey/{surveyID}/{userID}/fill", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public String fillSurveyComplete(@RequestBody MultiValueMap<String, String> formData, @PathVariable long surveyID, @PathVariable long userID) {
+    @PostMapping(value = "/survey/{surveyID}/fill", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
+    public String fillSurveyComplete(@RequestBody MultiValueMap<String, String> formData, @PathVariable long surveyID) {
         Survey s = surveyService.findById(surveyID);
         if(s.isClosed()) {
             // Don't add response if Survey is closed
-            return  "redirect:/survey/" + surveyID + "/" + userID;
+            return  "redirect:/survey/" + surveyID;
         }
         for (Map.Entry formElement : formData.entrySet()) {
             String formKey = (String) formElement.getKey();
@@ -101,7 +101,7 @@ public class SurveyController extends ApplicationController {
             String message = "Adding answer to survey: " + surveyID + " for question: " + q.getId();
             sendMessage(message);
         }
-        return  "redirect:/survey/" + surveyID + "/" + userID;
+        return  "responseThankYou";
     }
 
     @GetMapping("/survey")
@@ -121,7 +121,7 @@ public class SurveyController extends ApplicationController {
         return survey;
     }
 
-    @GetMapping(value = "/{userID}/survey")
+    @GetMapping(value = "/user/{userID}/survey")
     public String createSurvey(Model model, @PathVariable long userID) {
         model.addAttribute("userID", userID);
         return "createSurvey";
@@ -196,8 +196,8 @@ public class SurveyController extends ApplicationController {
         return "SurveyController is working";
     }
 
-    @GetMapping(value="survey/answer/{userID}")
-    public String selectSurveyToAnswer(@PathVariable long userID, Model model){
+    @GetMapping(value="all-surveys")
+    public String selectSurveyToAnswer(Model model){
         List<Survey> surveys = new ArrayList<>();
         for (Survey survey : surveyService.findAll()) {
             if(!survey.isClosed()){
@@ -205,12 +205,11 @@ public class SurveyController extends ApplicationController {
             }
         }
         model.addAttribute("surveys", surveys);
-        model.addAttribute("user", userID);
         return "displayAllOpenSurveys";
     }
 
 
-    @GetMapping(value = "/survey/{userId}/allsurveys")
+    @GetMapping(value = "/user/{userId}/surveys")
     public String displayAllUsersSurveys(Model model, @PathVariable long userId) {
 
         // Find surveys by userid

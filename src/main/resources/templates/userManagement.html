@@ -10,20 +10,20 @@
 <main>
     <div class="ui centered grid container">
         <div class="row">
-            <a th:href="@{/survey/__${user.getId()}__/allsurveys}" class="ui labeled icon green button">
+            <a th:href="@{/user/__${user.getId()}__/surveys}" class="ui labeled icon green button">
                 <i class="wrench icon"></i>
                 Manage My Surveys
             </a>
         </div>
         <div class="row">
-            <a th:href="@{/survey/answer/__${user.getId()}__}" class="ui labeled icon green button">
+            <a th:href="@{/all-surveys}" class="ui labeled icon green button">
                 <i class="eye icon"></i>
                 View All Surveys
             </a>
         </div>
         <div class="row">
             <div class="ui jiggle buttons">
-                <a th:href="@{/__${user.getId()}__/survey}" class="ui button">
+                <a th:href="@{/user/__${user.getId()}__/survey}" class="ui button">
                     Create a new survey
                 </a>
             </div>

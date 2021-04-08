@@ -10,7 +10,9 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.surveymonkey.models.EndUser;
+import org.surveymonkey.models.Survey;
 import org.surveymonkey.services.EndUserService;
+import org.surveymonkey.services.SurveyService;
 
 import static org.hamcrest.Matchers.containsString;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -29,6 +31,9 @@ public class ITMock {
 
     @Mock
     EndUserService endUserService;
+
+    @Mock
+    SurveyService surveyService;
 
     @Test
     public void testErrorTemplate() throws Exception {
@@ -68,4 +73,23 @@ public class ITMock {
                 .andExpect(status().isFound());
     }
 
+    @Test
+    public void testMySurveys() throws Exception {
+        EndUser user = new EndUser();//whichever data your entity class have
+        user.setName("testuser");
+        Mockito.when(endUserService.save(Mockito.any(EndUser.class))).thenReturn(user);
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/user/" + String.valueOf(user.getId()) + "/surveys"))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void testFillSurvey() throws Exception {
+        Survey survey = new Survey();//whichever data your entity class have
+        survey.setSurveyName("New Survey");
+        Mockito.when(surveyService.save(Mockito.any(Survey.class))).thenReturn(survey);
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/survey/" + String.valueOf(survey.getId()) + "/fill"))
+                .andExpect(status().isOk());
+    }
 }
