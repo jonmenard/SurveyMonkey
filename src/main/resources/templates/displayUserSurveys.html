@@ -19,6 +19,8 @@
                     <th>Survey ID</th>
                     <th>No. of Questions</th>
                     <th>Survey State</th>
+                    <th>Survey Name</th>
+                    <th>Survey Description</th>
                     <th>Link</th>
                 </tr>
                 </thead>
@@ -27,8 +29,10 @@
                     <td th:text="${survey.getId()}"></td>
                     <td th:text="${survey.getQuestions().size()}"/>
                     <td th:text="${survey.isClosed() ? 'Closed' : 'Open' }"/>
+                    <td th:text="${survey.getSurveyName()}"/>
+                    <td th:text="${survey.getSurveyDescription()}"/>
                     <td>
-                        <a th:href="${'/survey/'+ survey.getId() + '/' + user.getId()}">View This Survey</a>
+                        <a th:href="${'/survey/'+ survey.getId() + '/' + userId}">View This Survey</a>
                     </td>
                 </tr>
                 </tbody>

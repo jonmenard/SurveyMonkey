@@ -90,21 +90,6 @@ public class EndUserController extends ApplicationController {
         return "EndUserController is working";
     }
 
-    @GetMapping(value = "/user/{userId}/surveys")
-    public String displayAllSurveys(Model model, @PathVariable long userId) {
-        EndUser user = endUserService.findById(userId);
-        if (user == null) {
-            return "error";
-        }
-
-
-        // Find user by userid and then return a list display of all surveys
-        model.addAttribute("user", user);
-        model.addAttribute("surveys", user.getSurveys());
-        String message = "User " + user.getId() + " accessing open survey list";
-        sendMessage(message);
-        return "displayUserSurveys";
-    }
 
     public void sendMessage(String message){
         producer.send(TOPIC, new Message(0, message));
