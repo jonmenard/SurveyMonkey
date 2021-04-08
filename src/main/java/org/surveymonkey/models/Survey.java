@@ -31,6 +31,7 @@ public class Survey {
     /**
      * EndUser ID of the EndUser that creates this survey.
      */
+    @Column(name="end_user_id")
     private long endUserID;
 
     /**

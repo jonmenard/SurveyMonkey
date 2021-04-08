@@ -15,7 +15,7 @@ import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
 
 @Controller
-public class ErrorsController implements ErrorController {
+public class ErrorsController extends ApplicationController implements ErrorController {
 
 
     @Autowired

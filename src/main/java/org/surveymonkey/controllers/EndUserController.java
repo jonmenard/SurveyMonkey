@@ -11,8 +11,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.surveymonkey.services.iservices.IEndUserService;
 
+import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 @Controller
-public class EndUserController {
+public class EndUserController extends ApplicationController {
 
     private static final Logger LOG = LoggerFactory.getLogger(EndUserController.class);
 
@@ -42,17 +46,32 @@ public class EndUserController {
     }
 
     @PostMapping(value = "/user")
-    public String logonConfirmed(@RequestParam String name, Model model) {
+    public String logonConfirmed(HttpServletResponse response, @RequestParam String name, Model model) {
         // Add user to model, potentially check if user exists first and send error page if no user?
         if (endUserService.findByName(name) != null) {
             EndUser user = endUserService.findByName(name);
             model.addAttribute("user", user);
             String message = "User " + user.getId() + " logged in";
             sendMessage(message);
-            return "userManagement"; // Add view for user management (create, close survey)
+
+            // Use a cookie to store the current user's id
+            Cookie cookie = new Cookie("user_id", String.valueOf(user.getId()));
+            cookie.setMaxAge(-1); // Treat as a session cookie
+            response.addCookie(cookie); // Add cookie to response
+
+            return "redirect:/";
         }
         String errorInfo = "User \"" + name + "\" does not exist";
         return "redirect:/error/" + errorInfo;
+    }
+
+    @GetMapping(value = "/logout")
+    public String logout(HttpServletResponse response) {
+        Cookie cookie = new Cookie("user_id", null);
+        cookie.setMaxAge(0);
+        response.addCookie(cookie);
+
+        return "redirect:/";
     }
 
     @GetMapping(value = "/index/create")
@@ -71,7 +90,7 @@ public class EndUserController {
         return "EndUserController is working";
     }
 
-    @PostMapping(value = "/user/{userId}/displayAll")
+    @GetMapping(value = "/user/{userId}/surveys")
     public String displayAllSurveys(Model model, @PathVariable long userId) {
         EndUser user = endUserService.findById(userId);
         if (user == null) {

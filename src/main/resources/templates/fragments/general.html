@@ -55,6 +55,10 @@
             </a>
         </h1>
     </div>
+    <div class="ui centered grid container">
+        <a href="/logout" th:if="${isUserSignedIn}">Logout</a>
+    </div>
+    <br>
     <div class="ui internally celled centered grid container">
         <div class="ui divider" style="width: 500px"></div>
     </div>
