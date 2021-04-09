@@ -230,8 +230,11 @@ public class SurveyController extends ApplicationController {
             return "redirect:/survey/" +  surveyId + "/numberquestion/" + selectedQuestion +"/bounds";
         }else if(submit.equals("EditChoices")){
             return "redirect:/survey/" +  surveyId + "/choicequestion/" + selectedQuestion +"/choices";
+        }else if (submit.equals("Up")){
+            surveyService.swapQuestion((int) surveyId,selectedQuestion,"Up");
+        }else if (submit.equals("Down")){
+            surveyService.swapQuestion((int) surveyId,selectedQuestion,"Down");
         }
-
 
         surveyService.swapQuestion((int) surveyId,selectedQuestion,submit);
         return "redirect:/survey/" + surveyId + "/" + userID;
