@@ -232,7 +232,6 @@ public class SurveyController extends ApplicationController {
             return "redirect:/survey/" +  surveyId + "/choicequestion/" + selectedQuestion +"/choices";
         }
 
-
         surveyService.swapQuestion((int) surveyId,selectedQuestion,submit);
         return "redirect:/survey/" + surveyId + "/" + userID;
 
