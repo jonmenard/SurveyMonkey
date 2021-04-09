@@ -227,16 +227,24 @@ public class SurveyController extends ApplicationController {
     public String swapQuestionOrder(Model model, @PathVariable long surveyId, @PathVariable long userID, @RequestParam int selectedQuestion, @RequestParam String submit){
 
         if(submit.equals("EditBounds")){
+            String message = "Editing bounds of Question " + selectedQuestion + " from Survey " + surveyId;
+            sendMessage(message);
             return "redirect:/survey/" +  surveyId + "/numberquestion/" + selectedQuestion +"/bounds";
         }else if(submit.equals("EditChoices")){
+            String message = "Editing choices of Question " + selectedQuestion + " from Survey " + surveyId;
+            sendMessage(message);
             return "redirect:/survey/" +  surveyId + "/choicequestion/" + selectedQuestion +"/choices";
-        }else if (submit.equals("Up")){
+        }
+        else if (submit.equals("Up")){
+            String message = "Moving Question " + selectedQuestion + " from Survey " + surveyId + " " + submit;
+            sendMessage(message);
             surveyService.swapQuestion((int) surveyId,selectedQuestion,"Up");
         }else if (submit.equals("Down")){
+            String message = "Moving Question " + selectedQuestion + " from Survey " + surveyId + " " + submit;
+            sendMessage(message);
             surveyService.swapQuestion((int) surveyId,selectedQuestion,"Down");
         }
 
-        surveyService.swapQuestion((int) surveyId,selectedQuestion,submit);
         return "redirect:/survey/" + surveyId + "/" + userID;
 
     }
