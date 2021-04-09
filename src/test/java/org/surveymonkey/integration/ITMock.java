@@ -91,4 +91,24 @@ public class ITMock {
         mockMvc.perform(MockMvcRequestBuilders.get("/survey/" + String.valueOf(survey.getId()) + "/fill"))
                 .andExpect(status().isOk());
     }
+
+    @Test
+    public void testUserLogout() throws Exception {
+        EndUser user = new EndUser();//whichever data your entity class have
+        user.setName("testuser");
+        Mockito.when(endUserService.save(Mockito.any(EndUser.class))).thenReturn(user);
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/logout"))
+                .andExpect(status().is(302)); // Redirect code
+    }
+
+    @Test
+    public void testAllSurveyList() throws Exception {
+        EndUser user = new EndUser();//whichever data your entity class have
+        user.setName("testuser");
+        Mockito.when(endUserService.save(Mockito.any(EndUser.class))).thenReturn(user);
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/user/" + user.getEndUserId() + "/surveys"))
+                .andExpect(status().isOk());
+    }
 }
