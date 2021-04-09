@@ -67,12 +67,12 @@ https://www.travis-ci.com/github/jonmenard007/SYSC4806-Project/builds
 
 ---
 
-***Current UML class diagram (Milestone 3)***
+***Current (Milestone 3) UML class diagram***
 
 ![Milestone 3 UML](https://github.com/jonmenard007/SYSC4806-Project/blob/rohil-new/milestone3.png?raw=true)
 
 ---
-***Current UML class diagram (Milestone 2)***
+***Milestone 2 UML class diagram***
 
 ![Milestone 2 UML](https://github.com/jonmenard007/SYSC4806-Project/blob/main/milestone2.png?raw=true)
 
