@@ -35,6 +35,6 @@ public class ApplicationController {
 
     @ModelAttribute("hostName")
     public String hostname() {
-        return InetAddress.getLoopbackAddress().getHostAddress();
+        return "https://sysc4806groupproject.herokuapp.com";
     }
 }
