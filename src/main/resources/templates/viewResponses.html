@@ -17,7 +17,18 @@
         <div class="row">
             <h2 class="ui header" th:text="'Survey ' + ${survey.getId()} + ' Results'"></h2>
         </div>
+        <script>
 
+            var x;
+            var questionId;
+            var trace;
+            var data;
+            var choices
+            let i;
+            var questionId;
+            var layout;
+
+        </script>
         <div class="row">
             <table id="viewResponsesTable" class="ui selectable padded striped collapsing table">
                 <thead>
@@ -40,13 +51,13 @@
                         <div th:case="'NUMBER'" th:with="dataSet=${questionHistogramData.get(__${question.getId()}__)}">
                             <div class = "histogram" th:id=" 'histogram' + ${question.getId()}"><!-- Plotly chart will be drawn inside this DIV --></div>
                             <script >
-                                var x = [[${dataSet}]];
-                                var questionId = [[${question.getId()}]];
-                                var trace = {
+                                 x = [[${dataSet}]];
+                                 questionId = [[${question.getId()}]];
+                                 trace = {
                                     x: x,
                                     type: 'histogram',
                                 };
-                                var data = [trace];
+                                data = [trace];
                                 Plotly.newPlot('histogram' + questionId, data);
                             </script>
                         </div>
@@ -54,8 +65,8 @@
                             <div class = "pie" th:id=" 'pie' + ${question.getId()}"><!-- Plotly chart will be drawn inside this DIV --></div>
 
                             <script>
-                                var choices = [];
-                                let i = 0;
+                                choices = [];
+                                i = 0;
                             </script>
 
                             <script th:each="choice : ${question.getChoices()}">
@@ -65,19 +76,19 @@
 
 
                             <script >
-                                var x = [[${dataSet}]];
+                                x = [[${dataSet}]];
 
                                 console.log(choices);
-                                var questionId = [[${question.getId()}]];
+                                questionId = [[${question.getId()}]];
 
 
 
-                                var data = [{
+                                data = [{
                                     values: x,
                                     labels: choices,
                                     type: 'pie'
                                 }];
-                                var layout = {
+                                layout = {
                                     height: 400,
                                     width: 700
                                 };
