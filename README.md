@@ -67,12 +67,17 @@ https://www.travis-ci.com/github/jonmenard007/SYSC4806-Project/builds
 
 ---
 
+***Current UML class diagram (Milestone 3)***
+
+![Milestone 3 UML](https://github.com/jonmenard007/SYSC4806-Project/blob/rohil-new/milestone3.png?raw=true)
+
+---
 ***Current UML class diagram (Milestone 2)***
 
-![draft UML](https://github.com/jonmenard007/SYSC4806-Project/blob/main/milestone2.png?raw=true)
+![Milestone 2 UML](https://github.com/jonmenard007/SYSC4806-Project/blob/main/milestone2.png?raw=true)
 
 ---
 
 ***Milestone 1 UML class diagram***
 
-![draft UML](https://github.com/jonmenard007/SYSC4806-Project/blob/Rohil/milestone1.png?raw=true)
+![Milestone 1 UML](https://github.com/jonmenard007/SYSC4806-Project/blob/rohil-new/milestone1.png?raw=true)
