@@ -34,9 +34,11 @@ public class NumberQuestionController extends ApplicationController  {
     public String getChangeBoundsTemplate(@PathVariable long surveyID, @PathVariable int questionID, Model model) {
         Survey survey = surveyService.findById(surveyID);
         model.addAttribute("survey", survey);
+        sendMessage("updatesAndInserts","select");
         Question question = survey.findQuestion(questionID);
         if(question instanceof NumberQuestion){
             model.addAttribute("question", (NumberQuestion) question);
+            sendMessage("PageVisited","changeQuestionBounds");
             return "changeQuestionBounds";
         }else{
             return "redirect:/survey/" + surveyID + "/" + survey.getEndUserId();
@@ -59,7 +61,8 @@ public class NumberQuestionController extends ApplicationController  {
         surveyService.save(survey);
 
         String message = "Changing the bounds to : " + lowerBound + "-" + upperBound + " for question: " + questionID + " in survey: " + surveyID;
-        sendMessage(message);
+        sendMessage("Question",message);
+        sendMessage("updatesAndInserts","update");
 
         return  "redirect:/survey/" + surveyID + "/" + survey.getEndUserId();
     }
@@ -74,7 +77,8 @@ public class NumberQuestionController extends ApplicationController  {
         numberQuestion = (NumberQuestion) questions.get(questions.size() - 1);
 
         String message = "Adding question: '" + question + "' to survey: " + surveyID;
-        sendMessage(message);
+        sendMessage("Question",message);
+        sendMessage("updatesAndInserts","update");
         return "redirect:/survey/" + surveyID + "/numberquestion/" + numberQuestion.getId() + "/bounds";
     }
 
@@ -85,9 +89,9 @@ public class NumberQuestionController extends ApplicationController  {
         Question numberQuestion = questionService.findById(numberQuestionID);
         survey.removeQuestion(numberQuestion);
         surveyService.save(survey);
-
+        sendMessage("updatesAndInserts","update");
         String message = "Deleting question: " + numberQuestionID + "from survey: " + surveyID;
-        sendMessage(message);
+        sendMessage("Question",message);
 
         return survey;
     }
@@ -98,7 +102,8 @@ public class NumberQuestionController extends ApplicationController  {
         return "NumberQuestionController is working";
     }
 
-    public void sendMessage(String message){
-        producer.send(TOPIC, new Message(0, message));
+    public void sendMessage(String topic, String message){
+        producer.send(topic, new Message(0, message));
     }
+
 }

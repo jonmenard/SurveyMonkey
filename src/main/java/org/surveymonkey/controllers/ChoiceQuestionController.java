@@ -35,8 +35,10 @@ public class ChoiceQuestionController extends ApplicationController {
         Survey survey = surveyService.findById(surveyID);
         model.addAttribute("survey", survey);
         Question question =  survey.findQuestion(questionID);
+        sendMessage("updatesAndInserts","select");
         if(question instanceof ChoiceQuestion) {
             model.addAttribute("question",(ChoiceQuestion) question);
+            sendMessage("PageVisited","addQuestionChoice");
             return "addQuestionChoice";
         }else{
             return "redirect:/survey/" + surveyID + "/" + survey.getEndUserId();
@@ -51,7 +53,9 @@ public class ChoiceQuestionController extends ApplicationController {
         surveyService.save(survey);
 
         String message = "Adding choice: '" + choice + "' to question: " + questionID + "in survey: " + surveyID;
-        sendMessage(message);
+        sendMessage("Question",message);
+        sendMessage("updatesAndInserts","update");
+
 
         return "redirect:/survey/" + surveyID + "/choicequestion/" + questionID + "/choices";
     }
@@ -67,7 +71,8 @@ public class ChoiceQuestionController extends ApplicationController {
         choiceQuestion = (ChoiceQuestion) questions.get(questions.size() - 1);
 
         String message = "Adding  question: '" + question + "' to survey: " + surveyID;
-        sendMessage(message);
+        sendMessage("Question",message);
+        sendMessage("updatesAndInserts","update");
 
         return "redirect:/survey/" + surveyID + "/choicequestion/" + choiceQuestion.getId() + "/choices";
     }
@@ -81,7 +86,8 @@ public class ChoiceQuestionController extends ApplicationController {
         surveyService.save(survey);
 
         String message = "Deleting question: " + choiceQuestionID + "from survey: " + surveyID;
-        sendMessage(message);
+        sendMessage("Question",message);
+        sendMessage("updatesAndInserts","update");
         return survey;
     }
 
@@ -91,7 +97,7 @@ public class ChoiceQuestionController extends ApplicationController {
         return "ChoiceQuestionController is working";
     }
 
-    public void sendMessage(String message){
-        producer.send(TOPIC, new Message(0, message));
+    public void sendMessage(String topic, String message){
+        producer.send(topic, new Message(0, message));
     }
 }

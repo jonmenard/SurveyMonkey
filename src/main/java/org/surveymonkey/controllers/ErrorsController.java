@@ -42,7 +42,8 @@ public class ErrorsController extends ApplicationController implements ErrorCont
         String errorInfo = "Error" + errorStatusCodeStr + ": " + errorMessageStr + ".";
         model.addAttribute("errorInfo", errorInfo);
 
-        sendMessage(errorInfo);
+        sendMessage("Error",errorInfo);
+        sendMessage("PageVisited","error");
         return "error";
 
     }
@@ -50,6 +51,7 @@ public class ErrorsController extends ApplicationController implements ErrorCont
     @RequestMapping("/error/{customErrorMessage}")
     public String handleCustomError(@PathVariable String customErrorMessage, Model model) {
         model.addAttribute("errorInfo", "Error: " + customErrorMessage + ".");
+        sendMessage("PageVisited","error");
         return "error";
     }
 
@@ -64,7 +66,7 @@ public class ErrorsController extends ApplicationController implements ErrorCont
         return "ErrorsController is working";
     }
 
-    public void sendMessage(String message){
-        producer.send(TOPIC, new Message(0, message));
+    public void sendMessage(String topic, String message){
+        producer.send(topic, new Message(0, message));
     }
 }
