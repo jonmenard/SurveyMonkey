@@ -1,0 +1,125 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <th:block th:include="fragments/general :: headerfiles"></th:block>
+    <script src='https://cdn.plot.ly/plotly-latest.min.js'></script>
+    <link href="../static/css/statisticContainerStyling.css" th:href="@{/css/statisticContainerStyling.css}" type="text/css" rel="stylesheet">
+</head>
+<body>
+<header>
+    <th:block th:include="fragments/general :: header"></th:block>
+</header>
+
+<main>
+
+    <div class="ui centered grid container">
+
+        <div class="row">
+            <h2 class="ui header"> Kafka Analytics </h2>
+        </div>
+        <script>
+
+            var x;
+            var questionId;
+            var trace;
+            var data;
+            var choices
+            let i;
+            var questionId;
+            var layout;
+
+        </script>
+        <div class="row">
+            <table id="viewResponsesTable" class="ui selectable padded striped collapsing table">
+                <thead>
+                <tr>
+                    <th></th>
+                    <th>Statistics</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr >
+                    <td> Template Visits</td>
+                    <td>
+                    <div>
+                        <div>
+                            <div class = "histogram" id="TemplateVisitsPie"></div>
+                            <script >
+                                 x = ["addQuestionChoice","changeQuestionBounds","creatQuestion","createSurvey","createUser","displayAllOpenSurveys","displayUserSurveys","doSurvey","error","fillSurvey","index","responseThankYou","surveyCreated","viewResponses"];
+                                 y = [[${templateVisits}]];
+                                 data = [{
+                                     x: x,
+                                     y: y,
+                                     type: 'bar'
+                                 }];
+                                 layout = {
+                                     height: 800,
+                                     width: 1400
+                                 };
+                                 Plotly.newPlot('TemplateVisitsPie', data,layout);
+                            </script>
+                        </div>
+                    </div>
+                    </td>
+                </tr>
+                <tr >
+                    <td> Database Selects versus Database Updates</td>
+                    <td>
+                        <div>
+                            <div>
+                                <div class = "histogram" id="DatabasePie"></div>
+                            <script >
+                                choices = ["select","update"];
+                                var selects = [[${selects}]];
+                                var updates = [[${updates}]];
+                                x = [selects,updates];
+
+                                data = [{
+                                    values: x,
+                                    labels: choices,
+                                    type: 'pie'
+                                }];
+                                layout = {
+                                    height: 800,
+                                    width: 1400
+                                };
+                                Plotly.newPlot("DatabasePie", data,layout);
+                            </script>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr >
+                    <td> Survey Created versus Survey Answered</td>
+                    <td>
+                        <div>
+                            <div>
+                                <div class = "histogram" id="SurveysPie"></div>
+                            <script >
+                                choices = ["Created","Answered"];
+                                var create = [[${surveyCreated}]];
+                                var update = [[${surveyAnswered}]];
+                                x = [create,update];
+
+                                data = [{
+                                    values: x,
+                                    labels: choices,
+                                    type: 'pie'
+                                }];
+                                layout = {
+                                    height: 800,
+                                    width: 1400
+                                };
+                                Plotly.newPlot('SurveysPie', data,layout);
+                            </script>
+                        </div>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>
+</body>
+</html>

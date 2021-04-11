@@ -40,7 +40,8 @@ public class EndUserController extends ApplicationController {
         endUserService.save(endUser);
 
         String message = "Creating a new user with the name " + name;
-        sendMessage(message);
+        sendMessage("EndUser",message);
+        sendMessage("updatesAndInserts","update");
         return "redirect:/index/logon";
     }
 
@@ -51,7 +52,8 @@ public class EndUserController extends ApplicationController {
             EndUser user = endUserService.findByName(name);
             model.addAttribute("user", user);
             String message = "User " + user.getEndUserId() + " logged in";
-            sendMessage(message);
+            sendMessage("EndUser",message);
+            sendMessage("updatesAndInserts","select");
 
             // Use a cookie to store the current user's id
             Cookie cookie = new Cookie("user_id", String.valueOf(user.getEndUserId()));
@@ -75,11 +77,13 @@ public class EndUserController extends ApplicationController {
 
     @GetMapping(value = "/index/create")
     public String createUser() {
+        sendMessage("PageVisited","createUser");
         return "createUser";
     }
 
     @GetMapping(value = "/index/logon")
     public String logonUser() {
+        sendMessage("PageVisited","index");
         return "index";
     }
 
@@ -90,7 +94,7 @@ public class EndUserController extends ApplicationController {
     }
 
 
-    public void sendMessage(String message){
-        producer.send(TOPIC, new Message(0, message));
+    public void sendMessage(String topic, String message){
+        producer.send(topic, new Message(0, message));
     }
 }

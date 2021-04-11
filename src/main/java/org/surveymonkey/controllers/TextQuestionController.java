@@ -32,9 +32,11 @@ public class TextQuestionController extends ApplicationController {
         Survey survey = surveyService.findById(surveyID);
         survey.addQuestion(new TextQuestion(question));
         surveyService.save(survey);
+        sendMessage("updatesAndInserts","update");
+
 
         String message = "Adding question: " + question + "to survey: " + surveyID;
-        sendMessage(message);
+        sendMessage("Question",message);
         return survey;
     }
 
@@ -43,9 +45,11 @@ public class TextQuestionController extends ApplicationController {
         Survey survey = surveyService.findById(surveyID);
         survey.addQuestion(new TextQuestion(question));
         surveyService.save(survey);
+        sendMessage("updatesAndInserts","update");
+
 
         String message = "Adding question: '" + question + "' to survey: " + surveyID;
-        sendMessage(message);
+
 
         return "redirect:/survey/" + surveyID + "/" + survey.getEndUserId();
 
@@ -58,9 +62,11 @@ public class TextQuestionController extends ApplicationController {
         Question textQuestion = questionService.findById(textQuestionID);
         survey.removeQuestion(textQuestion);
         surveyService.save(survey);
+        sendMessage("updatesAndInserts","update");
+
 
         String message = "Deleting question: " + textQuestionID + "from survey: " + surveyID;
-        sendMessage(message);
+        sendMessage("Question",message);
 
         return survey;
     }
@@ -71,7 +77,7 @@ public class TextQuestionController extends ApplicationController {
         return "TextQuestionController is working";
     }
 
-    public void sendMessage(String message){
-        producer.send(TOPIC, new Message(0, message));
+    public void sendMessage(String topic, String message){
+        producer.send(topic, new Message(0, message));
     }
 }
