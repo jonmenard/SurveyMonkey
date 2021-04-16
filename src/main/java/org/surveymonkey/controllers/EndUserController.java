@@ -3,8 +3,6 @@ package org.surveymonkey.controllers;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.ui.Model;
-import org.surveymonkey.kafka.Producer;
-import org.surveymonkey.kafka.Message;
 import org.surveymonkey.models.EndUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -22,9 +20,6 @@ public class EndUserController extends ApplicationController {
     @Autowired
     private IEndUserService endUserService;
 
-    @Autowired
-    private Producer producer;
-
 
     private final String TOPIC = "EndUser";
 
@@ -39,9 +34,6 @@ public class EndUserController extends ApplicationController {
         endUser.setName(name);
         endUserService.save(endUser);
 
-        String message = "Creating a new user with the name " + name;
-        sendMessage("EndUser",message);
-        sendMessage("updatesAndInserts","update");
         return "redirect:/index/logon";
     }
 
@@ -51,10 +43,6 @@ public class EndUserController extends ApplicationController {
         if (endUserService.findByName(name) != null) {
             EndUser user = endUserService.findByName(name);
             model.addAttribute("user", user);
-            String message = "User " + user.getEndUserId() + " logged in";
-            sendMessage("EndUser",message);
-            sendMessage("updatesAndInserts","select");
-
             // Use a cookie to store the current user's id
             Cookie cookie = new Cookie("user_id", String.valueOf(user.getEndUserId()));
             cookie.setMaxAge(-1); // Treat as a session cookie
@@ -77,13 +65,11 @@ public class EndUserController extends ApplicationController {
 
     @GetMapping(value = "/index/create")
     public String createUser() {
-        sendMessage("PageVisited","createUser");
         return "createUser";
     }
 
     @GetMapping(value = "/index/logon")
     public String logonUser() {
-        sendMessage("PageVisited","index");
         return "index";
     }
 
@@ -93,8 +79,4 @@ public class EndUserController extends ApplicationController {
         return "EndUserController is working";
     }
 
-
-    public void sendMessage(String topic, String message){
-        producer.send(topic, new Message(0, message));
-    }
 }
