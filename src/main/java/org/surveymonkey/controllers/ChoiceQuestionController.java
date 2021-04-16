@@ -5,8 +5,6 @@ import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.surveymonkey.kafka.Producer;
-import org.surveymonkey.kafka.Message;
 import org.surveymonkey.models.ChoiceQuestion;
 import org.surveymonkey.models.Question;
 import org.surveymonkey.models.Survey;
@@ -24,8 +22,7 @@ public class ChoiceQuestionController extends ApplicationController {
     @Autowired
     private ISurveyService surveyService;
 
-    @Autowired
-    private Producer producer;
+
 
 
     private final String TOPIC = "Question";
@@ -35,10 +32,10 @@ public class ChoiceQuestionController extends ApplicationController {
         Survey survey = surveyService.findById(surveyID);
         model.addAttribute("survey", survey);
         Question question =  survey.findQuestion(questionID);
-        sendMessage("updatesAndInserts","select");
+
         if(question instanceof ChoiceQuestion) {
             model.addAttribute("question",(ChoiceQuestion) question);
-            sendMessage("PageVisited","addQuestionChoice");
+
             return "addQuestionChoice";
         }else{
             return "redirect:/survey/" + surveyID + "/" + survey.getEndUserId();
@@ -51,11 +48,6 @@ public class ChoiceQuestionController extends ApplicationController {
         ChoiceQuestion question = (ChoiceQuestion) survey.findQuestion(questionID);
         question.addChoice(choice);
         surveyService.save(survey);
-
-        String message = "Adding choice: '" + choice + "' to question: " + questionID + "in survey: " + surveyID;
-        sendMessage("Question",message);
-        sendMessage("updatesAndInserts","update");
-
 
         return "redirect:/survey/" + surveyID + "/choicequestion/" + questionID + "/choices";
     }
@@ -70,10 +62,6 @@ public class ChoiceQuestionController extends ApplicationController {
         List<Question> questions = survey.getQuestions();
         choiceQuestion = (ChoiceQuestion) questions.get(questions.size() - 1);
 
-        String message = "Adding  question: '" + question + "' to survey: " + surveyID;
-        sendMessage("Question",message);
-        sendMessage("updatesAndInserts","update");
-
         return "redirect:/survey/" + surveyID + "/choicequestion/" + choiceQuestion.getId() + "/choices";
     }
 
@@ -85,9 +73,6 @@ public class ChoiceQuestionController extends ApplicationController {
         survey.removeQuestion(choiceQuestion);
         surveyService.save(survey);
 
-        String message = "Deleting question: " + choiceQuestionID + "from survey: " + surveyID;
-        sendMessage("Question",message);
-        sendMessage("updatesAndInserts","update");
         return survey;
     }
 
@@ -97,7 +82,4 @@ public class ChoiceQuestionController extends ApplicationController {
         return "ChoiceQuestionController is working";
     }
 
-    public void sendMessage(String topic, String message){
-        producer.send(topic, new Message(0, message));
-    }
 }

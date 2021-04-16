@@ -4,8 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import org.surveymonkey.kafka.Producer;
-import org.surveymonkey.kafka.Message;
+
 import org.surveymonkey.models.Question;
 import org.surveymonkey.models.Survey;
 import org.surveymonkey.models.TextQuestion;
@@ -21,8 +20,7 @@ public class TextQuestionController extends ApplicationController {
     @Autowired
     private IQuestionService questionService;
 
-    @Autowired
-    private Producer producer;
+
 
     private final String TOPIC = "Question";
 
@@ -32,11 +30,10 @@ public class TextQuestionController extends ApplicationController {
         Survey survey = surveyService.findById(surveyID);
         survey.addQuestion(new TextQuestion(question));
         surveyService.save(survey);
-        sendMessage("updatesAndInserts","update");
 
 
-        String message = "Adding question: " + question + "to survey: " + surveyID;
-        sendMessage("Question",message);
+
+
         return survey;
     }
 
@@ -45,11 +42,6 @@ public class TextQuestionController extends ApplicationController {
         Survey survey = surveyService.findById(surveyID);
         survey.addQuestion(new TextQuestion(question));
         surveyService.save(survey);
-        sendMessage("updatesAndInserts","update");
-
-
-        String message = "Adding question: '" + question + "' to survey: " + surveyID;
-
 
         return "redirect:/survey/" + surveyID + "/" + survey.getEndUserId();
 
@@ -62,11 +54,6 @@ public class TextQuestionController extends ApplicationController {
         Question textQuestion = questionService.findById(textQuestionID);
         survey.removeQuestion(textQuestion);
         surveyService.save(survey);
-        sendMessage("updatesAndInserts","update");
-
-
-        String message = "Deleting question: " + textQuestionID + "from survey: " + surveyID;
-        sendMessage("Question",message);
 
         return survey;
     }
@@ -77,7 +64,4 @@ public class TextQuestionController extends ApplicationController {
         return "TextQuestionController is working";
     }
 
-    public void sendMessage(String topic, String message){
-        producer.send(topic, new Message(0, message));
-    }
 }

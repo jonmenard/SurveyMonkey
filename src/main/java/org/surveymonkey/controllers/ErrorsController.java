@@ -8,8 +8,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.surveymonkey.kafka.Producer;
-import org.surveymonkey.kafka.Message;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;
@@ -17,12 +15,6 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 public class ErrorsController extends ApplicationController implements ErrorController {
 
-
-    @Autowired
-    private Producer producer;
-
-
-    private final String TOPIC = "Error";
 
     @RequestMapping("/error")
     public String handleError(HttpServletRequest request, Model model) {
@@ -42,8 +34,7 @@ public class ErrorsController extends ApplicationController implements ErrorCont
         String errorInfo = "Error" + errorStatusCodeStr + ": " + errorMessageStr + ".";
         model.addAttribute("errorInfo", errorInfo);
 
-        sendMessage("Error",errorInfo);
-        sendMessage("PageVisited","error");
+
         return "error";
 
     }
@@ -51,7 +42,7 @@ public class ErrorsController extends ApplicationController implements ErrorCont
     @RequestMapping("/error/{customErrorMessage}")
     public String handleCustomError(@PathVariable String customErrorMessage, Model model) {
         model.addAttribute("errorInfo", "Error: " + customErrorMessage + ".");
-        sendMessage("PageVisited","error");
+
         return "error";
     }
 
@@ -64,9 +55,5 @@ public class ErrorsController extends ApplicationController implements ErrorCont
     @ResponseBody
     public String testThisController() {
         return "ErrorsController is working";
-    }
-
-    public void sendMessage(String topic, String message){
-        producer.send(topic, new Message(0, message));
     }
 }
