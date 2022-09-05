@@ -1,4 +1,4 @@
-# SurveyMonkey v1.0 (Milestone 3)
+# SurveyMonkey *Clone*
 ## SYSC 4806, Winter 2021 – Software Engineering Lab
 ### By: Rohil Dubey, Jacob Laboissonniere, Jon Menard, Paul Roode
 
