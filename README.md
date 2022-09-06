@@ -18,7 +18,7 @@ https://sysc4806groupproject.herokuapp.com
 
 ***Travis CI builds***
 
-https://www.travis-ci.com/github/jonmenard007/SYSC4806-Project/builds
+https://www.travis-ci.com/github/jonmenard/SYSC4806-Project/builds
 
 ---
 
@@ -34,27 +34,27 @@ https://www.travis-ci.com/github/jonmenard007/SYSC4806-Project/builds
     <tbody>
         <tr>
             <td rowspan="3"> 3 </td>
-            <td> <a href="https://github.com/jonmenard007/SYSC4806-Project/issues/115"> Apr 3–9 </a> </td>
+            <td> <a href="https://github.com/jonmenard/SYSC4806-Project/issues/115"> Apr 3–9 </a> </td>
         </tr>
         <tr></tr>
         <tr>
-            <td> <a href="https://github.com/jonmenard007/SYSC4806-Project/issues/92"> Mar 27 – Apr 2 </a> </td>
+            <td> <a href="https://github.com/jonmenard/SYSC4806-Project/issues/92"> Mar 27 – Apr 2 </a> </td>
         </tr>
         <tr>
             <td rowspan="3"> 2 </td>
-            <td> <a href="https://github.com/jonmenard007/SYSC4806-Project/issues/80"> Mar 20–26 </a> </td>
+            <td> <a href="https://github.com/jonmenard/SYSC4806-Project/issues/80"> Mar 20–26 </a> </td>
         </tr>
         <tr></tr>
         <tr>
-            <td> <a href="https://github.com/jonmenard007/SYSC4806-Project/issues/40"> Mar 13–19 </a> </td>
+            <td> <a href="https://github.com/jonmenard/SYSC4806-Project/issues/40"> Mar 13–19 </a> </td>
         </tr>
         <tr>
             <td rowspan="3"> 1 </td>
-            <td> <a href="https://github.com/jonmenard007/SYSC4806-Project/issues/23"> Mar 6–12 </a> </td>
+            <td> <a href="https://github.com/jonmenard/SYSC4806-Project/issues/23"> Mar 6–12 </a> </td>
         </tr>
         <tr></tr>
         <tr>
-            <td> <a href="https://github.com/jonmenard007/SYSC4806-Project/issues/2"> Feb 27 – Mar 5 </a> </td>
+            <td> <a href="https://github.com/jonmenard/SYSC4806-Project/issues/2"> Feb 27 – Mar 5 </a> </td>
         </tr>
     </tbody>
 </table>
@@ -63,21 +63,21 @@ https://www.travis-ci.com/github/jonmenard007/SYSC4806-Project/builds
 
 ***Database schema***
 
-![OR Diagram](https://github.com/jonmenard007/SYSC4806-Project/blob/main/OR_Diagram.png?raw=true)
+![OR Diagram](https://github.com/jonmenard/SYSC4806-Project/blob/main/OR_Diagram.png?raw=true)
 
 ---
 
 ***Current (Milestone 3) UML class diagram***
 
-![Milestone 3 UML](https://github.com/jonmenard007/SYSC4806-Project/blob/rohil-new/milestone3.png?raw=true)
+![Milestone 3 UML](https://github.com/jonmenard/SYSC4806-Project/blob/rohil-new/milestone3.png?raw=true)
 
 ---
 ***Milestone 2 UML class diagram***
 
-![Milestone 2 UML](https://github.com/jonmenard007/SYSC4806-Project/blob/main/milestone2.png?raw=true)
+![Milestone 2 UML](https://github.com/jonmenard/SYSC4806-Project/blob/main/milestone2.png?raw=true)
 
 ---
 
 ***Milestone 1 UML class diagram***
 
-![Milestone 1 UML](https://github.com/jonmenard007/SYSC4806-Project/blob/rohil-new/milestone1.png?raw=true)
+![Milestone 1 UML](https://github.com/jonmenard/SYSC4806-Project/blob/rohil-new/milestone1.png?raw=true)
