@@ -18,7 +18,7 @@ https://sysc4806groupproject.herokuapp.com
 
 ***Travis CI builds***
 
-https://www.travis-ci.com/github/jonmenard/SYSC4806-Project/builds
+https://www.travis-ci.com/github/jonmenard/SYSC4806-Project/builds ( Not running anymore )
 
 ---
 
